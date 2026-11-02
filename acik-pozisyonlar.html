@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" data-bg-color="#160B1A"><rect width="100" height="100" fill="#160B1A"></rect><text x="50" y="61" text-anchor="middle" font-family="system-ui,sans-serif" font-size="30" font-weight="500" fill="#4edfc7">GİB</text></svg></template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Açık Pozisyonlar · GİB Teknoloji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-underline-offset:.2em}
+a:hover{color:#4edfc7}
+button{font:inherit;color:inherit}
+input::placeholder{color:#6f6c86}
+input[type=search]::-webkit-search-cancel-button{display:none}
+::selection{background:#4edfc7;color:#0b0916}
+:focus-visible{outline:1px solid #4edfc7;outline-offset:3px}
+</style>
+<script src="./touch.js"></script>
+</helmet>
+
+<div lang="tr" style="position:relative;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
+<canvas ref="{{ fieldRef }}" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block"></canvas>
+<div ref="{{ ringRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:60;width:36px;height:36px;margin:-18px 0 0 -18px;border:1px solid rgba(236,234,246,.55);border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s ease,border-color .3s ease;will-change:transform"></div>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(22,11,26,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;height:72px;padding:0 clamp(20px,3vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="index.html" aria-label="GİB Teknoloji anasayfa" style="display:flex;flex-shrink:0;text-decoration:none"><img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:32px;width:auto;display:block;filter:brightness(0) invert(1)"></a>
+    <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}">
+      <nav style="flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(18px,2.6vw,48px);font-size:15px">
+        <a href="index.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa</a>
+        <a href="hakkimizda.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda</a>
+        <a href="projelerimiz.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Projeler</a>
+        <a href="staj.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları</a>
+        <a href="#top" aria-current="page" onClick="{{ closeJob }}" style="position:relative;text-decoration:none;color:#ffffff;font-weight:500">Açık Pozisyonlar<span aria-hidden="true" style="position:absolute;left:-4px;right:-4px;bottom:-7px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(78,223,199,0),#4edfc7 50%,rgba(78,223,199,0));box-shadow:0 0 10px rgba(78,223,199,.55)"></span></a>
+      </nav>
+    </sc-if>
+    <a href="cv-gonder.html" style="flex-shrink:0;margin-left:auto;display:{{ cvBar }};visibility:{{ cvVis }};align-items:center;justify-content:center;width:136px;height:40px;padding:0 18px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap;transition:background-color .2s ease,padding .2s ease" style-hover="background:#ffffff url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2016%2016%22%20fill=%22none%22%20stroke=%22%23160B1A%22%20stroke-width=%221.8%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M3%208h10M9%204l4%204-4%204%22/%3E%3C/svg%3E) no-repeat right 20px center / 14px 14px;padding:0 40px 0 18px;color:#160B1A">CV Gönder</a>
+    <sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuAria }}" aria-controls="mobil-menu" aria-label="{{ menuLabel }}" style="flex-shrink:0;display:grid;place-items:center;width:48px;height:44px;padding:0;border:1px solid rgba(236,234,246,.22);border-radius:10px;background:rgba(22,11,26,.4);cursor:pointer;color:#eceaf6"><span aria-hidden="true" style="display:flex;flex-direction:column;gap:6px;width:22px"><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar1 }};transition:transform .3s ease"></span><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar2 }};transition:transform .3s ease"></span></span></button></sc-if>
+  </div>
+</header>
+<sc-if value="{{ fMob }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:70;visibility:{{ sheetVis }};transition:visibility 0s linear {{ sheetVisDelay }}">
+  <div onClick="{{ fClose }}" aria-hidden="true" style="position:absolute;inset:0;background:rgba(11,9,22,.72);opacity:{{ sheetOp }};transition:opacity .3s ease"></div>
+  <div id="filtre-sheet" ref="{{ sheetRef }}" role="dialog" aria-modal="true" aria-label="Filtreler" style="position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;max-height:88svh;border-radius:20px 20px 0 0;background:#1d1022;border-top:1px solid rgba(236,234,246,.12);box-shadow:0 -30px 60px -20px rgba(0,0,0,.6);transform:{{ sheetY }};transition:transform .35s cubic-bezier(.2,.7,.2,1)">
+    <div onTouchStart="{{ sDown }}" onTouchMove="{{ sMove }}" onTouchEnd="{{ sUp }}" style="flex:none;padding:10px 20px 8px;touch-action:none">
+      <div aria-hidden="true" style="width:40px;height:4px;margin:0 auto 8px;border-radius:2px;background:rgba(236,234,246,.3)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-0.02em">Filtrele</h2>
+        <button type="button" onClick="{{ fClose }}" aria-label="Filtreleri kapat" style="display:grid;place-items:center;width:44px;height:44px;margin-right:-10px;padding:0;border:0;background:none;cursor:pointer;color:#eceaf6"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      </div>
+    </div>
+    <div style="flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 20px 16px;display:flex;flex-direction:column;gap:24px">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+        <div role="group" aria-label="{{ g.label }}" style="display:flex;flex-direction:column;gap:4px;padding-top:20px;border-top:1px solid rgba(236,234,246,.08)">
+          <div style="margin-bottom:8px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">{{ g.label }}</div>
+          <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+            <button type="button" role="checkbox" aria-checked="{{ o.on }}" onClick="{{ o.toggle }}" style="display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0;border:0;background:none;cursor:pointer;text-align:left;color:{{ o.color }};transition:color .2s ease" style-hover="color:#ffffff">
+              <span aria-hidden="true" style="flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:5px;border:1px solid {{ o.bd }};background:{{ o.bg }};transition:background-color .2s ease,border-color .2s ease"><svg width="12" height="12" viewBox="0 0 12 12" style="display:block;opacity:{{ o.op }};transition:opacity .2s ease"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="#160B1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <span style="flex:1;font-size:15px">{{ o.label }}</span>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6f6c86">{{ o.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+    <div style="flex:none;display:flex;gap:12px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-top:1px solid rgba(236,234,246,.1)">
+      <button type="button" onClick="{{ clearAll }}" style="flex:none;min-height:48px;padding:0 20px;border-radius:999px;border:1px solid rgba(236,234,246,.3);background:none;cursor:pointer;font:inherit;font-size:15px;color:#eceaf6">Temizle</button>
+      <button type="button" onClick="{{ fClose }}" style="flex:1;min-height:48px;padding:0 20px;border-radius:999px;border:0;background:#4edfc7;cursor:pointer;font:inherit;font-size:15px;font-weight:500;color:#160B1A">{{ fShowLabel }}</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+<sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}">
+  <div id="mobil-menu" aria-hidden="{{ menuHidden }}" style="position:fixed;left:0;right:0;top:72px;bottom:0;z-index:39;visibility:{{ menuVis }};opacity:{{ menuOp }};transition:opacity .3s ease,visibility .3s ease;background:rgba(22,11,26,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:clamp(16px,4vw,32px) clamp(20px,3vw,48px) calc(24px + env(safe-area-inset-bottom))">
+    <nav aria-label="Mobil menü" onClick="{{ closeMenu }}" style="display:flex;flex-direction:column;transform:translateY({{ menuY }});transition:transform .35s cubic-bezier(.2,.7,.2,1)">
+      <a href="index.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="hakkimizda.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="projelerimiz.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Projeler<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="staj.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="#top" aria-current="page" onClick="{{ closeJob }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#ffffff;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar<span aria-hidden="true" style="font-size:18px;color:#4edfc7">→</span></a>
+    </nav>
+    <a href="cv-gonder.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;flex:none;height:52px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:16px;font-weight:500" style-hover="background:#ffffff;color:#160B1A">CV Gönder</a>
+  </div>
+</sc-if>
+
+<sc-if value="{{ listView }}" hint-placeholder-val="{{ true }}">
+<section id="top" data-screen-label="Pozisyonlar Hero" style="position:relative;z-index:1;padding:clamp(28px,3vw,44px) clamp(20px,3vw,48px) clamp(40px,4vw,64px)">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,5vw,80px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
+      <h1 data-r="" style="margin:0;white-space:{{ heroWrap }};font-weight:400;font-size:clamp(34px,3.6vw,60px);line-height:1;letter-spacing:-0.05em;text-wrap:balance">Bize <em style="font-style:normal;color:#4edfc7">Katılmak</em> İster Misiniz?</h1>
+      <p data-r="" style="margin:0;white-space:{{ heroWrap }};font-size:18px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">GİB Teknoloji ekibinde yetenekli insanlarla birlikte Türkiye'nin dijital dönüşümünü inşa ediyoruz.</p>
+    </div>
+    <label data-r="" style="display:flex;align-items:center;gap:14px;height:60px;padding:0 20px;border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.12);cursor:text;transition:border-color .2s ease" style-hover="border-color:rgba(236,234,246,.28)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a87a3" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <input type="search" value="{{ q }}" onInput="{{ onSearch }}" placeholder="Ekip ara" aria-label="Pozisyon ara" style="flex:1;min-width:0;height:100%;border:0;outline:none;background:transparent;color:#eceaf6;font:inherit;font-size:16px">
+      <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ clearQ }}" aria-label="Aramayı temizle" style="display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:8px;background:rgba(236,234,246,.08);cursor:pointer;color:#c9c6dc">×</button></sc-if>
+    </label>
+  </div>
+</section>
+
+<section id="pozisyonlar" data-screen-label="Pozisyonlar" style="position:relative;z-index:1;padding:0 clamp(20px,3vw,48px) clamp(64px,9vw,160px)">
+  <div style="max-width:1600px;margin:0 auto;display:grid;grid-template-columns:{{ layoutCols }};align-items:start;gap:clamp(16px,1.6vw,24px)">
+    <aside data-r="" aria-label="Filtreler" style="position:{{ asidePos }};top:{{ asideTop }};display:flex;flex-direction:column;gap:24px;padding:clamp(20px,1.8vw,26px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08)">
+      <sc-if value="{{ fMob }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ fToggle }}" aria-expanded="{{ fAria }}" aria-controls="filtre-sheet" aria-haspopup="dialog" style="display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;margin:-8px 0;padding:0;border:0;background:none;cursor:pointer;color:#eceaf6;font:inherit;text-align:left">
+          <span style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;font-weight:500;letter-spacing:-0.02em">Filtrele</span><sc-if value="{{ fHasActive }}" hint-placeholder-val="{{ false }}"><span style="display:grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#4edfc7;color:#160B1A;font-size:12px;font-weight:500">{{ fActive }}</span></sc-if></span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4edfc7" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg>
+        </button>
+      </sc-if>
+      <sc-if value="{{ fDesk }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-0.02em">Filtrele</h2>
+        <button type="button" onClick="{{ clearAll }}" style="padding:6px 0;border:0;background:none;cursor:pointer;font-size:14px;color:#4edfc7;opacity:{{ clearOp }};transition:opacity .2s ease">Tümünü Temizle</button>
+      </div>
+      </sc-if>
+      <sc-if value="{{ fShow }}" hint-placeholder-val="{{ true }}">
+      <div id="filtre-gruplari" style="display:flex;flex-direction:column;gap:24px">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+        <div role="group" aria-label="{{ g.label }}" style="display:flex;flex-direction:column;gap:4px;padding-top:20px;border-top:1px solid rgba(236,234,246,.08)">
+          <div style="margin-bottom:8px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">{{ g.label }}</div>
+          <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+            <button type="button" role="checkbox" aria-checked="{{ o.on }}" onClick="{{ o.toggle }}" style="display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0;border:0;background:none;cursor:pointer;text-align:left;color:{{ o.color }};transition:color .2s ease" style-hover="color:#ffffff">
+              <span aria-hidden="true" style="flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:5px;border:1px solid {{ o.bd }};background:{{ o.bg }};transition:background-color .2s ease,border-color .2s ease"><svg width="12" height="12" viewBox="0 0 12 12" style="display:block;opacity:{{ o.op }};transition:opacity .2s ease"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="#160B1A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+              <span style="flex:1;font-size:15px">{{ o.label }}</span>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6f6c86">{{ o.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-for>
+      <sc-if value="{{ fMobOpen }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ clearAll }}" style="align-self:flex-start;min-height:44px;padding:0;border:0;background:none;cursor:pointer;font:inherit;font-size:14px;color:#4edfc7;opacity:{{ clearOp }}">Tümünü Temizle</button></sc-if>
+      </div>
+      </sc-if>
+    </aside>
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <div style="display:grid;grid-template-columns:{{ jobCols }};gap:clamp(12px,1.4vw,20px)">
+        <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="9">
+          <a href="#ilan" onClick="{{ j.open }}" style="display:flex;flex-direction:column;gap:18px;padding:clamp(20px,1.8vw,28px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08);text-decoration:none;color:#eceaf6;transition:background-color .3s ease,border-color .3s ease" style-hover="background:#21132a;border-color:rgba(78,223,199,.35);color:#eceaf6">
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:12px;background:#160B1A;border:1px solid rgba(236,234,246,.08)"><sc-if value="{{ j.isGibtek }}" hint-placeholder-val="{{ false }}"><img src="assets/logo-gibtek-w.png" alt="{{ j.logoAlt }}" style="display:block;max-width:38px;max-height:30px;width:auto;height:auto;object-fit:contain"></sc-if><sc-if value="{{ j.isDvd }}" hint-placeholder-val="{{ false }}"><img src="assets/logo-dvd-w.png" alt="{{ j.logoAlt }}" style="display:block;max-width:38px;max-height:30px;width:auto;height:auto;object-fit:contain"></sc-if><sc-if value="{{ j.isDefterbeyan }}" hint-placeholder-val="{{ false }}"><img src="assets/logo-defterbeyan-w.png" alt="{{ j.logoAlt }}" style="display:block;max-width:38px;max-height:30px;width:auto;height:auto;object-fit:contain"></sc-if><sc-if value="{{ j.isEymm }}" hint-placeholder-val="{{ false }}"><img src="assets/logo-eymm-w.png" alt="{{ j.logoAlt }}" style="display:block;max-width:38px;max-height:30px;width:auto;height:auto;object-fit:contain"></sc-if></div>
+              <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#4edfc7">{{ j.eb }}</span>
+              <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;line-height:1.15;letter-spacing:-0.02em">{{ j.title }}</h3>
+              </div>
+            </div>
+            <sc-if value="{{ j.hasTags }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <sc-for list="{{ j.tags }}" as="t" hint-placeholder-count="3">
+                  <span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;background:{{ t.bg }};color:{{ t.fg }};font-size:13px">{{ t.label }}</span>
+                </sc-for>
+              </div>
+            </sc-if>
+            <p style="flex:1;margin:0;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">{{ j.desc }}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgba(236,234,246,.08);font-size:14px"><span>İlan Detayı</span><span aria-hidden="true" style="display:grid;place-items:center;width:36px;height:36px;border-radius:18px;background:#4edfc7;color:#160B1A"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span></div>
+          </a>
+        </sc-for>
+      </div>
+      <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:clamp(28px,3vw,44px);border-radius:16px;border:1px dashed rgba(236,234,246,.16)">
+          <p style="margin:0;font-size:16px;color:#c9c6dc">Bu kriterlere uygun açık pozisyon bulunamadı.</p>
+          <button type="button" onClick="{{ clearAll }}" style="height:44px;padding:0 18px;border-radius:6px;border:1px solid rgba(236,234,246,.25);background:none;cursor:pointer;color:#eceaf6;font-size:15px" style-hover="border-color:#4edfc7">Filtreleri temizle</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ detailView }}" hint-placeholder-val="{{ false }}">
+<section id="ilan" data-screen-label="İlan Detayı Hero" style="position:relative;z-index:1;padding:clamp(28px,3vw,44px) clamp(20px,3vw,48px) clamp(48px,5vw,88px);border-bottom:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(24px,2.4vw,36px)">
+    <nav aria-label="Konum" style="display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:14px">
+      <a href="#top" onClick="{{ closeJob }}" style="display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:#c9c6dc;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar</a>
+      <span aria-hidden="true" style="color:#6f6c86">/</span>
+      <span aria-current="page" style="color:#4edfc7">{{ jd.title }}</span>
+    </nav>
+    <div data-r="" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 64px">
+      <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:clamp(18px,1.6vw,24px)">
+        <h1 style="margin:0;font-weight:400;font-size:clamp(34px,3.6vw,60px);line-height:1.02;letter-spacing:-0.045em;color:#4edfc7;text-wrap:balance">{{ jd.title }}</h1>
+        <p style="margin:0;max-width:72ch;font-size:clamp(16px,1.15vw,19px);line-height:1.6;color:#c9c6dc;text-wrap:pretty">{{ jd.lead }}</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:16px;color:#eceaf6">
+          <span style="color:#4edfc7">{{ jd.proj }}</span>
+          <span aria-hidden="true" style="width:1px;height:22px;background:rgba(236,234,246,.3)"></span>
+          <span>{{ jd.cat }}</span>
+          <span aria-hidden="true" style="width:1px;height:22px;background:rgba(236,234,246,.3)"></span>
+          <span>{{ jd.exp }}</span>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px;max-width:880px">
+          <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#1d1022;border:1px solid rgba(236,234,246,.08)"><dt style="font-size:13px;color:#8a87a3">Lokasyon</dt><dd style="margin:0;font-size:15px;color:#eceaf6">Ankara</dd></div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#1d1022;border:1px solid rgba(236,234,246,.08)"><dt style="font-size:13px;color:#8a87a3">Çalışma şekli</dt><dd style="margin:0;font-size:15px;color:#eceaf6">{{ jd.mode }}</dd></div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:#1d1022;border:1px solid rgba(236,234,246,.08)"><dt style="font-size:13px;color:#8a87a3">Son başvuru</dt><dd style="margin:0;font-size:15px;color:#eceaf6">{{ jd.deadline }}</dd></div>
+        </dl>
+      </div>
+      <a href="{{ jd.href }}" style="flex:0 1 320px;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 28px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:16px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">Hemen Başvur <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+<section data-screen-label="İlan Detayı" style="position:relative;z-index:1;padding:0 clamp(20px,3vw,48px) clamp(64px,8vw,140px)">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column">
+    <div data-r="" style="display:flex;flex-wrap:wrap;gap:16px clamp(32px,5vw,96px);padding:clamp(36px,4vw,64px) 0;border-bottom:1px solid rgba(236,234,246,.1)">
+      <h2 style="flex:1 1 240px;max-width:380px;margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.2;letter-spacing:-0.02em">Pozisyon Hakkında</h2>
+      <div style="flex:999 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px">
+        <sc-for list="{{ jd.about }}" as="p" hint-placeholder-count="3">
+          <p style="margin:0;max-width:80ch;font-size:17px;line-height:1.7;color:#c9c6dc;text-wrap:pretty">{{ p.text }}</p>
+        </sc-for>
+      </div>
+    </div>
+    <div data-r="" style="display:flex;flex-wrap:wrap;gap:16px clamp(32px,5vw,96px);padding:clamp(36px,4vw,64px) 0;border-bottom:1px solid rgba(236,234,246,.1)">
+      <h2 style="flex:1 1 240px;max-width:380px;margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.2;letter-spacing:-0.02em">Aranan Nitelikler</h2>
+      <ul style="flex:999 1 480px;min-width:0;margin:0;padding:0;list-style:none;display:flex;flex-direction:column">
+        <sc-for list="{{ jd.quals }}" as="q" hint-placeholder-count="5">
+          <li style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-top:1px solid rgba(236,234,246,.06);font-size:17px;line-height:1.6;color:#eceaf6">
+            <span style="flex:none;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;color:#4edfc7">{{ q.num }}</span>
+            <span style="text-wrap:pretty">{{ q.text }}</span>
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+    <div data-r="" style="display:flex;flex-wrap:wrap;gap:16px clamp(32px,5vw,96px);padding:clamp(36px,4vw,64px) 0;border-bottom:1px solid rgba(236,234,246,.1)">
+      <h2 style="flex:1 1 240px;max-width:380px;margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.2;letter-spacing:-0.02em">Başvuru Süreci</h2>
+      <ol style="flex:999 1 480px;min-width:0;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px">
+        <sc-for list="{{ jd.steps }}" as="st" hint-placeholder-count="4">
+          <li style="display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:12px;background:#1d1022;border:1px solid rgba(236,234,246,.08)">
+            <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;color:#4edfc7">{{ st.num }}</span>
+            <span style="font-size:16px;color:#eceaf6">{{ st.t }}</span>
+            <span style="font-size:14px;line-height:1.5;color:#a4a1bb;text-wrap:pretty">{{ st.d }}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+    <div data-r="" style="display:flex;flex-wrap:wrap;gap:16px clamp(32px,5vw,96px);padding:clamp(36px,4vw,64px) 0">
+      <h2 style="flex:1 1 240px;max-width:380px;margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.2;letter-spacing:-0.02em">Araçlar &amp; Teknolojiler</h2>
+      <div style="flex:999 1 480px;min-width:0;display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ jd.tools }}" as="tl" hint-placeholder-count="5">
+          <span style="display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:999px;background:#1d1022;border:1px solid rgba(236,234,246,.14);font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.04em;color:#eceaf6">{{ tl.name }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <div data-r="" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px;padding:clamp(28px,3vw,44px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08)">
+      <p style="margin:0;font-size:clamp(20px,1.5vw,26px);line-height:1.25;letter-spacing:-0.02em">Bu pozisyon size uygun mu?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#top" onClick="{{ closeJob }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:999px;border:1px solid rgba(236,234,246,.25);color:#eceaf6;text-decoration:none;font-size:15px;transition:border-color .2s ease" style-hover="border-color:#4edfc7;color:#eceaf6">Tüm İlanlar</a>
+        <a href="{{ jd.href }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">Hemen Başvur</a>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
+      <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+    </div>
+    <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
+  </div>
+</section>
+
+<footer style="position:relative;z-index:1;border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:18px">
+          <img src="assets/gib-logo-white.png" alt="Gelir İdaresi Başkanlığı" style="height:44px;width:auto;display:block">
+          <span aria-hidden="true" style="width:1px;align-self:stretch;background:rgba(236,234,246,.2)"></span>
+          <img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:30px;width:auto;display:block;filter:brightness(0) invert(1)"></div>
+        <div style="display:flex;gap:4px;margin-left:-12px">
+          <a href="https://twitter.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="X" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.3l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"></path></svg></a>
+          <a href="https://tr-tr.facebook.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="Facebook" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z"></path></svg></a>
+          <a href="https://www.instagram.com/gibsosyalmedya/" target="_blank" rel="noopener" aria-label="Instagram" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"></circle></svg></a>
+          <a href="https://tr.linkedin.com/company/gibsosyalmedya" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"></path></svg></a>
+        </div>
+      </div>
+      <div style="flex:0 1 auto;min-width:min(100%,300px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),max-content));gap:32px clamp(40px,5vw,96px);font-size:15px">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Kurum İçi Linkler</div>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Vergi Mevzuatı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Sıkça Sorulan Sorular</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yararlı Bilgiler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Kılavuzlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gerekli Programlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Tebliğler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yayınlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Hazır Formlar</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Hizmetler</div>
+          <a href="https://www.tccb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Cumhurbaşkanlığı</a>
+          <a href="https://www.hmb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">T.C.Hazine ve Maliye Bakanlığı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gelir İdaresi Başkanlığı</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;border-top:1px solid rgba(236,234,246,.1);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3">
+      <span>Her Hakkı Saklıdır. ©2026 Gelir İdaresi Başkanlığı</span>
+      <a href="#top" style="text-decoration:none">Yukarı dön ↑</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;fieldDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Seyrek&quot;,&quot;Normal&quot;,&quot;Yoğun&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero alanı&quot;},&quot;fieldMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero alanı&quot;}}">
+class Component extends DCLogic {
+  sheetRef = React.createRef();
+  fOpenSheet = () => { this.setState({ fOpen: true }); this.__lock(true); };
+  fClose = () => { if (this.state.fOpen) { this.setState({ fOpen: false }); this.__lock(false); } };
+  sDown = e => { this.sy = e.touches[0].clientY; this.sd = 0; const el = this.sheetRef.current; if (el) el.style.transition = 'none'; };
+  sMove = e => { if (this.sy == null) return; this.sd = Math.max(0, e.touches[0].clientY - this.sy); const el = this.sheetRef.current; if (el) el.style.transform = 'translateY(' + this.sd + 'px)'; };
+  sUp = () => { const el = this.sheetRef.current, c = this.sd > 90; this.sy = null; this.sd = 0; if (el) { el.style.transition = ''; if (!c) el.style.transform = 'translateY(0)'; } if (c) this.fClose(); };
+  __lock(on) { document.documentElement.style.overflow = on ? 'hidden' : ''; }
+  toggleMenu = () => { const o = !this.state.menu; this.setState({ menu: o }); this.__lock(o); };
+  closeMenu = () => { if (this.state.menu) { this.setState({ menu: false }); this.__lock(false); } };
+  closeAll = () => { this.setState({ menu: false, work: null, photo: null }); this.__lock(false); };
+  state = { nav: true, wide: true, q: '', sel: { type: [], level: [], cat: [] } };
+  fieldRef = React.createRef(); ringRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
+  GROUPS = [
+    { key: 'type', label: 'İş Türü', opts: ['Tam Zamanlı', 'Yarı Zamanlı', 'Stajyer'] },
+    { key: 'level', label: 'Tecrübe', opts: ['Entry level', 'Intermediate', 'Expert'] },
+    { key: 'cat', label: 'İş Kategorisi', opts: ['Yazılım', 'Tasarım', 'Analiz'] }
+  ];
+  JOBS = [
+    { logo: 'gibtek', eb: 'GİB Teknoloji', title: 'Genel Başvuru', always: true, tags: [], desc: 'GİB Teknoloji bünyesinde modern kamu teknolojileri projelerimizde yetenek ve deneyimiyle değer katacak çalışma arkadaşları arıyoruz.' },
+    { logo: 'gibtek', eb: 'GİB Teknoloji', title: 'Staj Başvurusu', type: 'Stajyer', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['En az 30 gün', 't'], ['Hibrit', 'h']], desc: 'GİB Teknoloji bünyesinde modern yazılım teknolojileri ve çevik mühendislik pratiklerini deneyimleyecek stajyerler arıyoruz.' },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Frontend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: "Dijital Vergi Dairesi'nin yüksek trafikli web platformları için modern mimarilerle ölçeklenebilir, performanslı ve erişilebilir ön yüz çözümleri geliştirir." },
+    { logo: 'gibtek', eb: 'Tasarım', title: 'UI/UX Tasarımcısı', type: 'Tam Zamanlı', level: 'Expert', cat: 'Tasarım', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi için uçtan uca kullanıcı deneyimi stratejilerini belirler, kurumsal tasarım sistemini (Design System) ve sezgisel ürün arayüzlerini yönetir.' },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Backend Developer', type: 'Tam Zamanlı', level: 'Expert', cat: 'Yazılım', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: "Dijital Vergi Dairesi'nin yüksek hacimli ve dağıtık mikroservis mimarisini tasarlar, güvenli ve yüksek performanslı backend servisleri geliştirir." },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Backend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi altyapısındaki mikroservis ve API geliştirmelerine katılır, veri tabanı ve backend servis süreçlerini destekler.' },
+    { logo: 'gibtek', eb: 'Tasarım', title: 'UI/UX Tasarımcısı', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Tasarım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi akışlarında kullanıcı dostu arayüz ve prototip çalışmaları hazırlar, tasarım kütüphanesinin güncel tutulmasına katkı sağlar.' },
+    { logo: 'defterbeyan', eb: 'Yazılım Geliştirme', title: 'İş Analisti', type: 'Tam Zamanlı', level: 'Expert', cat: 'Analiz', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Karmaşık vergi mevzuatı ve iş gereksinimlerini analiz ederek kullanıcı odaklı dijital ürün akışlarına, teknik gereksinimlere ve çevik kullanıcı hikayelerine dönüştürür.' },
+    { logo: 'eymm', eb: 'Yazılım Geliştirme', title: 'Frontend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi portal ve dijital servislerinin modern arayüz bileşenlerini geliştirir, performans ve erişilebilirlik süreçlerine katkı sağlar.' }
+  ];
+  DETAIL = [
+    { exp: 'Tüm deneyim seviyeleri', about: ['Listelenen pozisyonlar arasında kendinize uygun bir ilan bulamadıysanız genel başvuru ile özgeçmişinizi bize iletebilirsiniz. Başvurular yazılım, tasarım, analiz ve altyapı ekiplerimiz tarafından değerlendirilir.', 'Yeni bir pozisyon açıldığında profiliniz ilgili ekiple eşleştirilir ve sizinle iletişime geçilir.'], quals: ['Üniversitelerin ilgili bölümlerinden mezun veya son sınıf öğrencisi', 'Kamu teknolojileri alanında çalışmaya istekli', 'Takım çalışmasına yatkın, öğrenmeye ve paylaşmaya açık', 'Sorumluluk alan, çözüm odaklı çalışan', 'İletişim becerileri güçlü'], tools: ['Alanınıza uygun araçlar'] },
+    { exp: 'Öğrenci / Yeni mezun', about: ['Staj süresince gerçek projelerde, deneyimli bir mentorun eşliğinde yazılım geliştirme süreçlerinin tamamını deneyimleyeceksiniz.', 'Kod incelemeleri, sprint toplantıları ve teknik eğitimlerle çevik çalışma kültürünü yakından tanıyacak, staj sonunda kendi geliştirdiğiniz bir çalışmayı ekibe sunacaksınız.'], quals: ['Bilgisayar, Yazılım veya Elektrik-Elektronik Mühendisliği öğrencisi', 'En az bir programlama dilinde temel bilgi sahibi', 'Veri yapıları ve algoritmalara aşina', 'Git ile sürüm kontrolü hakkında temel bilgisi olan', 'En az 30 iş günü staj yapabilecek'], tools: ['Java', 'JavaScript', 'Git', 'SQL'] },
+    { exp: 'en az 1 yıl Deneyimli', about: ['Dijital Vergi Dairesi ekibinde, tasarım sistemimizi kullanarak her gün yüz binlerce mükellefin kullandığı ekranları geliştireceksiniz.', 'Tasarımcılar ve backend geliştiricilerle aynı takımda çalışacak; performans, erişilebilirlik ve test kapsamı konularında deneyimli ekip arkadaşlarından destek alacaksın.'], quals: ['Bilgisayar veya Yazılım Mühendisliği mezunu', 'En az 1 yıl React ile ürün geliştirme deneyimi', 'HTML, CSS ve modern JavaScript (ES6+) konusunda yetkin', 'REST API entegrasyonu ve state yönetimi deneyimi olan', 'Erişilebilirlik (WCAG) ve performans konularına ilgili'], tools: ['React', 'Next.js', 'TypeScript', 'Git', 'Figma'] },
+    { exp: 'en az 3 yıl Deneyimli', lead: 'GİB Teknoloji bünyesinde, milyonlarca vatandaşın günlük hayatını etkileyen dijital vergi ürünleri için deneyim tasarımı yapacak bir Product Designer arıyoruz.', about: ['GİB Teknoloji bünyesinde, milyonlarca vatandaşın günlük hayatını etkileyen dijital vergi ürünleri için deneyim tasarımı yapacak bir Product Designer arıyoruz.', 'Bu pozisyonda kullanıcı araştırmasından prototipe, tasarım sisteminden geliştirici iş birliğine kadar ürün sürecinin tamamında rol alacaksınız. Takımımız; yazılım mühendisleri, veri bilimciler ve ürün yöneticilerinden oluşuyor.', "Tasarım kararlarının doğrudan ürüne yansıdığı, kullanıcı odaklı bir çalışma kültürüne sahibiz. Türkiye'nin dijital dönüşümünün tam merkezinde çalışmak istiyorsanız bu pozisyon tam size göre."], quals: ['Endüstriyel Tasarım, Görsel İletişim veya Bilgisayar Mühendisliği mezunu', 'Minimum 3 yıl ürün / dijital tasarım deneyimi', "Figma'da yetkin, tasarım sistemi oluşturma deneyimi olan", 'Kullanıcı araştırması metodolojilerine hâkim (moderated test, card sorting vb.)', 'Yazılım geliştirme sürecini bilen, geliştirici iş birliğine alışkın'], tools: ['Figma', 'Photoshop', 'Illustrator', 'After Effects', 'Media Encoder'] },
+    { exp: 'en az 5 yıl Deneyimli', about: ['Dijital Vergi Dairesi’nin beyan dönemlerinde katlanarak artan trafiği karşılayan servis mimarisinin tasarımında ve geliştirilmesinde söz sahibi olacaksınız.', 'Mimari kararlarda liderlik edecek, kod kalitesi ve güvenlik standartlarını belirleyecek, ekipteki genç geliştiricilere mentorluk yapacaksınız.'], quals: ['Bilgisayar veya Yazılım Mühendisliği mezunu', 'En az 5 yıl Java ve Spring ekosisteminde backend geliştirme deneyimi', 'Mikroservis mimarisi, mesaj kuyrukları ve dağıtık önbellek deneyimi olan', 'İlişkisel veri tabanlarında sorgu optimizasyonuna hâkim', 'Konteyner ve CI/CD süreçlerinde deneyimli'], tools: ['Java', 'Spring Boot', 'Kafka', 'Redis', 'PostgreSQL', 'Kubernetes'] },
+    { exp: 'en az 1 yıl Deneyimli', about: ['Dijital Vergi Dairesi altyapısında yeni API’lerin geliştirilmesinde ve mevcut servislerin iyileştirilmesinde görev alacaksınız.', 'Kıdemli geliştiricilerle eşli çalışarak mikroservis mimarisi, test yazımı ve izleme pratiklerinde kendinizi geliştirme fırsatı bulacaksınız.'], quals: ['Bilgisayar veya Yazılım Mühendisliği mezunu', 'Java ile en az 1 yıl geliştirme deneyimi', 'Spring Boot ve REST API kavramlarına aşina', 'SQL ve ilişkisel veri tabanı bilgisi olan', 'Birim testi yazma alışkanlığı olan'], tools: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Git'] },
+    { exp: 'en az 1 yıl Deneyimli', about: ['Dijital Vergi Dairesi’nin beyan, ödeme ve başvuru akışlarında arayüz ve prototip çalışmaları hazırlayacaksınız.', 'Kıdemli tasarımcılarla birlikte kullanıcı testlerine katılacak, tasarım kütüphanesindeki bileşenlerin güncel ve tutarlı kalmasına katkı sağlayacaksınız.'], quals: ['Endüstriyel Tasarım, Görsel İletişim veya ilgili bölüm mezunu', 'En az 1 yıl dijital ürün tasarımı deneyimi', 'Figma’da bileşen ve auto layout kullanımına hâkim', 'Tipografi, renk ve grid sistemlerine dair güçlü temel', 'Geri bildirime açık, detaylara özen gösteren'], tools: ['Figma', 'Photoshop', 'Illustrator', 'Maze'] },
+    { exp: 'en az 5 yıl Deneyimli', about: ['Vergi mevzuatındaki değişiklikleri ve kullanıcı ihtiyaçlarını, geliştirme ekiplerinin üzerinde çalışabileceği açık gereksinimlere ve kullanıcı hikâyelerine dönüştüreceksiniz.', 'Defter Beyan Sistemi başta olmak üzere birden fazla ürünün iş birimleriyle ilişkisini yönetecek, ürün yöneticileri ve tasarımcılarla birlikte yol haritasını şekillendireceksiniz.'], quals: ['Mühendislik, İktisat veya İşletme bölümlerinden mezun', 'En az 5 yıl iş analizi deneyimi, tercihen kamu veya finans alanında', 'Süreç modelleme (BPMN) ve gereksinim dokümantasyonunda yetkin', 'Çevik yöntemlerle çalışmış, kullanıcı hikâyesi yazımına hâkim', 'Temel SQL bilgisi olan, veriyle karar verebilen'], tools: ['Jira', 'Confluence', 'BPMN', 'SQL', 'Figma'] },
+    { exp: 'en az 1 yıl Deneyimli', about: ['e-YMM ekibinde, yeminli mali müşavirlerin rapor hazırlama ve imzalama süreçlerini yürüttüğü arayüzleri geliştireceksiniz.', 'Form yoğun ekranlarda kullanılabilirlik, doğrulama ve performans konularında deneyim kazanacak; bileşen kütüphanesine katkı sunacaksın.'], quals: ['Bilgisayar veya Yazılım Mühendisliği mezunu', 'En az 1 yıl React ile geliştirme deneyimi', 'TypeScript ve modern JavaScript konusunda yetkin', 'Karmaşık form ve doğrulama senaryolarında deneyimli', 'Birim ve bileşen testi yazmaya istekli'], tools: ['React', 'TypeScript', 'Storybook', 'Jest', 'Git'] }
+  ];
+  pozLabel(j) { const P = { gibtek: 'GİB Teknoloji', dvd: 'Dijital Vergi Dairesi', defterbeyan: 'Defter Beyan Sistemi', eymm: 'e-YMM' }, base = j => j.title + (j.tags && j.tags[0] ? ' (' + j.tags[0][0] + ')' : ''); return base(j) + (this.JOBS.filter(x => base(x) === base(j)).length > 1 ? ' · ' + P[j.logo] : ''); }
+  DEADLINES = ['', '15 Nisan 2027', '30 Kasım 2026', '15 Aralık 2026', '30 Kasım 2026', '15 Aralık 2026', '31 Aralık 2026', '15 Aralık 2026', '31 Aralık 2026'];
+  openJob = i => e => { if (e && (e.metaKey || e.ctrlKey || e.shiftKey)) return; e && e.preventDefault(); this.setState({ job: i }); try { history.pushState({ job: i }, ''); } catch (_) {} scrollTo(0, 0); };
+  closeJob = e => { if (this.state.job == null) return; e && e.preventDefault(); this.setState({ job: null }); scrollTo(0, 0); };
+  componentDidMount() {
+    this.__pop = e => this.setState({ job: e.state && e.state.job != null ? e.state.job : null });
+    addEventListener('popstate', this.__pop);
+    this.__lw = innerWidth; this.__s480 = innerWidth < 480;
+    this.__mr = () => { const s = innerWidth < 480, m7 = innerWidth < 720; if (s !== this.__s480 || m7 !== this.__m720) { this.__s480 = s; this.__m720 = m7; this.forceUpdate(); } if (innerWidth !== this.__lw) { this.__lw = innerWidth; this.closeMenu(); } };
+    this.__mk = e => { if (e.key === 'Escape') this.closeAll(); };
+    addEventListener('resize', this.__mr); addEventListener('keydown', this.__mk);
+    setTimeout(() => this.__touchInit && this.__touchInit(), 400);
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => { const n = innerWidth >= 1040, w = innerWidth >= 860; if (n !== this.state.nav || w !== this.state.wide) this.setState({ nav: n, wide: w }); };
+    addEventListener('resize', this.onResize); this.onResize();
+    this.initField(); this.setupReveals();
+  }
+  componentWillUnmount() {
+    removeEventListener('popstate', this.__pop); removeEventListener('resize', this.__mr); removeEventListener('keydown', this.__mk); this.__lock(false);
+    cancelAnimationFrame(this.fraf); removeEventListener('resize', this.onResize); removeEventListener('pointermove', this.onPM); document.documentElement.removeEventListener('mouseleave', this.onLeave);
+    this.fro && this.fro.disconnect(); this.io && this.io.disconnect(); this.mo && this.mo.disconnect(); clearTimeout(this.fallback);
+  }
+  initField() {
+    const c = this.fieldRef.current; if (!c) return;
+    const ctx = c.getContext('2d'); this.fm = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
+    const size = () => { const r = c.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); this.fw = r.width; this.fh = r.height; c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
+    size(); this.fro = new ResizeObserver(size); this.fro.observe(c);
+    this.onPM = e => { if (e.pointerType && e.pointerType !== 'mouse') return;
+      const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      this.fm.tx = x; this.fm.ty = y;
+      const rg = this.ringRef.current; if (rg) { const touch = e.pointerType === 'touch'; rg.style.opacity = touch ? '0' : '1'; this.ringHot = !!(e.target.closest && e.target.closest('a,button')); rg.style.borderColor = this.ringHot ? '#4edfc7' : 'rgba(236,234,246,.55)'; if (this.rx == null) { this.rx = x; this.ry = y; } }
+      if (this.fxRef.current) this.fxRef.current.textContent = (x / r.width).toFixed(3);
+      if (this.fyRef.current) this.fyRef.current.textContent = (y / r.height).toFixed(3);
+    };
+    addEventListener('pointermove', this.onPM, { passive: true });
+    this.onLeave = () => { this.fm.tx = this.fm.ty = -9999; const rg = this.ringRef.current; if (rg) rg.style.opacity = '0'; };
+    document.documentElement.addEventListener('mouseleave', this.onLeave);
+    const draw = t => {
+      this.fraf = requestAnimationFrame(draw);
+      if (this.__coarse == null) this.__coarse = matchMedia('(pointer: coarse)').matches;
+      if (this.__coarse) { if (t - (this.__lt || 0) < 40 || document.hidden || scrollY > innerHeight * 1.5) return; this.__lt = t; }
+      const m = this.fm;
+      if (m.tx < -999 || m.x < -999) { m.x = m.tx; m.y = m.ty; } else { m.x += (m.tx - m.x) * .12; m.y += (m.ty - m.y) * .12; }
+      const rg = this.ringRef.current; if (rg && this.rx != null && m.tx > -999) { this.rx += (m.tx - this.rx) * .2; this.ry += (m.ty - this.ry) * .2; this.rs = (this.rs || 1) + ((this.ringHot ? 1.7 : 1) - (this.rs || 1)) * .2; rg.style.transform = 'translate3d(' + this.rx.toFixed(1) + 'px,' + this.ry.toFixed(1) + 'px,0) scale(' + this.rs.toFixed(3) + ')'; }
+      const gap = Math.max(this.__coarse ? 13 : 0, { Seyrek: 12, Normal: 9, 'Yoğun': 7 }[this.props.fieldDensity ?? 'Normal'] || 9);
+      const tt = (this.props.fieldMotion ?? true) && !this.reduced ? t : 0;
+      ctx.clearRect(0, 0, this.fw, this.fh);
+      const cols = Math.ceil(this.fw / gap), rows = Math.ceil(this.fh / gap);
+      const mask = null;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = gap / 2 + i * gap, y = gap / 2 + j * gap;
+        const L = mask ? mask[(j * cols + i) * 4 + 3] / 255 : 0;
+        const dx = x - m.x, dy = y - m.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = Math.max(0, 1 - d / 180);
+        const hs = Math.abs(Math.sin(i * 12.9898 + j * 78.233) * 43758.5453) % 1;
+        const n = Math.sin(x * .0042 + tt * .00022 + Math.sin(y * .0061 + tt * .00017) * 2.2) * Math.cos(y * .0048 - tt * .00026 + Math.sin(x * .0033 - tt * .00012) * 1.6), w = Math.max(0, n);
+        let a, cr = 236, cg = 238, cb = 248;
+        if (L > .35) a = .72 + .14 * Math.sin(tt * .0015 + i * .31 + j * .17);
+        else { const keep = hs < .06 + .42 * w * w; if (!keep && f < .05) continue; a = keep ? .08 + .38 * w * w : 0; cr = 118; cg = 196; cb = 214; }
+        a = Math.min(1, a + .8 * f * f);
+        const sz = (L > .35 ? 2.1 : 1.6) + 2.2 * f;
+        ctx.fillStyle = 'rgba(' + Math.round(cr + (78 - cr) * f) + ',' + Math.round(cg + (223 - cg) * f) + ',' + Math.round(cb + (199 - cb) * f) + ',' + a.toFixed(3) + ')';
+        ctx.fillRect(x + dx / d * f * 12 - sz / 2, y + dy / d * f * 12 - sz / 2, sz, sz);
+      }
+    };
+    this.fraf = requestAnimationFrame(draw);
+  }
+  countUp() {}
+  setupReveals() {
+    if (this.reduced) return;
+    const show = (el, d) => {
+      if (el.dataset.shown) return; el.dataset.shown = '1';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.1,1) ' + d + 'ms, transform 1s cubic-bezier(.2,.7,.1,1) ' + d + 'ms';
+      el.style.opacity = '1'; el.style.transform = 'none';
+      setTimeout(() => { el.style.transition = el.dataset.tr0 || ''; el.style.transform = ''; }, d + 1100);
+      el.querySelectorAll('[data-cnt]').forEach(c => setTimeout(() => this.countUp(c), d + 120));
+      if (el.hasAttribute('data-cnt')) setTimeout(() => this.countUp(el), d + 120);
+    };
+    const delay = el => { const sib = [...el.parentNode.children].filter(x => x.hasAttribute('data-r')); return Math.max(0, sib.indexOf(el)) * 70; };
+    this.io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { this.io.unobserve(en.target); show(en.target, delay(en.target)); } }), { threshold: 0.12, rootMargin: '0px 3000px -6% 3000px' });
+    const scan = () => document.querySelectorAll('[data-r]:not([data-armed])').forEach(el => {
+      el.dataset.armed = '1'; el.dataset.tr0 = el.style.transition || ''; el.style.opacity = '0'; el.style.transform = 'translate3d(0,28px,0)';
+      if (el.getBoundingClientRect().top < innerHeight) requestAnimationFrame(() => requestAnimationFrame(() => show(el, delay(el)))); else this.io.observe(el);
+    });
+    scan();
+    this.mo = new MutationObserver(scan); this.mo.observe(document.body, { childList: true, subtree: true });
+    this.fallback = setTimeout(() => document.querySelectorAll('[data-r]').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) show(el, 0); }), 2500);
+  }
+
+  renderVals() {
+    const { sel, q } = this.state, norm = s => s.toLocaleLowerCase('tr'), qq = norm(q.trim());
+    const match = (j, skip) => {
+      if (qq && !norm(j.title + ' ' + j.eb + ' ' + j.desc).includes(qq)) return false;
+      if (j.always) return true;
+      return this.GROUPS.every(g => g.key === skip || !sel[g.key].length || sel[g.key].includes(j[g.key]));
+    };
+    const list = this.JOBS.filter(j => match(j)), any = this.GROUPS.some(g => sel[g.key].length);
+    const TAG = { l: ['rgba(240,212,246,.14)', '#f0d4f6'], t: ['rgba(191,244,247,.12)', '#bff4f7'], h: ['rgba(236,234,246,.08)', '#c9c6dc'] };
+    const toggle = (k, v) => () => this.setState(s => { const cur = s.sel[k]; return { sel: { ...s.sel, [k]: cur.includes(v) ? cur.filter(x => x !== v) : cur.concat(v) } }; });
+    const ji = this.state.job, J = ji != null ? this.JOBS[ji] : null, D = J ? this.DETAIL[ji] : null;
+    const mail = j => 'basvuru-formu.html?tip=' + (j.type === 'Stajyer' ? 'stajyer' : 'profesyonel') + '&pozisyon=' + encodeURIComponent(this.pozLabel(j));
+    const jd = J ? { title: J.title, lead: D.lead || J.desc, cat: J.cat || 'Genel', exp: D.exp, mode: J.type === 'Stajyer' ? 'Ofiste, tam zamanlı' : 'Hibrit · haftada 3 gün ofis', proj: { gibtek: 'GİB Teknoloji', dvd: 'Dijital Vergi Dairesi', defterbeyan: 'Defter Beyan Sistemi', eymm: 'e-YMM' }[J.logo] || 'GİB Teknoloji', deadline: J.always ? 'Sürekli açık' : this.DEADLINES[ji], href: mail(J),
+      steps: (J.type === 'Stajyer' ? [['Başvuru', 'Form ve belgeleriniz alınır.'], ['Ön değerlendirme', 'Bölüm ve dönem uygunluğu incelenir.'], ['Online görüşme', 'Mentorla 30 dakikalık tanışma.'], ['Sonuç', 'Dönem başlamadan 2 hafta önce bildirilir.']] : [['Ön değerlendirme', 'CV’niz 1–2 hafta içinde incelenir.'], ['Teknik değerlendirme', 'Vaka çalışması veya teknik görüşme.'], ['Ekip görüşmesi', 'Birlikte çalışacağınız ekiple tanışma.'], ['Teklif', 'Sonuç e-posta ile bildirilir.']]).map(([t, d], i) => ({ t, d, num: String(i + 1).padStart(2, '0') })),
+      about: D.about.map(text => ({ text })), quals: D.quals.map((text, i) => ({ text, num: String(i + 1).padStart(2, '0') })), tools: D.tools.map(name => ({ name })) } : { about: [], quals: [], tools: [], steps: [] };
+    return {
+      ...(() => { const mob = innerWidth < 720, open = !!this.state.fOpen, n = Object.values(this.state.sel).reduce((s, v) => s + v.length, 0); return { fMob: mob, fDesk: !mob, fShow: !mob, fMobOpen: false, sheetRef: this.sheetRef, sDown: this.sDown, sMove: this.sMove, sUp: this.sUp, fClose: this.fClose, sheetVis: open ? 'visible' : 'hidden', sheetVisDelay: open ? '0s' : '.35s', sheetOp: open ? '1' : '0', sheetY: open ? 'translateY(0)' : 'translateY(100%)', fShowLabel: list.length ? list.length + ' Pozisyonu Göster' : 'Sonuç Yok', fAria: open ? 'true' : 'false', fRot: open ? '180deg' : '0deg', fActive: String(n), fHasActive: n > 0, fToggle: this.fOpenSheet, jobCols: mob ? 'minmax(0,1fr)' : 'repeat(auto-fill,minmax(min(100%,300px),1fr))' }; })(),
+      listView: !J, detailView: !!J, jd, closeJob: this.closeJob,
+      fieldRef: this.fieldRef, ringRef: this.ringRef, heroWrap: this.state.nav ? 'nowrap' : 'normal', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', cvVis: J ? 'hidden' : 'visible', toggleMenu: this.toggleMenu, closeMenu: this.closeMenu, showLinks: this.state.nav, hideLinks: !this.state.nav,
+      totalCount: String(this.JOBS.length).padStart(2, '0'),
+      q, hasQ: !!q, onSearch: e => this.setState({ q: e.target.value }), clearQ: () => this.setState({ q: '' }),
+      clearAll: () => this.setState({ q: '', sel: { type: [], level: [], cat: [] } }), clearOp: any || q ? 1 : .45,
+      layoutCols: this.state.wide ? 'minmax(240px,300px) minmax(0,1fr)' : 'minmax(0,1fr)', asidePos: this.state.wide ? 'sticky' : 'relative', asideTop: this.state.wide ? '96px' : '0',
+      groups: this.GROUPS.map(g => ({ label: g.label, opts: g.opts.map(o => { const on = sel[g.key].includes(o); return { label: o, on: on ? 'true' : 'false', toggle: toggle(g.key, o),
+        count: String(this.JOBS.filter(j => !j.always && j[g.key] === o && match(j, g.key)).length).padStart(2, '0'),
+        color: on ? '#eceaf6' : '#c9c6dc', bg: on ? '#4edfc7' : 'transparent', bd: on ? '#4edfc7' : 'rgba(236,234,246,.3)', op: on ? 1 : 0 }; }) })),
+      resultLabel: String(list.length).padStart(2, '0') + ' / ' + String(this.JOBS.length).padStart(2, '0') + ' Pozisyon',
+      empty: list.length === 0,
+      jobs: list.map(j => ({ open: this.openJob(this.JOBS.indexOf(j)), isGibtek: j.logo === 'gibtek', isDvd: j.logo === 'dvd', isDefterbeyan: j.logo === 'defterbeyan', isEymm: j.logo === 'eymm', logoAlt: { gibtek: 'GİB Teknoloji', dvd: 'Dijital Vergi Dairesi', defterbeyan: 'Defter Beyan Sistemi', eymm: 'e-YMM' }[j.logo], eb: j.eb, title: j.title, desc: j.desc, hasTags: j.tags.length > 0, href: 'mailto:kariyer@gelirler.gov.tr?subject=' + encodeURIComponent(j.title + ' Başvurusu'),
+        tags: j.tags.map(([label, k]) => ({ label, bg: TAG[k][0], fg: TAG[k][1] })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

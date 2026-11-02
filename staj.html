@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staj Fırsatları · GİB Teknoloji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-underline-offset:.2em}
+a:hover{color:#4edfc7}
+button{font:inherit;color:inherit}
+::selection{background:#4edfc7;color:#0b0916}
+:focus-visible{outline:1px solid #4edfc7;outline-offset:3px}
+</style>
+<script src="./touch.js"></script>
+</helmet>
+
+<div lang="tr" style="position:relative;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
+<canvas ref="{{ fieldRef }}" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block"></canvas>
+<div ref="{{ ringRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:60;width:36px;height:36px;margin:-18px 0 0 -18px;border:1px solid rgba(236,234,246,.55);border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s ease,border-color .3s ease;will-change:transform"></div>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(22,11,26,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;height:72px;padding:0 clamp(20px,3vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="index.html" aria-label="GİB Teknoloji anasayfa" style="display:flex;flex-shrink:0;text-decoration:none"><img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:32px;width:auto;display:block;filter:brightness(0) invert(1)"></a>
+    <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}">
+      <nav style="flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(18px,2.6vw,48px);font-size:15px">
+        <a href="index.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa</a>
+        <a href="hakkimizda.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda</a>
+        <a href="projelerimiz.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Projeler</a>
+        <a href="#top" aria-current="page" style="position:relative;text-decoration:none;color:#ffffff;font-weight:500">Staj Fırsatları<span aria-hidden="true" style="position:absolute;left:-4px;right:-4px;bottom:-7px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(78,223,199,0),#4edfc7 50%,rgba(78,223,199,0));box-shadow:0 0 10px rgba(78,223,199,.55)"></span></a>
+        <a href="acik-pozisyonlar.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar</a>
+      </nav>
+    </sc-if>
+    <a href="cv-gonder.html" style="flex-shrink:0;margin-left:auto;display:{{ cvBar }};align-items:center;justify-content:center;width:136px;height:40px;padding:0 18px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap;transition:background-color .2s ease,padding .2s ease" style-hover="background:#ffffff url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2016%2016%22%20fill=%22none%22%20stroke=%22%23160B1A%22%20stroke-width=%221.8%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M3%208h10M9%204l4%204-4%204%22/%3E%3C/svg%3E) no-repeat right 20px center / 14px 14px;padding:0 40px 0 18px;color:#160B1A">CV Gönder</a>
+    <sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuAria }}" aria-controls="mobil-menu" aria-label="{{ menuLabel }}" style="flex-shrink:0;display:grid;place-items:center;width:48px;height:44px;padding:0;border:1px solid rgba(236,234,246,.22);border-radius:10px;background:rgba(22,11,26,.4);cursor:pointer;color:#eceaf6"><span aria-hidden="true" style="display:flex;flex-direction:column;gap:6px;width:22px"><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar1 }};transition:transform .3s ease"></span><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar2 }};transition:transform .3s ease"></span></span></button></sc-if>
+  </div>
+</header>
+<sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}">
+  <div id="mobil-menu" aria-hidden="{{ menuHidden }}" style="position:fixed;left:0;right:0;top:72px;bottom:0;z-index:39;visibility:{{ menuVis }};opacity:{{ menuOp }};transition:opacity .3s ease,visibility .3s ease;background:rgba(22,11,26,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:clamp(16px,4vw,32px) clamp(20px,3vw,48px) calc(24px + env(safe-area-inset-bottom))">
+    <nav aria-label="Mobil menü" onClick="{{ closeMenu }}" style="display:flex;flex-direction:column;transform:translateY({{ menuY }});transition:transform .35s cubic-bezier(.2,.7,.2,1)">
+      <a href="index.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="hakkimizda.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="projelerimiz.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Projeler<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="#top" aria-current="page" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#ffffff;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları<span aria-hidden="true" style="font-size:18px;color:#4edfc7">→</span></a>
+      <a href="acik-pozisyonlar.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+    </nav>
+    <a href="cv-gonder.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;flex:none;height:52px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:16px;font-weight:500" style-hover="background:#ffffff;color:#160B1A">CV Gönder</a>
+  </div>
+</sc-if>
+
+<section id="top" data-screen-label="Staj Hero" style="position:relative;z-index:1;position:relative;overflow:hidden;border-bottom:1px solid rgba(236,234,246,.1)">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 15% 70%,rgba(22,11,26,.94) 0%,rgba(22,11,26,.5) 60%,rgba(22,11,26,0) 100%)"></div>
+  <div style="position:relative;max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;padding:clamp(28px,3vw,44px) clamp(20px,3vw,48px) clamp(64px,7vw,120px);display:flex;flex-direction:column;gap:clamp(40px,5vw,80px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));align-items:center;gap:56px clamp(40px,5vw,96px)">
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:32px">
+        <h1 style="margin:0;font-weight:400;font-size:clamp(38px,4.6vw,80px);line-height:1.02;letter-spacing:-0.05em;text-wrap:balance"><span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Geleceğe</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Giden</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Yolda</span></span> <em style="font-style:normal;color:#4edfc7"><span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">İlk</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Adımı</span></span></em> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Birlikte</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Atalım!</span></span></h1>
+        <p data-r="" style="margin:0;max-width:44ch;font-size:18px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Türkiye’nin en büyük dijital altyapılarına uzanan bu yolculukta, uzman mentörlerin rehberliğiyle kendi izinizi bırakın.</p>
+        <div data-r="" style="display:flex;flex-wrap:{{ ctaWrap }};gap:{{ ctaGap }}">
+          <a href="basvuru-formu.html?tip=stajyer&amp;pozisyon=Staj%20Ba%C5%9Fvurusu%20(Junior)" style="flex:{{ ctaFlex }};justify-content:center;display:inline-flex;align-items:center;gap:{{ ctaIg }};height:{{ ctaH }};padding:{{ ctaPad }};border-radius:999px;white-space:nowrap;text-decoration:none;font-size:{{ ctaFs }};background:#4edfc7;color:#0b0916;font-weight:500;transition:background-color .2s ease" style-hover="background:#86eadb;color:#0b0916">Staja Başvur <span aria-hidden="true">→</span></a>
+          <a href="#programlar" style="flex:{{ ctaFlex }};justify-content:center;display:inline-flex;align-items:center;gap:{{ ctaIg }};height:{{ ctaH }};padding:{{ ctaPad }};border-radius:999px;white-space:nowrap;text-decoration:none;font-size:{{ ctaFs }};border:1px solid rgba(236,234,246,.25);color:#eceaf6;transition:border-color .2s ease" style-hover="border-color:#4edfc7;color:#eceaf6">Programları İncele <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div aria-hidden="true" style="position:relative;min-height:{{ stH }}">
+        <div data-glow="" style="position:absolute;left:50%;top:50%;width:min(560px,90vw);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(78,223,199,.2) 0%,rgba(169,155,255,.13) 38%,rgba(22,11,26,0) 70%);filter:blur(10px);pointer-events:none;will-change:transform"></div>
+        <div data-st="" data-d="1.2" data-rot="-7" style="position:absolute;padding:{{ stPad }};border-radius:999px;font-family:'Geist Mono',ui-monospace,monospace;font-size:{{ stFs }};letter-spacing:.02em;color:#0b0916;white-space:nowrap;box-shadow:{{ stSh }},inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);will-change:transform;left:2%;top:6%;background:#a99bff;transform:rotate(-7deg)">#gibteknolojidestajyerolmak</div>
+        <div data-st="" data-d="0.7" data-rot="5" style="position:absolute;padding:{{ stPad }};border-radius:999px;font-family:'Geist Mono',ui-monospace,monospace;font-size:{{ stFs }};letter-spacing:.02em;color:#0b0916;white-space:nowrap;box-shadow:{{ stSh }},inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);will-change:transform;left:38%;top:30%;background:#4edfc7;transform:rotate(5deg)">#işfırsatıyakalıyorum</div>
+        <div data-st="" data-d="1.5" data-rot="-12" style="position:absolute;padding:{{ stPad }};border-radius:999px;font-family:'Geist Mono',ui-monospace,monospace;font-size:{{ stFs }};letter-spacing:.02em;color:#0b0916;white-space:nowrap;box-shadow:{{ stSh }},inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);will-change:transform;left:6%;top:56%;background:#eceaf6;transform:rotate(-12deg)">#kariyerimeilkadım</div>
+        <div data-st="" data-d="0.9" data-rot="4" style="position:absolute;padding:{{ stPad }};border-radius:999px;font-family:'Geist Mono',ui-monospace,monospace;font-size:{{ stFs }};letter-spacing:.02em;color:#0b0916;white-space:nowrap;box-shadow:{{ stSh }},inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);will-change:transform;left:34%;top:82%;background:#a99bff;transform:rotate(4deg)">#profesyoneloluyorum</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Protokol yapılan üniversiteler" data-screen-label="Üniversiteler" onMouseEnter="{{ marqSlow }}" onMouseLeave="{{ marqFast }}" style="position:relative;z-index:1;padding:clamp(56px,6vw,96px) 0;border-bottom:1px solid rgba(236,234,246,.1);overflow:hidden">
+  <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto clamp(28px,3vw,44px);padding:0 clamp(20px,3vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 48px">
+    <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Protokol Yapılan <em style="font-style:normal;color:#4edfc7">Üniversiteler</em></h2>
+    <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">{{ uniCount }} üniversite</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div style="overflow:hidden;background:#160B1A;padding:clamp(20px,2vw,32px) 0"><div ref="{{ marqA }}" style="display:flex;align-items:center;gap:14px;width:max-content;will-change:transform">
+        <sc-for list="{{ unisA }}" as="u" hint-placeholder-count="12">
+          <div data-uni="" title="{{ u.alt }}" style="flex:none;position:relative;width:clamp(124px,9vw,148px);height:clamp(76px,5.6vw,92px);border-radius:12px;background:#21132a;border:1px solid rgba(236,234,246,.08)"><img src="{{ u.src }}" alt="{{ u.alt }}" draggable="false" style="position:absolute;inset:10px 14px;width:calc(100% - 28px);height:calc(100% - 20px);object-fit:contain;object-position:center;display:block;filter:{{ u.filter }}"></div>
+        </sc-for>
+    </div></div>
+  </div>
+</section>
+
+<section id="yolculuk" ref="{{ journeyRef }}" data-screen-label="Yolculuk" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px)">
+  <div style="position:relative;max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,88px)">
+    <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em;text-wrap:balance">Stajdan <em style="font-style:normal;color:#4edfc7">Profesyonelliğe</em></h2>
+    <div style="position:relative">
+      <ol style="position:relative;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:{{ stepCols }};gap:48px clamp(24px,3vw,56px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+          <li data-r="" style="scroll-snap-align:start;display:flex;flex-direction:column;align-items:flex-start;gap:24px;padding-top:32px;padding-right:{{ stepPr }};border-right:{{ stepBr }}">
+            <h3 style="margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.15;letter-spacing:-0.025em">{{ s.title }}</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span data-cnt="" data-v="{{ s.value }}" style="font-size:clamp(48px,4.2vw,76px);font-weight:300;line-height:.9;letter-spacing:-0.05em;font-variant-numeric:tabular-nums;color:#eceaf6">{{ s.value }}</span>
+            </div>
+            <sc-if value="{{ s.hasGo }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ s.go }}" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0;border:0;background:transparent;color:#4edfc7;font-size:15px;cursor:pointer">Programı İncele <span aria-hidden="true">→</span></button></sc-if>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="programlar" data-screen-label="Programlar" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+    <div data-pgrid="" style="position:absolute;inset:-80px;background-image:linear-gradient(rgba(236,234,246,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(236,234,246,.045) 1px,transparent 1px);background-size:80px 80px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 75%);will-change:transform"></div>
+    <div data-porb="" style="position:absolute;left:8%;top:10%;width:min(620px,80vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(78,223,199,.16),rgba(78,223,199,0) 65%);filter:blur(20px);will-change:transform"></div>
+    <div data-porb="" style="position:absolute;right:4%;bottom:0;width:min(560px,75vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(169,155,255,.15),rgba(169,155,255,0) 65%);filter:blur(20px);will-change:transform"></div>
+  </div>
+  <div style="position:relative;max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(36px,4vw,64px)">
+    <div role="tablist" aria-label="Programlar" style="display:flex;gap:12px clamp(24px,3vw,56px);border-bottom:1px solid rgba(236,234,246,.12);flex-wrap:{{ rWrap }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="2">
+        <button type="button" role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="position:relative;flex:none;white-space:nowrap;display:flex;align-items:baseline;gap:14px;padding:0 0 22px;border:0;background:transparent;cursor:pointer;text-align:left">
+          <span style="font-size:clamp(24px,2.4vw,40px);font-weight:400;line-height:1.05;letter-spacing:-0.04em;color:{{ t.color }};transition:color .3s ease">{{ t.label }}</span>
+          <span aria-hidden="true" style="position:absolute;left:0;right:0;bottom:{{ rBarB }};height:2px;background:#4edfc7;transform:scaleX({{ t.bar }});transform-origin:0 50%;transition:transform .5s cubic-bezier(.22,1,.36,1)"></span>
+        </button>
+      </sc-for>
+    </div>
+    <p data-pintro="" style="margin:0;max-width:52ch;font-size:clamp(17px,1.3vw,21px);font-weight:300;line-height:1.5;letter-spacing:-0.01em;color:#eceaf6;text-wrap:balance">{{ intro }}</p>
+    <div onPointerMove="{{ cardMove }}" onPointerDown="{{ cardMove }}" onPointerLeave="{{ cardLeave }}" style="display:grid;grid-template-columns:{{ cardCols }};gap:clamp(12px,1.4vw,20px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch">
+      <sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
+        <div data-r="" data-pcard="" style="scroll-snap-align:start;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:20px;padding:clamp(22px,2vw,32px);border-radius:16px;background:radial-gradient(380px circle at var(--mx,-999px) var(--my,-999px),rgba(78,223,199,.13),rgba(78,223,199,0) 60%),linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,0) 40%),#1d1022;border:1px solid rgba(236,234,246,.09);box-shadow:0 30px 60px -40px rgba(0,0,0,.7);transition:border-color .3s ease,transform .2s ease-out;will-change:transform" style-hover="border-color:rgba(78,223,199,.35)">
+          <span data-pfill="" aria-hidden="true" style="position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,#4edfc7,#a99bff);transform:scaleX(0);transform-origin:0 50%;box-shadow:0 0 12px rgba(78,223,199,.6)"></span>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+            <h3 style="margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.15;letter-spacing:-0.025em">{{ c.title }}</h3>
+            <span style="flex:none;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;color:#4edfc7">{{ c.num }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">
+            <sc-for list="{{ c.blocks }}" as="b" hint-placeholder-count="1">
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0">{{ b.text }}<sc-if value="{{ b.hasLink }}" hint-placeholder-val="{{ false }}"><a href="mailto:{{ b.link }}" style="display:inline-block;padding:12px 0;margin:-12px 0;color:#eceaf6">{{ b.link }}</a></sc-if>{{ b.after }}</p></sc-if>
+              <sc-if value="{{ b.isUl }}" hint-placeholder-val="{{ false }}"><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><li style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px"><span aria-hidden="true" style="color:#4edfc7">—</span><span>{{ it }}</span></li></sc-for>
+              </ul></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="deneyimler" data-screen-label="Deneyimler" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div style="position:relative;max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));align-items:start;gap:56px clamp(40px,5vw,96px)">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <h2 data-r="" style="margin:0;font-weight:400;font-size:{{ expH2 }};line-height:1;letter-spacing:-0.04em;white-space:{{ expWs }};text-wrap:balance">Deneyimlerinizi Bizden <em style="font-style:normal;color:#4edfc7">Dinleyin!</em></h2>
+      <p data-r="" style="margin:0;max-width:48ch;font-size:16px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">GİB Teknoloji’de stajdan profesyonelliğe uzanan yolculuğa tanıklık edin. İş Yeri Eğitimi ve Yarı Zamanlı Çalışma programlarımızdan mezun olan arkadaşlarımızın hikâyelerini videolarımızda bulabilirsiniz.</p>
+      <ol data-r="" style="margin:0;padding:0;list-style:none;border-bottom:1px solid rgba(236,234,246,.12);display:{{ vidListD }};overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(78,223,199,.5) transparent">
+        <sc-for list="{{ vids }}" as="v" hint-placeholder-count="7">
+          <li><button type="button" onClick="{{ v.pick }}" aria-pressed="{{ v.on }}" style="width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;min-height:56px;box-sizing:border-box;padding:12px 0;border:0;border-top:1px solid rgba(236,234,246,.12);background:transparent;text-align:left;cursor:pointer" style-hover="padding-left:8px">
+            <span style="font-size:17px;color:{{ v.color }};transition:color .2s ease">{{ v.title }}</span>
+            <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.04em;color:#8a87a3">{{ v.role }}</span>
+          </button></li>
+        </sc-for>
+      </ol>
+    </div>
+    <figure data-r="" style="margin:0;position:sticky;top:96px;display:flex;flex-direction:column;gap:16px">
+      <div style="position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid rgba(236,234,246,.12);background:#100d1f">
+        <sc-if value="{{ notPlaying }}" hint-placeholder-val="{{ true }}">
+          <img src="{{ vid.thumb }}" alt="{{ vid.title }} videosu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,11,26,.1) 40%,rgba(22,11,26,.6) 100%)"></div>
+          <button type="button" onClick="{{ play }}" aria-label="Videoyu oynat" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:clamp(84px,7vw,120px);height:clamp(52px,4.2vw,72px);border:0;border-radius:999px;background:#ffffff;color:#0b0916;cursor:pointer;transition:transform .3s cubic-bezier(.22,1,.36,1)" style-hover="transform:translate(-50%,-50%) scale(1.08)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></button>
+        </sc-if>
+        <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><iframe src="{{ vid.embed }}" title="{{ vid.title }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe></sc-if>
+      </div>
+      <figcaption style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 24px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:22px;line-height:1.2;letter-spacing:-0.02em">{{ vid.title }}</span>
+          <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.04em;color:#4edfc7">{{ vid.role }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <button type="button" onClick="{{ prevVid }}" aria-label="Önceki video" style="display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-size:18px;cursor:pointer;transition:border-color .2s ease,background-color .2s ease" style-hover="border-color:#4edfc7;background:rgba(78,223,199,.08)">←</button>
+          <span style="width:52px;text-align:center;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;color:#8a87a3">{{ vidCount }}</span>
+          <button type="button" onClick="{{ nextVid }}" aria-label="Sonraki video" style="display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-size:18px;cursor:pointer;transition:border-color .2s ease,background-color .2s ease" style-hover="border-color:#4edfc7;background:rgba(78,223,199,.08)">→</button>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="katil" data-screen-label="Aramıza Katılın" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div style="position:relative;max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:32px clamp(24px,3vw,56px)">
+    <div data-r="" style="flex:0 1 640px;display:flex;flex-direction:column;align-items:flex-start;gap:28px">
+  <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Aramıza <em style="font-style:normal;color:#4edfc7">Katılın!</em></h2>
+      <p style="margin:0;max-width:60ch;font-size:16px;line-height:1.6;color:#a4a1bb;text-wrap:balance">Kamu teknolojilerine yön veren projelerde yer almak, milyonlarca kullanıcıya dokunan dijital çözümler geliştirmek ve güçlü bir ekibin parçası olmak ister misiniz?</p>
+      <a href="basvuru-formu.html?tip=stajyer&amp;pozisyon=Staj%20Ba%C5%9Fvurusu%20(Junior)" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease,padding .2s ease" style-hover="background:#ffffff url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2016%2016%22%20fill=%22none%22%20stroke=%22%23160B1A%22%20stroke-width=%221.8%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M3%208h10M9%204l4%204-4%204%22/%3E%3C/svg%3E) no-repeat right 20px center / 14px 14px;padding:0 46px 0 24px;color:#160B1A">Staja Başvur</a>
+    </div>
+    <div data-r="" style="flex:0 1 300px;display:flex;justify-content:center">
+      <img src="assets/staj-illustration.png" alt="Dişliler içinde birlikte çalışan ekip illüstrasyonu" style="width:100%;max-width:300px;height:auto;display:block;filter:invert(1) hue-rotate(180deg) brightness(1.1)">
+    </div>
+  </div>
+</section>
+
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
+      <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+    </div>
+    <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
+  </div>
+</section>
+
+<footer style="position:relative;z-index:1;border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:18px">
+          <img src="assets/gib-logo-white.png" alt="Gelir İdaresi Başkanlığı" style="height:44px;width:auto;display:block">
+          <span aria-hidden="true" style="width:1px;align-self:stretch;background:rgba(236,234,246,.2)"></span>
+          <img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:30px;width:auto;display:block;filter:brightness(0) invert(1)"></div>
+        <div style="display:flex;gap:4px;margin-left:-12px">
+          <a href="https://twitter.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="X" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.3l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"></path></svg></a>
+          <a href="https://tr-tr.facebook.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="Facebook" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z"></path></svg></a>
+          <a href="https://www.instagram.com/gibsosyalmedya/" target="_blank" rel="noopener" aria-label="Instagram" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"></circle></svg></a>
+          <a href="https://tr.linkedin.com/company/gibsosyalmedya" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"></path></svg></a>
+        </div>
+      </div>
+      <div style="flex:0 1 auto;min-width:min(100%,300px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),max-content));gap:32px clamp(40px,5vw,96px);font-size:15px">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Kurum İçi Linkler</div>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Vergi Mevzuatı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Sıkça Sorulan Sorular</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yararlı Bilgiler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Kılavuzlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gerekli Programlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Tebliğler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yayınlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Hazır Formlar</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Hizmetler</div>
+          <a href="https://www.tccb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Cumhurbaşkanlığı</a>
+          <a href="https://www.hmb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">T.C.Hazine ve Maliye Bakanlığı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gelir İdaresi Başkanlığı</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;border-top:1px solid rgba(236,234,246,.1);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3">
+      <span>Her Hakkı Saklıdır. ©2026 Gelir İdaresi Başkanlığı</span>
+      <a href="#top" style="text-decoration:none">Yukarı dön ↑</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;fieldDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Seyrek&quot;,&quot;Normal&quot;,&quot;Yoğun&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero alanı&quot;},&quot;fieldMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero alanı&quot;}}">
+class Component extends DCLogic {
+  __rail() { const r = innerWidth < 720; return { rail: r, rFlow: r ? 'column' : 'row', rCol: r ? 'min(84%,340px)' : 'auto', rOv: r ? 'auto' : 'visible', rOvY: r ? 'hidden' : 'visible', rSnap: r ? 'x mandatory' : 'none', rM: r ? 'calc(-1 * clamp(20px,3vw,48px))' : '0', rP: r ? 'clamp(20px,3vw,48px)' : '0', rWrap: r ? 'nowrap' : 'wrap', rFull: r ? '1 1 100%' : '0 1 auto', rBarB: r ? '0px' : '-1px' }; }
+  __lock(on) { document.documentElement.style.overflow = on ? 'hidden' : ''; }
+  toggleMenu = () => { const o = !this.state.menu; this.setState({ menu: o }); this.__lock(o); };
+  closeMenu = () => { if (this.state.menu) { this.setState({ menu: false }); this.__lock(false); } };
+  closeAll = () => { this.setState({ menu: false, work: null, photo: null }); this.__lock(false); };
+  state = { nav: true, tab: 0, vid: 0, playing: false };
+  fieldRef = React.createRef(); ringRef = React.createRef(); marqA = React.createRef(); marqB = React.createRef(); journeyRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
+  mx = 0; my = 0; speed = 1;
+  UNIS = [['local:assets/uni-11-d.png','Fırat Üniversitesi'],['İhsan-Doğramaci-Üniversitesi-logo.png','İhsan Doğramacı Bilkent Üniversitesi'],['selçuk-Üniveristesi-logo.png','Selçuk Üniversitesi'],['local:assets/uni-5-d.png','Gazi Üniversitesi'],['konya-Teknik-Üniversitesi-logo.png','Konya Teknik Üniversitesi'],['local:assets/uni-6-d.png','OSTİM Teknik Üniversitesi'],['local:assets/uni-8-d.png','TOBB ETÜ'],['local:assets/uni-4-d.png','Sakarya Üniversitesi'],['local:assets/uni-7-d.png','Sakarya Uygulamalı Bilimler Üniversitesi'],['local:assets/uni-1-d.png','Atılım Üniversitesi'],['local:assets/uni-3-d.png','Başkent Üniversitesi'],['Kastamonu-Üniversitesi-logo.png','Kastamonu Üniversitesi'],['local:assets/uni-2-d.png','Ankara Yıldırım Beyazıt Üniversitesi'],['Ankara-bilim-Üniversitesi-logo.png','Ankara Bilim Üniversitesi'],['İnönü-Üniversitesi-logo.png','İnönü Üniversitesi'],['Kirikkale-Üniversitesi-logo.png','Kırıkkale Üniversitesi'],['Çankaya_Üniversitesi_logo 1.png','Çankaya Üniversitesi'],['local:assets/uni-10-d.png','Türk Hava Kurumu Üniversitesi'],['local:assets/uni-9-d.png','TED Üniversitesi'],['Manisa-celal-bayar-universitesi-logo.png','Manisa Celal Bayar Üniversitesi'],['ISUBÜ_logo.png','Isparta Uygulamalı Bilimler Üniversitesi'],['Ankara_Üniversitesi_logosu.png','Ankara Üniversitesi'],['Hacettepe_Üniversitesi_logo.svg.png','Hacettepe Üniversitesi'],['Bülent_Ecevit_Üniversitesi_logo.png','Zonguldak Bülent Ecevit Üniversitesi']];
+  VIDS = [['OZajVV_GhQg','UX/UI Designer'],['k39YgWKgGbE','Backend Developer'],['rdoQv1Wjxaw','UX/UI Designer'],['MAVwoNwGFB4','Staj Süreçleri-1'],['VwNSsl3Sa0Y','Staj Süreçleri-2'],['NnujbJY3C7w','Backend Developer'],['Wjprg-9IBEw','Backend Developer']];
+  P = {
+    0: { intro: 'Üniversite eğitiminizle birlikte gerçek projelerde yer alarak profesyonel hayata hazırlanmak ister misiniz?', cards: [
+      ['Program Hakkında', [{ p: 'GİB Teknoloji tarafından yürütülen İş Yeri Eğitimi Programı, teknik yetkinlik gerektiren alanlarda eğitim gören üniversite öğrencilerinin mesleki gelişimini desteklemeyi amaçlar.' }, { p: 'Program, bahar, yaz ve güz dönemlerinde açılır ve her dönem için ayrı bir değerlendirme süreci yürütülür. 2027 yaz dönemi başvuruları 1 Mart – 15 Nisan 2027 tarihleri arasında alınacaktır.' }]],
+      ['Başvuru Şartları', [{ ul: ['Üniversitelerin bilgisayar mühendisliği, yazılım mühendisliği, endüstri mühendisliği, elektrik-elektronik mühendisliği, yönetim bilişim sistemleri, adli bilişim ve istatistik gibi teknik bölümlerinde öğrenim gören 3. veya 4. sınıf öğrencileri,', 'GİB Teknoloji’nin protokol yaptığı üniversiteler aracılığıyla veya T.C. Cumhurbaşkanlığı Ulusal Kariyer Kapısı üzerinden iş yeri eğitimi başvurusu yapmış olan öğrenciler.'] }]],
+      ['Başvuru Süreci', [{ p: 'Öğrencilerin, sayfadaki Staja Başvur butonundan ulaşılan başvuru formu üzerinden aşağıdaki bilgi ve belgelerle başvuruda bulunmaları gerekmektedir:' }, { ul: ['Güncel özgeçmiş (CV)', 'Başvurmak istedikleri dönem bilgisi', 'Tercih ettikleri proje alanı veya çalışma konusu', 'Kişisel beceriler, ilgi alanları ve teknik yeterlilikler'] }, { p: 'Yapılan başvurular, teknik yeterlilik, bölüm uyumu ve dönemsel ihtiyaçlar doğrultusunda değerlendirilir.' }]],
+      ['Neler Sunuyoruz?', [{ ul: ['Gerçek projelerde aktif görev alma', 'Deneyimli ekiplerle birlikte çalışma', 'GİB Teknoloji’nin kurum içi dinamiklerini yerinde gözlemleme', 'Kamu bilişim sistemlerini yakından tanıma fırsatı', 'Program sonunda başarılı olan adaylara, Yarı Zamanlı Çalışma Programı’na başvuru hakkı'] }]]
+    ] },
+    1: { intro: 'Profesyonel hayata öğrencilik döneminde adım atın.', cards: [
+      ['Program Hakkında', [{ p: 'GİB Teknoloji bünyesinde yürütülen Yarı Zamanlı Çalışma Programı, daha önce İş Yeri Eğitimi Programı’na katılmış ve süreci başarıyla tamamlamış öğrenciler arasından seçilen adaylara yöneliktir. Bu program sayesinde öğrenciler, eğitim hayatları devam ederken GİB Teknoloji projelerinde aktif rol alarak mesleki gelişimlerini sürdürürler.' }]],
+      ['Başvuru Şartları', [{ ul: ['GİB Teknoloji’nin İş Yeri Eğitimi Programı’na daha önce katılmış,', 'Program sonunda başarılı bulunmuş,', 'İlgili dönemde açılan yarı zamanlı pozisyonlar için başvuru yapmış öğrenciler değerlendirmeye alınır.'] }]],
+      ['Başvuru Süreci', [{ p: 'Yarı zamanlı çalışma yalnızca, iş yeri eğitimi sürecini başarıyla tamamlamış adayların talepte bulunması ve GİB Teknoloji bünyesindeki ekip ihtiyaçlarına göre değerlendirilmesi ile mümkündür.' }, { p: 'Adayların, ilgili dönemde açılan çağrılara başvurması ve en az haftada 2 tam gün çalışabilecek durumda olması beklenir.' }, { p: 'Program, öğrencinin mezuniyetine kadar sürebilir ve sürecin tamamı boyunca performans düzenli olarak izlenir.' }]],
+      ['Neler Sunuyoruz?', [{ ul: ['Kamu projelerinde aktif görev alma,', 'Ekiplerle düzenli proje katılımı,', 'Esnek ve eğitimle uyumlu bir çalışma düzeni,', 'Mezuniyet sonrası tam zamanlı istihdam sürecinde öncelikli değerlendirme.'] }]]
+    ] }
+  };
+  componentDidMount() {
+    this.__lw = innerWidth; this.__s480 = innerWidth < 480;
+    this.__mr = () => { const s = innerWidth < 480, m = innerWidth < 720; if (s !== this.__s480 || m !== this.__m720) { this.__s480 = s; this.__m720 = m; this.forceUpdate(); } if (innerWidth !== this.__lw) { this.__lw = innerWidth; this.closeMenu(); } };
+    this.__mk = e => { if (e.key === 'Escape') this.closeAll(); };
+    addEventListener('resize', this.__mr); addEventListener('keydown', this.__mk);
+    setTimeout(() => this.__touchInit && this.__touchInit(), 400);
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => { const n = innerWidth >= 1040; if (n !== this.state.nav) this.setState({ nav: n }); };
+    addEventListener('resize', this.onResize); this.onResize();
+    this.lastY = scrollY; this.mdir = -1; this.mboost = 0;
+    this.onScr = () => { const dy = scrollY - this.lastY; this.lastY = scrollY; if (dy) { this.mdir = dy > 0 ? 1 : -1; this.mboost = Math.min(14, this.mboost + Math.abs(dy) * .25); } };
+    addEventListener('scroll', this.onScr, { passive: true });
+    this.px = -9999; this.py = -9999; this.onMM = e => { this.mx = e.clientX / innerWidth - .5; this.my = e.clientY / innerHeight - .5; this.px = e.clientX; this.py = e.clientY; };
+    addEventListener('pointermove', this.onMM, { passive: true });
+    this.onImgErr = e => { const t = e.target; if (t && t.tagName === 'IMG' && t.closest('[data-uni]')) t.style.display = 'none'; };
+    document.addEventListener('error', this.onImgErr, true);
+    this.onPD = e => { if (e.pointerType === 'mouse') return; this.px = e.clientX; this.py = e.clientY; clearTimeout(this.pdT); this.pdT = setTimeout(() => { this.px = this.py = -9999; }, 900); };
+    this.initField(); this.setupReveals();
+    if (!this.reduced) document.querySelectorAll('[data-w] > span').forEach((s, i) => s.animate([{ transform: 'translateY(110%)' }, { transform: 'none' }], { duration: 1000, delay: 120 + i * 75, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }));
+    let xa = 0, xb = null, last = performance.now(), sp = 1;
+    const loop = now => {
+      this.lraf = requestAnimationFrame(loop);
+      const dt = Math.min(64, now - last); last = now; const t = this.reduced ? 0 : now;
+      sp += (this.speed - sp) * .06;
+      const a = this.marqA.current, b = null;
+      if (a && !this.reduced) { const half = a.scrollWidth / 2; xa += this.mdir * (.5 + this.mboost) * sp; this.mboost *= .92; if (half) { if (xa > 0) xa -= half; if (xa <= -half) xa += half; } a.style.transform = 'translate3d(' + xa.toFixed(2) + 'px,0,0)'; }
+      if (b && !this.reduced) { const half = b.scrollWidth / 3; if (xb == null) xb = -half; xb += dt * .045 * sp; if (xb >= 0) xb -= half; b.style.transform = 'translate3d(' + xb.toFixed(1) + 'px,0,0)'; }
+      const sm = innerWidth < 720 ? .45 : 1, sc = this.reduced ? 0 : Math.min(scrollY, 900);
+      const gl = document.querySelector('[data-glow]'); if (gl) gl.style.transform = 'translate(calc(-50% + ' + (this.mx * 90 * sm).toFixed(1) + 'px),calc(-50% + ' + (this.my * 60 * sm + Math.sin(t * .0006) * 14 - sc * .1).toFixed(1) + 'px)) scale(' + (1 + Math.sin(t * .0009) * .05).toFixed(3) + ')';
+      document.querySelectorAll('[data-st]').forEach((el, i) => { const d = +el.dataset.d || 1, r = +el.dataset.rot || 0;
+        const pr = el.offsetParent ? el.offsetParent.getBoundingClientRect() : null; let tx = 0, ty = 0;
+        if (pr && this.px > -999 && !this.reduced) { const cx = pr.left + el.offsetLeft + el.offsetWidth / 2, cy = pr.top + el.offsetTop + el.offsetHeight / 2, dx = cx - this.px, dy = cy - this.py, dd = Math.hypot(dx, dy) || 1, f = Math.max(0, 1 - dd / 240); tx = dx / dd * f * f * 70; ty = dy / dd * f * f * 70; }
+        el.__rx = (el.__rx || 0) + (tx - (el.__rx || 0)) * .12; el.__ry = (el.__ry || 0) + (ty - (el.__ry || 0)) * .12;
+        el.style.transform = 'translate3d(' + (this.mx * d * 46 * sm + el.__rx).toFixed(1) + 'px,' + ((this.my * d * 30 + Math.sin(t * .0011 + i * 1.7) * 7) * sm + el.__ry - sc * d * .14).toFixed(1) + 'px,0) rotate(' + (r + this.mx * d * 6 + Math.sin(t * .0008 + i) * 1.5 + el.__rx * .08).toFixed(2) + 'deg)'; });
+      const ps = document.getElementById('programlar');
+      if (ps) { const r = ps.getBoundingClientRect(), p = this.reduced ? 1 : Math.max(0, Math.min(1, (innerHeight * .8 - r.top) / (r.height * .55))), fl = ps.querySelectorAll('[data-pfill]'), n = fl.length;
+        fl.forEach((f, k) => { f.style.transform = 'scaleX(' + Math.max(0, Math.min(1, p * n - k)).toFixed(3) + ')'; });
+        if (!this.reduced && r.bottom > 0 && r.top < innerHeight) { const k = (innerHeight - r.top) * .08;
+          const g = ps.querySelector('[data-pgrid]'); if (g) g.style.transform = 'translate3d(' + (this.mx * 20).toFixed(1) + 'px,' + ((-k % 80) + this.my * 14).toFixed(1) + 'px,0)';
+          ps.querySelectorAll('[data-porb]').forEach((o, j) => { const s = j ? -1 : 1; o.style.transform = 'translate3d(' + (Math.sin(t * .00035 + j * 2) * 90 * s + this.mx * 40 * s).toFixed(1) + 'px,' + (Math.cos(t * .00028 + j) * 60 - k * .6 * s).toFixed(1) + 'px,0) scale(' + (1 + Math.sin(t * .0005 + j * 3) * .12).toFixed(3) + ')'; }); } }
+      const j = this.journeyRef.current;
+      if (j) { const r = j.getBoundingClientRect(), p = Math.max(0, Math.min(1, (innerHeight * .75 - r.top) / (r.height * .7))); const f = j.querySelector('[data-jfill]'); if (f) f.style.transform = 'scaleX(' + p.toFixed(3) + ')';
+        j.querySelectorAll('[data-node]').forEach((nd, k, all) => { const on = p >= k / Math.max(1, all.length - 1) - .001; nd.style.borderColor = on ? '#4edfc7' : 'rgba(236,234,246,.25)'; nd.style.color = on ? '#0b0916' : '#8a87a3'; nd.style.background = on ? '#4edfc7' : '#160B1A'; }); }
+    };
+    this.lraf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() {
+    removeEventListener('resize', this.__mr); removeEventListener('keydown', this.__mk); this.__lock(false);
+    cancelAnimationFrame(this.lraf); cancelAnimationFrame(this.fraf); removeEventListener('resize', this.onResize); removeEventListener('pointermove', this.onPM); removeEventListener('pointermove', this.onMM); removeEventListener('pointerdown', this.onPD); document.documentElement.removeEventListener('mouseleave', this.onLeave); removeEventListener('scroll', this.onScr); document.removeEventListener('error', this.onImgErr, true);
+    this.fro && this.fro.disconnect(); this.io && this.io.disconnect(); this.mo && this.mo.disconnect(); clearTimeout(this.fallback);
+  }
+  initField() {
+    const c = this.fieldRef.current; if (!c) return;
+    const ctx = c.getContext('2d'); this.fm = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
+    const size = () => { const r = c.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); this.fw = r.width; this.fh = r.height; c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
+    size(); this.fro = new ResizeObserver(size); this.fro.observe(c);
+    this.onPM = e => { if (e.pointerType && e.pointerType !== 'mouse') return;
+      const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      this.fm.tx = x; this.fm.ty = y;
+      const rg = this.ringRef.current; if (rg) { const touch = e.pointerType === 'touch'; rg.style.opacity = touch ? '0' : '1'; this.ringHot = !!(e.target.closest && e.target.closest('a,button')); rg.style.borderColor = this.ringHot ? '#4edfc7' : 'rgba(236,234,246,.55)'; if (this.rx == null) { this.rx = x; this.ry = y; } }
+      if (this.fxRef.current) this.fxRef.current.textContent = (x / r.width).toFixed(3);
+      if (this.fyRef.current) this.fyRef.current.textContent = (y / r.height).toFixed(3);
+    };
+    addEventListener('pointermove', this.onPM, { passive: true });
+    this.onLeave = () => { this.fm.tx = this.fm.ty = -9999; const rg = this.ringRef.current; if (rg) rg.style.opacity = '0'; };
+    document.documentElement.addEventListener('mouseleave', this.onLeave);
+    const draw = t => {
+      this.fraf = requestAnimationFrame(draw);
+      if (this.__coarse == null) this.__coarse = matchMedia('(pointer: coarse)').matches;
+      if (this.__coarse) { if (t - (this.__lt || 0) < 40 || document.hidden || scrollY > innerHeight * 1.5) return; this.__lt = t; }
+      const m = this.fm;
+      if (m.tx < -999 || m.x < -999) { m.x = m.tx; m.y = m.ty; } else { m.x += (m.tx - m.x) * .12; m.y += (m.ty - m.y) * .12; }
+      const rg = this.ringRef.current; if (rg && this.rx != null && m.tx > -999) { this.rx += (m.tx - this.rx) * .2; this.ry += (m.ty - this.ry) * .2; this.rs = (this.rs || 1) + ((this.ringHot ? 1.7 : 1) - (this.rs || 1)) * .2; rg.style.transform = 'translate3d(' + this.rx.toFixed(1) + 'px,' + this.ry.toFixed(1) + 'px,0) scale(' + this.rs.toFixed(3) + ')'; }
+      const gap = Math.max(this.__coarse ? 13 : 0, { Seyrek: 12, Normal: 9, 'Yoğun': 7 }[this.props.fieldDensity ?? 'Normal'] || 9);
+      const tt = (this.props.fieldMotion ?? true) && !this.reduced ? t : 0;
+      ctx.clearRect(0, 0, this.fw, this.fh);
+      const cols = Math.ceil(this.fw / gap), rows = Math.ceil(this.fh / gap);
+      const mask = null;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = gap / 2 + i * gap, y = gap / 2 + j * gap;
+        const L = mask ? mask[(j * cols + i) * 4 + 3] / 255 : 0;
+        const dx = x - m.x, dy = y - m.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = Math.max(0, 1 - d / 180);
+        const hs = Math.abs(Math.sin(i * 12.9898 + j * 78.233) * 43758.5453) % 1;
+        const n = Math.sin(x * .0042 + tt * .00022 + Math.sin(y * .0061 + tt * .00017) * 2.2) * Math.cos(y * .0048 - tt * .00026 + Math.sin(x * .0033 - tt * .00012) * 1.6), w = Math.max(0, n);
+        let a, cr = 236, cg = 238, cb = 248;
+        if (L > .35) a = .72 + .14 * Math.sin(tt * .0015 + i * .31 + j * .17);
+        else { const keep = hs < .06 + .42 * w * w; if (!keep && f < .05) continue; a = keep ? .08 + .38 * w * w : 0; cr = 118; cg = 196; cb = 214; }
+        a = Math.min(1, a + .8 * f * f);
+        const sz = (L > .35 ? 2.1 : 1.6) + 2.2 * f;
+        ctx.fillStyle = 'rgba(' + Math.round(cr + (78 - cr) * f) + ',' + Math.round(cg + (223 - cg) * f) + ',' + Math.round(cb + (199 - cb) * f) + ',' + a.toFixed(3) + ')';
+        ctx.fillRect(x + dx / d * f * 12 - sz / 2, y + dy / d * f * 12 - sz / 2, sz, sz);
+      }
+    };
+    this.fraf = requestAnimationFrame(draw);
+  }
+  componentDidUpdate(pp, ps) {
+    if (ps.tab === this.state.tab || this.reduced) return;
+    requestAnimationFrame(() => { const e = 'cubic-bezier(.2,.8,.2,1)';
+      document.querySelectorAll('[data-pintro]').forEach(el => el.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 600, easing: e, fill: 'backwards' }));
+      document.querySelectorAll('[data-pcard]').forEach((el, i) => el.animate([{ opacity: 0, transform: 'translateY(28px) scale(.98)' }, { opacity: 1, transform: 'none' }], { duration: 700, delay: 80 + i * 70, easing: e, fill: 'backwards' })); });
+  }
+  cardMove = e => {
+    const c = e.target.closest && e.target.closest('[data-pcard]'); if (!c) return;
+    if (this.tiltEl && this.tiltEl !== c) this.tiltEl.style.transform = '';
+    this.tiltEl = c; const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    c.style.setProperty('--mx', x.toFixed(0) + 'px'); c.style.setProperty('--my', y.toFixed(0) + 'px');
+    if (e.pointerType === 'mouse' && !this.reduced) c.style.transform = 'perspective(1000px) rotateX(' + ((.5 - y / r.height) * 4).toFixed(2) + 'deg) rotateY(' + ((x / r.width - .5) * 5).toFixed(2) + 'deg)';
+  };
+  cardLeave = () => { const c = this.tiltEl; if (!c) return; c.style.transform = ''; c.style.removeProperty('--mx'); c.style.removeProperty('--my'); this.tiltEl = null; };
+  countUp(el) {
+    const v = el.dataset.v || '', m = v.match(/^(\D*)([\d.,]+)(.*)$/), tn = el.firstChild;
+    if (!m || !tn || tn.nodeType !== 3 || this.reduced) return;
+    const comma = m[2].includes(','), num = parseFloat(comma ? m[2].replace(/,/g, '') : m[2]), dec = comma ? 0 : (m[2].split('.')[1] || '').length, t0 = performance.now();
+    const step = t => { const u = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - u, 3), val = num * e; tn.nodeValue = u < 1 ? m[1] + (comma ? Math.round(val).toLocaleString('en-US') : val.toFixed(dec)) + m[3] : v; if (u < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  setupReveals() {
+    if (this.reduced) return;
+    const show = (el, d) => {
+      if (el.dataset.shown) return; el.dataset.shown = '1';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.1,1) ' + d + 'ms, transform 1s cubic-bezier(.2,.7,.1,1) ' + d + 'ms';
+      el.style.opacity = '1'; el.style.transform = 'none';
+      setTimeout(() => { el.style.transition = el.dataset.tr0 || ''; el.style.transform = ''; }, d + 1100);
+      el.querySelectorAll('[data-cnt]').forEach(c => setTimeout(() => this.countUp(c), d + 120));
+      if (el.hasAttribute('data-cnt')) setTimeout(() => this.countUp(el), d + 120);
+    };
+    const delay = el => { const sib = [...el.parentNode.children].filter(x => x.hasAttribute('data-r')); return Math.max(0, sib.indexOf(el)) * 70; };
+    this.io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { this.io.unobserve(en.target); show(en.target, delay(en.target)); } }), { threshold: 0.12, rootMargin: '0px 3000px -6% 3000px' });
+    const scan = () => document.querySelectorAll('[data-r]:not([data-armed])').forEach(el => {
+      el.dataset.armed = '1'; el.dataset.tr0 = el.style.transition || ''; el.style.opacity = '0'; el.style.transform = 'translate3d(0,28px,0)';
+      if (el.getBoundingClientRect().top < innerHeight) requestAnimationFrame(() => requestAnimationFrame(() => show(el, delay(el)))); else this.io.observe(el);
+    });
+    scan();
+    this.mo = new MutationObserver(scan); this.mo.observe(document.body, { childList: true, subtree: true });
+    this.fallback = setTimeout(() => document.querySelectorAll('[data-r]').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) show(el, 0); }), 2500);
+  }
+
+  renderVals() {
+    const tab = this.state.tab, nV = this.VIDS.length, vi = this.state.vid, prog = this.P[tab];
+    const WHITE = ['Manisa Celal Bayar Üniversitesi', 'Isparta Uygulamalı Bilimler Üniversitesi', 'Ankara Bilim Üniversitesi', 'İnönü Üniversitesi'];
+    const unis = this.UNIS.map(([f, alt]) => ({ alt, filter: WHITE.includes(alt) ? 'brightness(0) invert(1)' : 'none', src: f.startsWith('local:') ? f.slice(6) : 'https://teknoloji.gib.gov.tr/assets/img/' + encodeURIComponent(f) }));
+    const A = unis, B = [];
+    const vid = (i) => { const [id, role] = this.VIDS[i]; return { id, role, title: 'Kariyerine İlk Adım Programı ' + (i + 1), thumb: 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg', embed: 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0' }; };
+    const goTab = i => () => { this.setState({ tab: i }); const el = document.getElementById('programlar'); if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' }); };
+    return {
+      fieldRef: this.fieldRef, ringRef: this.ringRef, marqA: this.marqA, marqB: this.marqB, journeyRef: this.journeyRef, ...this.__rail(), ctaWrap: innerWidth < 720 ? 'nowrap' : 'wrap', ctaGap: innerWidth < 720 ? '8px' : '12px', ctaFlex: innerWidth < 720 ? '1 1 0' : '0 0 auto', ctaH: innerWidth < 720 ? '44px' : '50px', ctaPad: innerWidth < 360 ? '0 10px' : innerWidth < 720 ? '0 14px' : '0 24px', ctaFs: innerWidth < 360 ? '13px' : innerWidth < 720 ? '14px' : '15px', ctaIg: innerWidth < 360 ? '6px' : innerWidth < 720 ? '8px' : '10px', stH: innerWidth < 720 ? '150px' : 'clamp(240px,32vw,500px)', stPad: innerWidth < 720 ? '8px 14px' : '14px 22px', stFs: innerWidth < 720 ? '11px' : 'clamp(13px,1vw,16px)', stSh: innerWidth < 720 ? '0 10px 24px rgba(0,0,0,.3)' : '0 18px 40px rgba(0,0,0,.35)', vidListD: innerWidth < 720 ? 'none' : 'block', expH2: innerWidth < 720 ? 'min(46px, calc((100vw - 2 * clamp(20px,3vw,48px)) / 13.4))' : 'clamp(28px,2.6vw,46px)', expWs: innerWidth < 720 ? 'nowrap' : 'normal', stepCols: innerWidth < 720 ? 'none' : 'repeat(auto-fit,minmax(min(100%,220px),1fr))', stepPr: innerWidth < 720 ? '24px' : '0', stepBr: innerWidth < 720 ? '1px solid rgba(236,234,246,.12)' : '0', cardCols: innerWidth < 720 ? 'none' : 'repeat(auto-fit,minmax(min(100%,300px),1fr))', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, closeMenu: this.closeMenu, showLinks: this.state.nav, hideLinks: !(this.state.nav),
+      cardMove: this.cardMove, cardLeave: this.cardLeave,
+      marqSlow: () => { this.speed = .25; }, marqFast: () => { this.speed = 1; },
+      unisA: A.concat(A), unisB: B.concat(B, B), uniCount: this.UNIS.length,
+      steps: [
+        { num: '01', title: 'İş Yeri Eğitimi', value: '189+', label: 'İş Yeri Eğitimi Uygulaması', hasGo: true, go: goTab(0) },
+        { num: '02', title: 'Yarı Zamanlı Çalışma Programı', value: '25+', label: 'Yarı Zamanlı Çalışan', hasGo: true, go: goTab(1) },
+        { num: '03', title: 'Tam Zamanlı İstihdam', value: '35+', label: 'Tam Zamanlı İstihdam', hasGo: false, go: null }
+      ],
+      tabs: ['İş Yeri Eğitimi', 'Yarı Zamanlı Çalışma Programı'].map((label, i) => { const on = tab === i; return { label, num: String(i + 1).padStart(2, '0'), on: on ? 'true' : 'false', color: on ? '#eceaf6' : '#6f6c86', numColor: on ? '#4edfc7' : '#6f6c86', bar: on ? 1 : 0, pick: () => this.setState({ tab: i }) }; }),
+      intro: prog.intro,
+      cards: prog.cards.map(([title, blocks], i) => ({ num: String(i + 1).padStart(2, '0'), title, blocks: blocks.map(b => ({ isP: !!b.p, isUl: !!b.ul, text: b.p || '', link: b.link || '', hasLink: !!b.link, after: b.after || '', items: b.ul || [] })) })),
+      vids: this.VIDS.map((_, i) => { const v = vid(i), on = i === vi; return { ...v, num: String(i + 1).padStart(2, '0'), on: on ? 'true' : 'false', color: on ? '#eceaf6' : '#a4a1bb', numColor: on ? '#4edfc7' : '#6f6c86', pick: () => this.setState({ vid: i, playing: false }) }; }),
+      vid: vid(vi), vidCount: (vi + 1) + ' / ' + nV, playing: this.state.playing, notPlaying: !this.state.playing,
+      play: () => this.setState({ playing: true }),
+      prevVid: () => this.setState({ vid: (vi - 1 + nV) % nV, playing: false }), nextVid: () => this.setState({ vid: (vi + 1) % nV, playing: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

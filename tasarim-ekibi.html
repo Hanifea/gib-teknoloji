@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasarım Ekibi · GİB Teknoloji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-underline-offset:.2em}
+a:hover{color:#4edfc7}
+button{font:inherit;color:inherit}
+input::placeholder{color:#6f6c86}
+input[type=search]::-webkit-search-cancel-button{display:none}
+::selection{background:#4edfc7;color:#0b0916}
+:focus-visible{outline:1px solid #4edfc7;outline-offset:3px}
+</style>
+<script src="./touch.js"></script>
+</helmet>
+
+<div lang="tr" style="position:relative;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
+<canvas ref="{{ fieldRef }}" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block"></canvas>
+<div ref="{{ ringRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:60;width:36px;height:36px;margin:-18px 0 0 -18px;border:1px solid rgba(236,234,246,.55);border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s ease,border-color .3s ease;will-change:transform"></div>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(22,11,26,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;height:72px;padding:0 clamp(20px,3vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="index.html" aria-label="GİB Teknoloji anasayfa" style="display:flex;flex-shrink:0;text-decoration:none"><img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:32px;width:auto;display:block;filter:brightness(0) invert(1)"></a>
+    <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}">
+      <nav style="flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(18px,2.6vw,48px);font-size:15px">
+        <a href="index.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa</a>
+        <a href="hakkimizda.html" aria-current="page" style="position:relative;text-decoration:none;color:#ffffff;font-weight:500">Hakkımızda<span aria-hidden="true" style="position:absolute;left:-4px;right:-4px;bottom:-7px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(78,223,199,0),#4edfc7 50%,rgba(78,223,199,0));box-shadow:0 0 10px rgba(78,223,199,.55)"></span></a>
+        <a href="projelerimiz.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Projeler</a>
+        <a href="staj.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları</a>
+        <a href="acik-pozisyonlar.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar</a>
+      </nav>
+    </sc-if>
+    <a href="cv-gonder.html" style="flex-shrink:0;margin-left:auto;display:{{ cvBar }};align-items:center;justify-content:center;width:136px;height:40px;padding:0 18px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap;transition:background-color .2s ease,padding .2s ease" style-hover="background:#ffffff url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2016%2016%22%20fill=%22none%22%20stroke=%22%23160B1A%22%20stroke-width=%221.8%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M3%208h10M9%204l4%204-4%204%22/%3E%3C/svg%3E) no-repeat right 20px center / 14px 14px;padding:0 40px 0 18px;color:#160B1A">CV Gönder</a>
+    <sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuAria }}" aria-controls="mobil-menu" aria-label="{{ menuLabel }}" style="flex-shrink:0;display:grid;place-items:center;width:48px;height:44px;padding:0;border:1px solid rgba(236,234,246,.22);border-radius:10px;background:rgba(22,11,26,.4);cursor:pointer;color:#eceaf6"><span aria-hidden="true" style="display:flex;flex-direction:column;gap:6px;width:22px"><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar1 }};transition:transform .3s ease"></span><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar2 }};transition:transform .3s ease"></span></span></button></sc-if>
+  </div>
+</header>
+<sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}">
+  <div id="mobil-menu" aria-hidden="{{ menuHidden }}" style="position:fixed;left:0;right:0;top:72px;bottom:0;z-index:39;visibility:{{ menuVis }};opacity:{{ menuOp }};transition:opacity .3s ease,visibility .3s ease;background:rgba(22,11,26,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:clamp(16px,4vw,32px) clamp(20px,3vw,48px) calc(24px + env(safe-area-inset-bottom))">
+    <nav aria-label="Mobil menü" onClick="{{ closeMenu }}" style="display:flex;flex-direction:column;transform:translateY({{ menuY }});transition:transform .35s cubic-bezier(.2,.7,.2,1)">
+      <a href="index.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="hakkimizda.html" aria-current="page" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#ffffff;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda<span aria-hidden="true" style="font-size:18px;color:#4edfc7">→</span></a>
+      <a href="projelerimiz.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Projeler<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="staj.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="acik-pozisyonlar.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+    </nav>
+    <a href="cv-gonder.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;flex:none;height:52px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:16px;font-weight:500" style-hover="background:#ffffff;color:#160B1A">CV Gönder</a>
+  </div>
+</sc-if>
+
+<section id="top" data-screen-label="Tasarım Ekibi Hero" style="position:relative;z-index:1;padding:clamp(40px,5vw,80px) clamp(20px,3vw,48px) clamp(56px,6vw,104px)">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:20px">
+    <nav aria-label="Sayfa yolu" style="display:flex;align-items:center;gap:10px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">
+      <a href="hakkimizda.html#ekiplerimiz" style="display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:#c9c6dc" style-hover="color:#ffffff">Hakkımızda</a><span aria-hidden="true">›</span><span aria-current="page" style="color:#4edfc7">Tasarım Ekibi</span>
+    </nav>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
+      <h1 data-r="" style="margin:0;font-weight:400;font-size:clamp(34px,3.6vw,60px);line-height:1;letter-spacing:-0.04em">Tasarım <em style="font-style:normal;color:#4edfc7">Ekibi</em></h1>
+      <p data-r="" style="margin:0;max-width:62ch;font-size:18px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Ürün Tasarımı ekibi olarak, GİB Teknoloji ürünlerinin uçtan uca kullanıcı deneyimini tasarlıyoruz. Kullanıcı ihtiyaçlarını ve iş süreçlerini analiz ederek anlaşılır, erişilebilir ve sürdürülebilir dijital deneyimler geliştiriyoruz.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tanitim" data-screen-label="Ekibimizi Tanıyın" style="position:relative;z-index:1;padding:clamp(56px,6vw,104px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(32px,3.4vw,56px)">
+    <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Ekibimizi <em style="font-style:normal;color:#4edfc7">Tanıyın</em></h2>
+    <div style="display:grid;grid-template-columns:{{ bentoCols }};grid-template-areas:{{ bentoAreas }};grid-auto-flow:{{ bentoFlow }};grid-auto-columns:min(84%,360px);gap:clamp(12px,1.4vw,20px);overflow-x:{{ bentoOv }};overflow-y:{{ bentoOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ bentoSnap }};scroll-padding-inline:clamp(20px,3vw,48px);margin:0 {{ bentoBleed }};padding:0 {{ bentoPad }};scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain">
+      <article data-r="" style="grid-area:{{ areaA }};scroll-snap-align:start;display:flex;flex-direction:column;gap:16px;padding:clamp(22px,2vw,32px);border-radius:16px;background:rgba(240,212,246,.07);border:1px solid rgba(240,212,246,.16)">
+        <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;letter-spacing:-0.02em;color:#f0d4f6">Ürün Tasarımı</h3>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#c9c6dc;text-wrap:pretty">Ürün Tasarımı ekibi olarak, GİB Teknoloji ürünlerinin uçtan uca kullanıcı deneyimini tasarlıyoruz. Kullanıcı ihtiyaçlarını ve iş süreçlerini analiz ederek anlaşılır, erişilebilir ve sürdürülebilir dijital deneyimler geliştiriyoruz. Ürün, yazılım ve diğer disiplinlerle yakın iş birliği içinde çalışarak, kamu hizmetlerinin dijital ortamda daha etkin ve kullanıcı odaklı sunulmasına katkı sağlıyoruz.</p>
+      </article>
+      <article data-r="" style="grid-area:{{ areaB }};scroll-snap-align:start;display:flex;flex-direction:column;gap:16px;padding:clamp(22px,2vw,32px);border-radius:16px;background:rgba(78,223,199,.08);border:1px solid rgba(78,223,199,.2)">
+        <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;letter-spacing:-0.02em;color:#4edfc7">Araştırma</h3>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#c9c6dc;text-wrap:pretty">Tasarım ekibi olarak, kullanıcı içgörülerini ürün geliştirme süreçlerine aktararak GİB Teknoloji ürünlerinin geliştirilmesine katkı sağlıyoruz. Kullanıcı ihtiyaçlarını ve beklentilerini anlamak, ürün stratejilerine yön vermek ve yeni fırsatları ortaya çıkarmak için ürün, tasarım, veri ve yazılım ekipleriyle yakın iş birliği içinde çalışıyoruz.</p>
+      </article>
+      <article data-r="" style="grid-area:{{ areaC }};scroll-snap-align:start;display:flex;flex-direction:column;gap:16px;padding:clamp(22px,2vw,32px);border-radius:16px;background:rgba(191,244,247,.06);border:1px solid rgba(191,244,247,.16)">
+        <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;letter-spacing:-0.02em;color:#bff4f7">İçerik Tasarımı</h3>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#c9c6dc;text-wrap:pretty">GİB Teknoloji ürünlerindeki her kelimenin açık, anlaşılır ve amacına uygun olmasını sağlıyoruz. Kullanıcıların ürünlerimizi ve sunduğumuz hizmetleri daha kolay anlamalarına ve kullanmalarına yardımcı olan içerikler tasarlıyoruz. Ürünlerin tüm temas noktalarında tutarlı, sade ve kullanıcı odaklı bir iletişim dili oluşturuyoruz.</p>
+      </article>
+      <article data-r="" style="grid-area:{{ areaD }};scroll-snap-align:start;display:flex;flex-direction:column;gap:16px;padding:clamp(22px,2vw,32px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08)">
+        <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;letter-spacing:-0.02em;color:#eceaf6">Tasarım Sistemleri</h3>
+        <p style="margin:0;font-size:15px;line-height:1.65;color:#c9c6dc;text-wrap:pretty">Tasarım ekibi olarak, GİB Teknoloji ürünlerinde tutarlı, ölçeklenebilir ve sürdürülebilir bir tasarım dilinin oluşturulmasına katkı sağlıyoruz. Farklı ürün ve platformlarda kullanılan bileşenleri, tasarım kurallarını ve kullanıcı deneyimi standartlarını ortak bir yapı altında bir araya getiriyoruz. Tasarım ve yazılım ekipleriyle yakın iş birliği içinde çalışarak, yeni ürünlerin geliştirilme sürecini hızlandırırken mevcut ürünlerde de tutarlı bir deneyim sunulmasını hedefliyoruz.</p>
+        <img src="assets/tasarim-illus-w.png" alt="Telefon ekranı önünde dizüstü bilgisayarla çalışan kişi illüstrasyonu" style="display:{{ illusDisp }};width:100%;max-width:240px;height:auto;margin:auto auto 0">
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="sozler" ref="{{ qRef }}" data-screen-label="Ekibimizden" style="position:relative;z-index:1;height:{{ qSecH }};border-top:1px solid rgba(236,234,246,.1)">
+  <div style="position:{{ qSticky }};top:{{ qTop }};height:{{ qStickyH }};overflow:{{ qOverflow }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{{ qGap }};padding:{{ qPad }}">
+    <h2 style="position:relative;z-index:1;margin:0;text-align:center;font-weight:400;font-size:clamp(36px,5.4vw,96px);line-height:1.02;letter-spacing:-0.05em;pointer-events:none">Ekibimizin gözünden<br><em style="font-style:normal;color:#4edfc7">GİB Teknoloji</em></h2>
+    <div style="position:{{ qWrapPos }};inset:0;z-index:2;display:flex;flex-direction:{{ qDir }};align-items:{{ qAlign }};gap:16px;width:{{ qWrapW }};margin:0 {{ bentoBleed }};padding:0 {{ bentoPad }};box-sizing:border-box;overflow-x:{{ bentoOv }};overflow-y:{{ bentoOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ bentoSnap }};scroll-padding-inline:clamp(20px,3vw,48px);scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;pointer-events:{{ qPe }}">
+      <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="6">
+        <figure data-q="{{ q.rot }}" style="position:{{ qCardPos }};left:{{ q.left }};top:0;margin:0;width:{{ qCardW }};flex-shrink:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:18px;padding:clamp(20px,1.8vw,28px);border-radius:18px;background:#1d1022;border:1px solid rgba(236,234,246,.1);box-shadow:0 30px 60px -30px rgba(0,0,0,.7);pointer-events:auto;will-change:transform">
+          <svg width="34" height="26" viewBox="0 0 34 26" aria-hidden="true" style="display:block"><path d="M0 26V15.6C0 6.8 4.6 1.6 12.6 0l1.6 3.6C9.4 5 7.2 8 7 12.4h6V26H0Zm19.4 0V15.6C19.4 6.8 24 1.6 32 0l1.6 3.6C28.8 5 26.6 8 26.4 12.4h6V26H19.4Z" fill="#4edfc7"></path></svg>
+          <blockquote style="margin:0;font-size:16px;line-height:1.6;color:#eceaf6;text-wrap:pretty">{{ q.text }}</blockquote>
+          <figcaption style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3">— {{ q.name }} · {{ q.role }}</figcaption>
+          <div style="aspect-ratio:2/1;border-radius:10px;overflow:hidden;background:#160B1A"><img src="{{ q.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:{{ q.pos }};display:block"></div>
+        </figure>
+      </sc-for>
+    </div>
+    
+  </div>
+</section>
+
+<section id="fotograflar" ref="{{ phRef }}" data-screen-label="Fotoğraflarımız" style="position:relative;z-index:1;height:{{ phSecH }};border-top:1px solid rgba(236,234,246,.1)">
+  <sc-if value="{{ phWide }}" hint-placeholder-val="{{ true }}">
+    <div onClick="{{ openPhoto }}" style="position:sticky;top:72px;height:calc(100svh - 72px);overflow:hidden;perspective:1000px;perspective-origin:50% 50%">
+      <div style="position:absolute;left:50%;top:50%;z-index:50;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;pointer-events:none">
+        <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Fotoğraflarımız</h2>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:420px">
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#f0d4f6;color:#160B1A;font-size:14px;font-weight:500;transform:rotate(-4deg)">#Userexperience</span>
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#bff4f7;color:#160B1A;font-size:14px;font-weight:500;transform:translateY(-6px) rotate(6deg)">#uikit</span>
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#bff4f7;color:#160B1A;font-size:14px;font-weight:500;transform:rotate(3deg)">#Tasarımekibi</span>
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#f0d4f6;color:#160B1A;font-size:14px;font-weight:500;transform:translateY(4px) rotate(-3deg)">#motiondesign</span>
+        </div>
+      </div>
+      <div style="position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d">
+        <sc-for list="{{ phItems }}" as="f" hint-placeholder-count="0">
+          <div data-fly="{{ $index }}" style="position:absolute;left:0;top:0;width:{{ f.w }};opacity:0;will-change:transform,opacity">
+            <sc-if value="{{ f.isPhoto }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:12px;border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.1);box-shadow:0 30px 60px -30px rgba(0,0,0,.7)"><div style="aspect-ratio:{{ f.ar }};border-radius:10px;overflow:hidden;background:#160B1A"><img src="{{ f.src }}" alt="Tasarım ekibinden bir kare" style="cursor:zoom-in;width:100%;height:100%;object-fit:cover;object-position:{{ f.pos }};display:block"></div></div>
+            </sc-if>
+            <sc-if value="{{ f.isBadge }}" hint-placeholder-val="{{ false }}">
+              <div data-spin="" style="position:relative;width:100%;aspect-ratio:1">
+                <svg viewBox="0 0 200 200" style="position:absolute;inset:0;width:100%;height:100%;display:block"><circle cx="100" cy="100" r="98" fill="{{ f.bg }}"></circle><path id="{{ f.pid }}" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0" fill="none"></path><text style="font-family:'Geist Mono',ui-monospace,monospace;font-size:15px;letter-spacing:3.2px;font-weight:500" fill="#160B1A"><textPath href="{{ f.href }}">{{ f.ring }}</textPath></text></svg>
+                <img src="assets/gib-mark.png" alt="" style="position:absolute;left:50%;top:50%;width:30%;transform:translate(-50%,-50%);filter:brightness(0);display:block">
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      
+    </div>
+  </sc-if>
+  <sc-if value="{{ phNarrow }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:clamp(56px,6vw,104px) clamp(20px,3vw,48px);display:flex;flex-direction:column;gap:32px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+        <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Fotoğraflarımız</h2>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:420px">
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#f0d4f6;color:#160B1A;font-size:14px;font-weight:500;transform:rotate(-4deg)">#Userexperience</span>
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#bff4f7;color:#160B1A;font-size:14px;font-weight:500;transform:translateY(-6px) rotate(6deg)">#uikit</span>
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#bff4f7;color:#160B1A;font-size:14px;font-weight:500;transform:rotate(3deg)">#Tasarımekibi</span>
+          <span style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:#f0d4f6;color:#160B1A;font-size:14px;font-weight:500;transform:translateY(4px) rotate(-3deg)">#motiondesign</span>
+        </div>
+      </div>
+      <div onClick="{{ openPhoto }}" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+        <sc-for list="{{ phGrid }}" as="f" hint-placeholder-count="0">
+          <div style="padding:8px;border-radius:14px;background:#1d1022;border:1px solid rgba(236,234,246,.1)"><div style="aspect-ratio:3/4;border-radius:8px;overflow:hidden"><img src="{{ f.src }}" alt="Tasarım ekibinden bir kare" loading="lazy" style="cursor:zoom-in;width:100%;height:100%;object-fit:cover;object-position:{{ f.pos }};display:block"></div></div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+</section>
+
+<sc-if value="{{ photoOpen }}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-modal="true" aria-label="Fotoğraf" style="position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:clamp(64px,6vw,88px) clamp(12px,3vw,40px)">
+  <div onClick="{{ closePhoto }}" aria-hidden="true" style="position:absolute;inset:0;background:rgba(11,9,22,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)"></div>
+  <img src="{{ photoSrc }}" loading="lazy" alt="Tasarım ekibinden bir kare" style="position:relative;max-width:100%;max-height:100%;border-radius:12px;display:block;box-shadow:0 40px 80px -30px rgba(0,0,0,.8)">
+  <button type="button" onClick="{{ closePhoto }}" aria-label="Kapat" style="position:absolute;top:clamp(12px,2vw,24px);right:clamp(12px,2vw,24px);display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:1px solid rgba(236,234,246,.25);background:rgba(22,11,26,.6);color:#eceaf6;font-size:20px;cursor:pointer;transition:border-color .2s ease" style-hover="border-color:#4edfc7">×</button>
+</div>
+</sc-if>
+
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
+      <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+    </div>
+    <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
+  </div>
+</section>
+
+<footer style="position:relative;z-index:1;border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:18px">
+          <img src="assets/gib-logo-white.png" alt="Gelir İdaresi Başkanlığı" style="height:44px;width:auto;display:block">
+          <span aria-hidden="true" style="width:1px;align-self:stretch;background:rgba(236,234,246,.2)"></span>
+          <img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:30px;width:auto;display:block;filter:brightness(0) invert(1)"></div>
+        <div style="display:flex;gap:4px;margin-left:-12px">
+          <a href="https://twitter.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="X" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.3l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"></path></svg></a>
+          <a href="https://tr-tr.facebook.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="Facebook" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z"></path></svg></a>
+          <a href="https://www.instagram.com/gibsosyalmedya/" target="_blank" rel="noopener" aria-label="Instagram" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"></circle></svg></a>
+          <a href="https://tr.linkedin.com/company/gibsosyalmedya" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"></path></svg></a>
+        </div>
+      </div>
+      <div style="flex:0 1 auto;min-width:min(100%,300px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),max-content));gap:32px clamp(40px,5vw,96px);font-size:15px">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Kurum İçi Linkler</div>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Vergi Mevzuatı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Sıkça Sorulan Sorular</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yararlı Bilgiler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Kılavuzlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gerekli Programlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Tebliğler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yayınlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Hazır Formlar</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Hizmetler</div>
+          <a href="https://www.tccb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Cumhurbaşkanlığı</a>
+          <a href="https://www.hmb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">T.C.Hazine ve Maliye Bakanlığı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gelir İdaresi Başkanlığı</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;border-top:1px solid rgba(236,234,246,.1);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3">
+      <span>Her Hakkı Saklıdır. ©2026 Gelir İdaresi Başkanlığı</span>
+      <a href="#top" style="text-decoration:none">Yukarı dön ↑</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;fieldDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Seyrek&quot;,&quot;Normal&quot;,&quot;Yoğun&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero alanı&quot;},&quot;fieldMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero alanı&quot;}}">
+class Component extends DCLogic {
+  openPhoto = e => { const im = e.target.closest && e.target.closest('img'); if (!im || !(im.alt || '').startsWith('Tasarım ekibinden')) return; this.setState({ photo: im.getAttribute('src') }); this.__lock(true); };
+  closePhoto = () => { this.setState({ photo: null }); this.__lock(false); };
+  __touchInit() { const ok = () => this.state.wide; gibScrub(this.qRef.current, null, ok); gibScrub(this.phRef.current, null, ok); }
+  __lock(on) { document.documentElement.style.overflow = on ? 'hidden' : ''; }
+  toggleMenu = () => { const o = !this.state.menu; this.setState({ menu: o }); this.__lock(o); };
+  closeMenu = () => { if (this.state.menu) { this.setState({ menu: false }); this.__lock(false); } };
+  closeAll = () => { this.setState({ menu: false, work: null, photo: null }); this.__lock(false); };
+  state = { nav: true, wide: true, q: '', sel: { type: [], level: [], cat: [] } };
+  fieldRef = React.createRef(); qRef = React.createRef(); phRef = React.createRef(); ringRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
+  GROUPS = [
+    { key: 'type', label: 'İş Türü', opts: ['Tam Zamanlı', 'Yarı Zamanlı', 'Stajyer'] },
+    { key: 'level', label: 'Tecrübe', opts: ['Entry level', 'Intermediate', 'Expert'] },
+    { key: 'cat', label: 'İş Kategorisi', opts: ['Yazılım', 'Tasarım', 'Analiz'] }
+  ];
+  JOBS = [
+    { logo: 'gibtek', eb: 'GİB Teknoloji', title: 'Genel Başvuru', always: true, tags: [], desc: 'GİB Teknoloji bünyesinde modern kamu teknolojileri projelerimizde yetenek ve deneyimiyle değer katacak çalışma arkadaşları arıyoruz.' },
+    { logo: 'gibtek', eb: 'GİB Teknoloji', title: 'Staj Başvurusu', type: 'Stajyer', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['En az 30 gün', 't'], ['Hibrit', 'h']], desc: 'GİB Teknoloji bünyesinde modern yazılım teknolojileri ve çevik mühendislik pratiklerini deneyimleyecek stajyerler arıyoruz.' },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Frontend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: "Dijital Vergi Dairesi'nin yüksek trafikli web platformları için modern mimarilerle ölçeklenebilir, performanslı ve erişilebilir ön yüz çözümleri geliştirir." },
+    { logo: 'gibtek', eb: 'Tasarım', title: 'UI/UX Tasarımcısı', type: 'Tam Zamanlı', level: 'Expert', cat: 'Tasarım', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi için uçtan uca kullanıcı deneyimi stratejilerini belirler, kurumsal tasarım sistemini (Design System) ve sezgisel ürün arayüzlerini yönetir.' },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Backend Developer', type: 'Tam Zamanlı', level: 'Expert', cat: 'Yazılım', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: "Dijital Vergi Dairesi'nin yüksek hacimli ve dağıtık mikroservis mimarisini tasarlar, güvenli ve yüksek performanslı backend servisleri geliştirir." },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Backend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi altyapısındaki mikroservis ve API geliştirmelerine katılır, veri tabanı ve backend servis süreçlerini destekler.' },
+    { logo: 'gibtek', eb: 'Tasarım', title: 'UI/UX Tasarımcısı', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Tasarım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi akışlarında kullanıcı dostu arayüz ve prototip çalışmaları hazırlar, tasarım kütüphanesinin güncel tutulmasına katkı sağlar.' },
+    { logo: 'defterbeyan', eb: 'Yazılım Geliştirme', title: 'İş Analisti', type: 'Tam Zamanlı', level: 'Expert', cat: 'Analiz', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Karmaşık vergi mevzuatı ve iş gereksinimlerini analiz ederek kullanıcı odaklı dijital ürün akışlarına, teknik gereksinimlere ve çevik kullanıcı hikayelerine dönüştürür.' },
+    { logo: 'eymm', eb: 'Yazılım Geliştirme', title: 'Frontend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi portal ve dijital servislerinin modern arayüz bileşenlerini geliştirir, performans ve erişilebilirlik süreçlerine katkı sağlar.' }
+  ];
+  componentDidMount() {
+    this.__lw = innerWidth; this.__s480 = innerWidth < 480;
+    this.__mr = () => { const s = innerWidth < 480; if (s !== this.__s480) { this.__s480 = s; this.forceUpdate(); } if (innerWidth !== this.__lw) { this.__lw = innerWidth; this.closeMenu(); } };
+    this.__mk = e => { if (e.key === 'Escape') this.closeAll(); };
+    addEventListener('resize', this.__mr); addEventListener('keydown', this.__mk);
+    setTimeout(() => this.__touchInit && this.__touchInit(), 400);
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => { const n = innerWidth >= 1040, w = innerWidth >= 860; if (n !== this.state.nav || w !== this.state.wide) this.setState({ nav: n, wide: w }); };
+    addEventListener('resize', this.onResize); this.onResize();
+    this.initField(); this.setupReveals();
+    const qLoop = () => { this.qraf = requestAnimationFrame(qLoop); const s = this.qRef.current; if (!s) return; const cards = s.querySelectorAll('[data-q]');
+      if (!this.state.wide) { cards.forEach(el => { if (el.style.transform) el.style.transform = ''; }); return; }
+      const r = s.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+      const stage = s.firstElementChild, H = stage.offsetHeight, SW = stage.offsetWidth, n = cards.length, range = Math.max(1, s.offsetHeight - (innerHeight - 72));
+      const p = Math.min(1, Math.max(0, (72 - r.top) / range)), cw = cards[0].offsetWidth, gap = Math.max(24, SW * .04), track = SW + n * (cw + gap) + 40;
+      cards.forEach((el, i) => { const ch = el.offsetHeight, x = SW + 40 + i * (cw + gap) - p * track, y = Math.max(8, (H - ch) / 2 + (i % 2 ? 1 : -1) * Math.min(H * .07, 40));
+        el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + el.dataset.q + 'deg)'; }); };
+    this.qraf = requestAnimationFrame(qLoop);
+    this.phRot = null;
+    const phLoop = () => { this.praf = requestAnimationFrame(phLoop); const s = this.phRef.current; if (!s || !this.state.wide) return; const r = s.getBoundingClientRect(); if (r.bottom < -200 || r.top > innerHeight + 200) return;
+      const items = s.querySelectorAll('[data-fly]'), N = items.length; if (!N) return; const stage = s.querySelector('[style*="perspective"]'), W = stage.offsetWidth, H = stage.offsetHeight, cEl = stage.firstElementChild;
+      const range = Math.max(1, s.offsetHeight - (innerHeight - 72)), p = Math.min(1, Math.max(0, (72 - r.top) / range));
+      const target = -150 + p * 300; this.phRot = this.phRot == null || this.reduced ? target : this.phRot + (target - this.phRot) * .12;
+      const R = Math.max(W * .55, N * 230 / (Math.PI * 2)), Y = -H * .14, step = 360 / N;
+      cEl.style.transform = 'translate(-50%,-50%) translateY(' + (H * .3).toFixed(1) + 'px)';
+      items.forEach((el, i) => { const ph = (i * step + this.phRot) * Math.PI / 180, c = Math.cos(ph), x = R * Math.sin(ph), z = R * c - R;
+        const op = c > .1 ? 1 : Math.max(0, (c + .35) / .45);
+        el.style.opacity = op.toFixed(3); el.style.visibility = op > .01 ? 'visible' : 'hidden'; el.style.zIndex = String(Math.round(z + 5000));
+        el.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + (Y + (i % 2 ? 14 : -14)).toFixed(1) + 'px,' + z.toFixed(1) + 'px) rotateY(' + (ph * 180 / Math.PI).toFixed(2) + 'deg)'; }); };
+    this.praf = requestAnimationFrame(phLoop);
+  }
+  componentWillUnmount() {
+    removeEventListener('resize', this.__mr); removeEventListener('keydown', this.__mk); this.__lock(false);
+    cancelAnimationFrame(this.fraf); cancelAnimationFrame(this.qraf); cancelAnimationFrame(this.praf); removeEventListener('resize', this.onResize); removeEventListener('pointermove', this.onPM); document.documentElement.removeEventListener('mouseleave', this.onLeave);
+    this.fro && this.fro.disconnect(); this.io && this.io.disconnect(); this.mo && this.mo.disconnect(); clearTimeout(this.fallback);
+  }
+  initField() {
+    const c = this.fieldRef.current; if (!c) return;
+    const ctx = c.getContext('2d'); this.fm = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
+    const size = () => { const r = c.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); this.fw = r.width; this.fh = r.height; c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
+    size(); this.fro = new ResizeObserver(size); this.fro.observe(c);
+    this.onPM = e => { if (e.pointerType && e.pointerType !== 'mouse') return;
+      const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      this.fm.tx = x; this.fm.ty = y;
+      const rg = this.ringRef.current; if (rg) { const touch = e.pointerType === 'touch'; rg.style.opacity = touch ? '0' : '1'; this.ringHot = !!(e.target.closest && e.target.closest('a,button')); rg.style.borderColor = this.ringHot ? '#4edfc7' : 'rgba(236,234,246,.55)'; if (this.rx == null) { this.rx = x; this.ry = y; } }
+      if (this.fxRef.current) this.fxRef.current.textContent = (x / r.width).toFixed(3);
+      if (this.fyRef.current) this.fyRef.current.textContent = (y / r.height).toFixed(3);
+    };
+    addEventListener('pointermove', this.onPM, { passive: true });
+    this.onLeave = () => { this.fm.tx = this.fm.ty = -9999; const rg = this.ringRef.current; if (rg) rg.style.opacity = '0'; };
+    document.documentElement.addEventListener('mouseleave', this.onLeave);
+    const draw = t => {
+      this.fraf = requestAnimationFrame(draw);
+      if (this.__coarse == null) this.__coarse = matchMedia('(pointer: coarse)').matches;
+      if (this.__coarse) { if (t - (this.__lt || 0) < 40 || document.hidden || scrollY > innerHeight * 1.5) return; this.__lt = t; }
+      const m = this.fm;
+      if (m.tx < -999 || m.x < -999) { m.x = m.tx; m.y = m.ty; } else { m.x += (m.tx - m.x) * .12; m.y += (m.ty - m.y) * .12; }
+      const rg = this.ringRef.current; if (rg && this.rx != null && m.tx > -999) { this.rx += (m.tx - this.rx) * .2; this.ry += (m.ty - this.ry) * .2; this.rs = (this.rs || 1) + ((this.ringHot ? 1.7 : 1) - (this.rs || 1)) * .2; rg.style.transform = 'translate3d(' + this.rx.toFixed(1) + 'px,' + this.ry.toFixed(1) + 'px,0) scale(' + this.rs.toFixed(3) + ')'; }
+      const gap = Math.max(this.__coarse ? 13 : 0, { Seyrek: 12, Normal: 9, 'Yoğun': 7 }[this.props.fieldDensity ?? 'Normal'] || 9);
+      const tt = (this.props.fieldMotion ?? true) && !this.reduced ? t : 0;
+      ctx.clearRect(0, 0, this.fw, this.fh);
+      const cols = Math.ceil(this.fw / gap), rows = Math.ceil(this.fh / gap);
+      const mask = null;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = gap / 2 + i * gap, y = gap / 2 + j * gap;
+        const L = mask ? mask[(j * cols + i) * 4 + 3] / 255 : 0;
+        const dx = x - m.x, dy = y - m.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = Math.max(0, 1 - d / 180);
+        const hs = Math.abs(Math.sin(i * 12.9898 + j * 78.233) * 43758.5453) % 1;
+        const n = Math.sin(x * .0042 + tt * .00022 + Math.sin(y * .0061 + tt * .00017) * 2.2) * Math.cos(y * .0048 - tt * .00026 + Math.sin(x * .0033 - tt * .00012) * 1.6), w = Math.max(0, n);
+        let a, cr = 236, cg = 238, cb = 248;
+        if (L > .35) a = .72 + .14 * Math.sin(tt * .0015 + i * .31 + j * .17);
+        else { const keep = hs < .06 + .42 * w * w; if (!keep && f < .05) continue; a = keep ? .08 + .38 * w * w : 0; cr = 118; cg = 196; cb = 214; }
+        a = Math.min(1, a + .8 * f * f);
+        const sz = (L > .35 ? 2.1 : 1.6) + 2.2 * f;
+        ctx.fillStyle = 'rgba(' + Math.round(cr + (78 - cr) * f) + ',' + Math.round(cg + (223 - cg) * f) + ',' + Math.round(cb + (199 - cb) * f) + ',' + a.toFixed(3) + ')';
+        ctx.fillRect(x + dx / d * f * 12 - sz / 2, y + dy / d * f * 12 - sz / 2, sz, sz);
+      }
+    };
+    this.fraf = requestAnimationFrame(draw);
+  }
+  countUp() {}
+  setupReveals() {
+    if (this.reduced) return;
+    const show = (el, d) => {
+      if (el.dataset.shown) return; el.dataset.shown = '1';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.1,1) ' + d + 'ms, transform 1s cubic-bezier(.2,.7,.1,1) ' + d + 'ms';
+      el.style.opacity = '1'; el.style.transform = 'none';
+      setTimeout(() => { el.style.transition = el.dataset.tr0 || ''; el.style.transform = ''; }, d + 1100);
+      el.querySelectorAll('[data-cnt]').forEach(c => setTimeout(() => this.countUp(c), d + 120));
+      if (el.hasAttribute('data-cnt')) setTimeout(() => this.countUp(el), d + 120);
+    };
+    const delay = el => { const sib = [...el.parentNode.children].filter(x => x.hasAttribute('data-r')); return Math.max(0, sib.indexOf(el)) * 70; };
+    this.io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { this.io.unobserve(en.target); show(en.target, delay(en.target)); } }), { threshold: 0.12, rootMargin: '0px 3000px -6% 3000px' });
+    const scan = () => document.querySelectorAll('[data-r]:not([data-armed])').forEach(el => {
+      el.dataset.armed = '1'; el.dataset.tr0 = el.style.transition || ''; el.style.opacity = '0'; el.style.transform = 'translate3d(0,28px,0)';
+      if (el.getBoundingClientRect().top < innerHeight) requestAnimationFrame(() => requestAnimationFrame(() => show(el, delay(el)))); else this.io.observe(el);
+    });
+    scan();
+    this.mo = new MutationObserver(scan); this.mo.observe(document.body, { childList: true, subtree: true });
+    this.fallback = setTimeout(() => document.querySelectorAll('[data-r]').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) show(el, 0); }), 2500);
+  }
+
+  renderVals() {
+    const { sel, q } = this.state, norm = s => s.toLocaleLowerCase('tr'), qq = norm(q.trim());
+    const match = (j, skip) => {
+      if (qq && !norm(j.title + ' ' + j.eb + ' ' + j.desc).includes(qq)) return false;
+      if (j.always) return true;
+      return this.GROUPS.every(g => g.key === skip || !sel[g.key].length || sel[g.key].includes(j[g.key]));
+    };
+    const list = this.JOBS.filter(j => match(j)), any = this.GROUPS.some(g => sel[g.key].length);
+    const TAG = { l: ['rgba(240,212,246,.14)', '#f0d4f6'], t: ['rgba(191,244,247,.12)', '#bff4f7'], h: ['rgba(236,234,246,.08)', '#c9c6dc'] };
+    const toggle = (k, v) => () => this.setState(s => { const cur = s.sel[k]; return { sel: { ...s.sel, [k]: cur.includes(v) ? cur.filter(x => x !== v) : cur.concat(v) } }; });
+    const W = this.state.wide, QUOTES = [
+      ['Burada tasarımın yalnızca görsel bir iş olmadığını, ürünün her aşamasına dokunduğunu görmek benim için en keyifli taraflardan biri. Farklı ekiplerle birlikte çalışarak fikirlerimizi gerçek ürünlere dönüştürüyoruz.', 'Önder KUL', 'Tasarımcı', 'tasarim-foto-1', 'center 30%'],
+      ['Her projede yeni bir problemle karşılaşmak ve buna kullanıcı odaklı çözümler üretmek beni sürekli geliştiriyor. Aynı zamanda ekip içinde fikir alışverişinin çok güçlü olduğu bir ortamımız var.', 'Hanife AŞAR', 'Tasarımcı', 'tasarim-grup', 'center 40%'],
+      ['Milyonlarca kişinin kullandığı bir ekranda tek bir düğmenin yerini değiştirmenin bile ne kadar fark yarattığını burada öğrendim.', 'Elif YILMAZ', 'UX Araştırmacısı', 'tasarim-foto-4', 'center 25%'],
+      ['Kullanıcı görüşmelerinden çıkan küçük bir içgörünün tüm akışı yeniden düşünmemize yol açtığı anlar, işimin en sevdiğim kısmı.', 'Zeynep DEMİR', 'İçerik Tasarımcısı', 'tasarim-foto-3', 'center 30%'],
+      ['Tasarım sistemimiz sayesinde ekipler aynı dili konuşuyor. Bir bileşeni iyileştirdiğimizde bunun onlarca ürüne yansıdığını görmek çok motive edici.', 'Burak ŞAHİN', 'Tasarım Sistemleri', 'tasarim-foto-2', 'center 35%'],
+      ['Yazılım ekipleriyle aynı masada oturup fikirleri birlikte prototiplemek, tasarımın kâğıtta kalmamasını sağlıyor.', 'Merve KAYA', 'Ürün Tasarımcısı', 'tasarim-grup', '75% 35%']
+    ];
+    return {
+      phRef: this.phRef, phWide: W, phNarrow: !W, phSecH: W ? '320vh' : 'auto',
+      phGrid: [['tasarim-foto-1', 'center'], ['tasarim-foto-2', 'center'], ['tasarim-foto-3', 'center 25%'], ['tasarim-foto-4', 'center 20%'], ['tasarim-grup', 'center']].map(([n, pos]) => ({ src: 'assets/' + n + '.png', pos })),
+      phItems: (() => { const PH = [['tasarim-foto-1', '3/4', 'center'], ['tasarim-grup', '4/3', 'center'], ['tasarim-foto-3', '4/3', 'center 25%'], ['tasarim-foto-2', '4/3', 'center'], ['tasarim-foto-4', '3/4', 'center 20%']];
+        return Array.from({ length: 18 }, (_, i) => { const [n, ar, pos] = PH[(i * 3) % PH.length], land = ar === '4/3'; return { isPhoto: true, isBadge: false, src: 'assets/' + n + '.png', ar, pos, w: land ? '300px' : '220px', ml: '0', mt: '0', bg: '', ring: '', pid: '', href: '' }; }); })(),
+      qRef: this.qRef, qSecH: W ? 'calc(100svh - 72px + ' + Math.round(QUOTES.length * 45 + 60) + 'vh)' : 'auto', qSticky: W ? 'sticky' : 'relative', qTop: W ? '72px' : '0', qStickyH: W ? 'calc(100svh - 72px)' : 'auto',
+      qOverflow: W ? 'hidden' : 'visible', qPad: W ? '0 clamp(20px,3vw,48px)' : 'clamp(56px,6vw,104px) clamp(20px,3vw,48px)', qGap: W ? '40px' : '32px', qWrapPos: W ? 'absolute' : 'relative', qCardPos: W ? 'absolute' : 'relative',
+      quotes: QUOTES.map(([text, name, role, img, pos], i) => ({ text, name, role, img: 'assets/' + img + '.png', pos, rot: W ? [-4, 3.5, -2.5, 4, -3.5, 2.5][i] : 0,
+        left: W ? '0' : 'auto' })),
+      qDir: W ? 'column' : 'row', qAlign: W ? 'center' : 'stretch', qWrapW: W ? '100%' : 'calc(100% + 2 * clamp(20px,3vw,48px))', qPe: W ? 'none' : 'auto', qCardW: W ? 'min(100%,clamp(280px,26vw,400px))' : 'min(84%,360px)', illusDisp: W ? 'block' : 'none',
+      bentoCols: W ? 'repeat(3,minmax(0,1fr))' : 'none', bentoAreas: W ? '"a b d" "a c d"' : 'none', areaA: W ? 'a' : 'auto', areaB: W ? 'b' : 'auto', areaC: W ? 'c' : 'auto', areaD: W ? 'd' : 'auto', bentoFlow: W ? 'row' : 'column', bentoOv: W ? 'visible' : 'auto', bentoOvY: W ? 'visible' : 'hidden', bentoSnap: W ? 'none' : 'x mandatory', bentoBleed: W ? '0' : 'calc(-1 * clamp(20px,3vw,48px))', bentoPad: W ? '0' : 'clamp(20px,3vw,48px)',
+      fieldRef: this.fieldRef, ringRef: this.ringRef, heroWrap: this.state.nav ? 'nowrap' : 'normal', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, photoOpen: !!this.state.photo, photoSrc: this.state.photo || '', closePhoto: this.closePhoto, openPhoto: this.openPhoto, qPrev: () => gibStep(this.qRef.current, 6, -1), qNext: () => gibStep(this.qRef.current, 6, 1), phPrev: () => gibStep(this.phRef.current, 18, -1), phNext: () => gibStep(this.phRef.current, 18, 1), closeMenu: this.closeMenu, showLinks: this.state.nav, hideLinks: !this.state.nav,
+      totalCount: String(this.JOBS.length).padStart(2, '0'),
+      q, hasQ: !!q, onSearch: e => this.setState({ q: e.target.value }), clearQ: () => this.setState({ q: '' }),
+      clearAll: () => this.setState({ q: '', sel: { type: [], level: [], cat: [] } }), clearOp: any || q ? 1 : .45,
+      layoutCols: this.state.wide ? 'minmax(240px,300px) minmax(0,1fr)' : 'minmax(0,1fr)', asidePos: this.state.wide ? 'sticky' : 'relative',
+      groups: this.GROUPS.map(g => ({ label: g.label, opts: g.opts.map(o => { const on = sel[g.key].includes(o); return { label: o, on: on ? 'true' : 'false', toggle: toggle(g.key, o),
+        count: String(this.JOBS.filter(j => !j.always && j[g.key] === o && match(j, g.key)).length).padStart(2, '0'),
+        color: on ? '#eceaf6' : '#c9c6dc', bg: on ? '#4edfc7' : 'transparent', bd: on ? '#4edfc7' : 'rgba(236,234,246,.3)', op: on ? 1 : 0 }; }) })),
+      resultLabel: String(list.length).padStart(2, '0') + ' / ' + String(this.JOBS.length).padStart(2, '0') + ' Pozisyon',
+      empty: list.length === 0,
+      jobs: list.map(j => ({ logo: 'assets/logo-' + j.logo + '-w.png', logoAlt: { gibtek: 'GİB Teknoloji', dvd: 'Dijital Vergi Dairesi', defterbeyan: 'Defter Beyan Sistemi', eymm: 'e-YMM' }[j.logo], eb: j.eb, title: j.title, desc: j.desc, hasTags: j.tags.length > 0, href: 'mailto:kariyer@gelirler.gov.tr?subject=' + encodeURIComponent(j.title + ' Başvurusu'),
+        tags: j.tags.map(([label, k]) => ({ label, bg: TAG[k][0], fg: TAG[k][1] })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

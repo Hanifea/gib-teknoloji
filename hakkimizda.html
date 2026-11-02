@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hakkımızda · GİB Teknoloji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-underline-offset:.2em}
+a:hover{color:#4edfc7}
+button{font:inherit;color:inherit}
+::selection{background:#4edfc7;color:#0b0916}
+:focus-visible{outline:1px solid #4edfc7;outline-offset:3px}
+</style>
+<script src="./image-slot.js"></script>
+<script src="./touch.js"></script>
+</helmet>
+
+<div lang="tr" style="background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(22,11,26,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;height:72px;padding:0 clamp(20px,3vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="index.html" aria-label="GİB Teknoloji anasayfa" style="display:flex;flex-shrink:0;text-decoration:none"><img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:32px;width:auto;display:block;filter:brightness(0) invert(1)"></a>
+    <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}">
+      <nav style="flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(18px,2.6vw,48px);font-size:15px">
+        <a href="index.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa</a>
+        <a href="#top" aria-current="page" style="position:relative;text-decoration:none;color:#ffffff;font-weight:500">Hakkımızda<span aria-hidden="true" style="position:absolute;left:-4px;right:-4px;bottom:-7px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(78,223,199,0),#4edfc7 50%,rgba(78,223,199,0));box-shadow:0 0 10px rgba(78,223,199,.55)"></span></a>
+        <a href="projelerimiz.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Projeler</a>
+        <a href="staj.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları</a>
+        <a href="acik-pozisyonlar.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar</a>
+      </nav>
+    </sc-if>
+    <a href="cv-gonder.html" style="flex-shrink:0;margin-left:auto;display:{{ cvBar }};align-items:center;justify-content:center;width:136px;height:40px;padding:0 18px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap;transition:background-color .2s ease,padding .2s ease" style-hover="background:#ffffff url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2016%2016%22%20fill=%22none%22%20stroke=%22%23160B1A%22%20stroke-width=%221.8%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M3%208h10M9%204l4%204-4%204%22/%3E%3C/svg%3E) no-repeat right 20px center / 14px 14px;padding:0 40px 0 18px;color:#160B1A">CV Gönder</a>
+    <sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuAria }}" aria-controls="mobil-menu" aria-label="{{ menuLabel }}" style="flex-shrink:0;display:grid;place-items:center;width:48px;height:44px;padding:0;border:1px solid rgba(236,234,246,.22);border-radius:10px;background:rgba(22,11,26,.4);cursor:pointer;color:#eceaf6"><span aria-hidden="true" style="display:flex;flex-direction:column;gap:6px;width:22px"><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar1 }};transition:transform .3s ease"></span><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar2 }};transition:transform .3s ease"></span></span></button></sc-if>
+  </div>
+</header>
+<sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}">
+  <div id="mobil-menu" aria-hidden="{{ menuHidden }}" style="position:fixed;left:0;right:0;top:72px;bottom:0;z-index:39;visibility:{{ menuVis }};opacity:{{ menuOp }};transition:opacity .3s ease,visibility .3s ease;background:rgba(22,11,26,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:clamp(16px,4vw,32px) clamp(20px,3vw,48px) calc(24px + env(safe-area-inset-bottom))">
+    <nav aria-label="Mobil menü" onClick="{{ closeMenu }}" style="display:flex;flex-direction:column;transform:translateY({{ menuY }});transition:transform .35s cubic-bezier(.2,.7,.2,1)">
+      <a href="index.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="#top" aria-current="page" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#ffffff;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda<span aria-hidden="true" style="font-size:18px;color:#4edfc7">→</span></a>
+      <a href="projelerimiz.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Projeler<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="staj.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="acik-pozisyonlar.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+    </nav>
+    <a href="cv-gonder.html" style="margin-top:auto;display:flex;align-items:center;justify-content:center;flex:none;height:52px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:16px;font-weight:500" style-hover="background:#ffffff;color:#160B1A">CV Gönder</a>
+  </div>
+</sc-if>
+
+<section id="top" data-screen-label="Hakkımızda Hero" style="position:relative;overflow:hidden;border-bottom:1px solid rgba(236,234,246,.1)">
+  <canvas ref="{{ fieldRef }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 15% 70%,rgba(22,11,26,.94) 0%,rgba(22,11,26,.5) 60%,rgba(22,11,26,0) 100%)"></div>
+  <div style="position:relative;max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;padding:clamp(28px,3vw,44px) clamp(20px,3vw,48px) clamp(24px,6vw,104px);display:flex;flex-direction:column;gap:clamp(56px,7vw,120px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));align-items:end;gap:48px clamp(40px,5vw,96px)">
+      <div style="display:flex;flex-direction:column;gap:clamp(24px,2.4vw,36px)">
+        <h1 data-r="" style="margin:0;font-weight:400;font-size:clamp(34px,3.6vw,60px);line-height:1;letter-spacing:-0.045em;text-wrap:balance"><em style="font-style:normal;color:#4edfc7">Dijital Başarıyı</em> Birlikte Güçlendiriyoruz</h1>
+        <p data-r="" style="margin:0;max-width:56ch;font-size:18px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">GİB Teknoloji olarak, Gelir İdaresi Başkanlığı’nın dijital dönüşüm yolculuğuna yön veren, yenilikçi ve güvenilir teknoloji çözümleri geliştiriyoruz. Vergi süreçlerini daha hızlı, şeffaf ve erişilebilir hale getirmek için güçlü altyapılar kuruyor; kullanıcı odaklı sistemler tasarlıyoruz.</p>
+      </div>
+      <div ref="{{ heroSlotRef }}" aria-hidden="true" style="display:{{ heroSlotD }};width:100%;aspect-ratio:16/9;align-self:center"></div>
+      
+    </div>
+  </div>
+</section>
+
+<section ref="{{ reelRef }}" data-screen-label="Tanıtım" style="position:relative;height:{{ reelSecH }}">
+  <div style="position:{{ reelPos }};top:{{ reelTop }};height:{{ reelStickyH }};padding:clamp(16px,2vw,32px) clamp(20px,3vw,48px);display:flex;justify-content:center">
+    <div style="position:relative;width:100%;max-width:1600px;height:100%;display:flex;flex-direction:column;gap:14px">
+      <div aria-hidden="true" style="display:flex;justify-content:space-between;font-family:'Geist Mono',ui-monospace,monospace;font-size:18px;line-height:1;color:#8a87a3"><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span></div>
+      <div ref="{{ reelSlotRef }}" aria-hidden="true" style="flex:1;min-height:0"></div>
+      <div ref="{{ reelMediaRef }}" onClick="{{ reelToggle }}" style="cursor:pointer;position:absolute;left:0;top:0;width:0;height:0;z-index:2;border-radius:8px;overflow:hidden;background:#15122a">
+        <video data-auto="" src="assets/tanitim.mp4" poster="assets/ekip-hero.jpg" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-label="GİB Teknoloji tanıtım videosu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></video>
+        <div data-tint="" aria-hidden="true" style="position:absolute;inset:0;background:#4edfc7;mix-blend-mode:color;opacity:1"></div>
+        <div data-tint2="" aria-hidden="true" style="position:absolute;inset:0;background:#1f6f63;mix-blend-mode:multiply;opacity:.55"></div>
+        <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(22,11,26,.28)"></div>
+      </div>
+      <div aria-hidden="true" style="display:flex;justify-content:space-between;font-family:'Geist Mono',ui-monospace,monospace;font-size:18px;line-height:1;color:#8a87a3"><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span></div>
+      <div data-wov="" style="position:absolute;inset:0;z-index:3;transition:opacity .4s ease;display:flex;align-items:center;justify-content:center;gap:clamp(14px,2vw,40px);pointer-events:none">
+        <span data-w="l" style="font-size:clamp(24px,3.2vw,60px);font-weight:400;line-height:1;letter-spacing:-0.04em;color:#ffffff;white-space:nowrap">TANITIM</span>
+        <button type="button" data-w="p" onClick="{{ reelPlay }}" aria-label="Tanıtım filmini sesli oynat" style="pointer-events:auto;cursor:pointer;border:0;padding:0;display:grid;place-items:center;flex:none;width:clamp(96px,9vw,180px);height:clamp(58px,5.4vw,104px);border-radius:999px;background:#ffffff;color:#0b0916"><svg width="26%" height="40%" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></button>
+        <span data-w="r" style="font-size:clamp(24px,3.2vw,60px);font-weight:400;line-height:1;letter-spacing:-0.04em;color:#ffffff;white-space:nowrap">FİLMİ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ekiplerimiz" ref="{{ teamHRef }}" data-screen-label="Ekiplerimiz" style="position:relative;height:{{ teamHSecH }}">
+  <div style="position:{{ teamHSticky }};top:{{ teamHTop }};height:{{ teamHStickyH }};display:flex;flex-direction:column;justify-content:center;gap:clamp(32px,3.4vw,56px);padding:clamp(40px,5vh,72px) 0;overflow:hidden">
+    <div data-r="" style="width:100%;max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;padding:0 clamp(20px,3vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 64px">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Ekiplerimiz</h2>
+      <p style="margin:0;font-size:16px;line-height:1.6;color:#a4a1bb;white-space:{{ teamPWrap }}">Farklı uzmanlık alanlarındaki ekiplerimizle uçtan uca çözümler üretiyoruz.</p>
+    </div>
+    <div ref="{{ teamTrackWrap }}" style="width:100%;overflow-x:{{ teamOverflow }};overflow-y:{{ teamOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};scroll-padding-left:{{ rP }};overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch">
+      <div ref="{{ teamTrack }}" style="display:flex;gap:clamp(12px,1.4vw,20px);width:max-content;padding:0 {{ teamEdge }};will-change:transform">
+        <sc-for list="{{ teamCards }}" as="t" hint-placeholder-count="6">
+          <div style="flex:none;scroll-snap-align:start;width:clamp(280px,26vw,420px);display:flex;flex-direction:column;gap:20px;padding:clamp(20px,1.8vw,28px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08);color:#eceaf6;user-select:none;-webkit-user-select:none;transition:background-color .3s ease,border-color .3s ease" style-hover="background:#21132a;border-color:rgba(78,223,199,.35)">
+            <div style="aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#160B1A"><img src="{{ t.img }}" alt="{{ t.title }} ekibi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;line-height:1.15;letter-spacing:-0.02em;color:#eceaf6">{{ t.title }}</h3>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">{{ t.desc }}</p>
+            </div>
+            <a href="{{ t.href }}" style="margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:52px;padding-top:16px;border-top:1px solid rgba(236,234,246,.08);font-size:14px;text-decoration:none;color:#eceaf6;cursor:pointer" style-hover="color:#4edfc7"><span>Ekibi Tanıyın</span><span aria-hidden="true" style="display:grid;place-items:center;width:36px;height:36px;border-radius:18px;background:#4edfc7;color:#160B1A"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span></a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="teknolojiler" ref="{{ techSecRef }}" data-screen-label="Kullanılan Teknolojiler" style="position:relative;height:{{ techSecH }};padding:0;border-top:1px solid rgba(236,234,246,.1)">
+  <div style="position:{{ techSticky }};top:{{ techTop }};height:{{ techStickyH }};padding:0;display:flex;flex-direction:column">
+  <div ref="{{ techRef }}" onMouseMove="{{ techMove }}" onMouseLeave="{{ techLeave }}" style="flex:1;width:100%;display:flex;flex-direction:column;position:relative;overflow:hidden;padding:clamp(36px,4vw,72px) clamp(20px,3vw,48px);background-color:#1d1022;background-image:linear-gradient(rgba(236,234,246,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(236,234,246,.06) 1px,transparent 1px);background-size:clamp(40px,3.4vw,60px) clamp(40px,3.4vw,60px);background-position:center;color:#eceaf6">
+    <div data-r="" style="position:relative;z-index:2;width:100%;max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Kullanılan <em style="font-style:normal;color:#4edfc7">Teknolojiler</em></h2>
+      <p style="margin:0;max-width:44ch;font-size:16px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Birçok güncel teknoloji ile günden güne yeni projeler üretiyoruz.</p>
+    </div>
+    <div style="position:relative;flex:1;width:100%;max-width:1400px;margin:0 auto;min-height:{{ techH }};padding-top:{{ techPadTop }};display:flex;flex-direction:column;justify-content:center;gap:40px">
+      <div style="position:{{ chipWrapPos }};inset:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;z-index:1;order:2">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="12">
+          <div data-chip="{{ c.depth }}" data-l="{{ c.lv }}" data-t="{{ c.tv }}" style="position:{{ chipPos }};left:{{ c.l }};top:{{ c.t }};display:grid;place-items:center;min-width:clamp(56px,min(5vw,10vh),88px);height:clamp(56px,min(5vw,10vh),88px);padding:0 12px;white-space:nowrap;border-radius:clamp(12px,1vw,16px);background:{{ c.bg }};border:1px solid {{ c.bd }};color:{{ c.fg }};font-size:clamp(11px,.75vw,13px);font-weight:500;line-height:1.15;text-align:center;will-change:transform;box-shadow:0 12px 30px -14px rgba(0,0,0,.6)">{{ c.name }}</div>
+        </sc-for>
+      </div>
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(4px,.6vw,10px);text-align:center;pointer-events:none;order:1">
+        <sc-for list="{{ techStats }}" as="s" hint-placeholder-count="3">
+          <div data-r="" style="font-size:clamp(34px,min(5vw,7.6vh),96px);line-height:1.1;letter-spacing:-0.03em;white-space:nowrap"><span data-cnt="" data-v="{{ s.value }}" style="font-weight:600;font-variant-numeric:tabular-nums">{{ s.value }}</span> <span style="font-weight:300">{{ s.unit }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section id="odullerimiz" data-screen-label="Ödüllerimiz" style="padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,4vw,72px)">
+    <div data-r="" style="display:flex;flex-direction:column;gap:20px">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em;color:#eceaf6">Ödüllerimiz</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ awardCols }};gap:clamp(12px,1.4vw,20px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch">
+      <sc-for list="{{ awards }}" as="a" hint-placeholder-count="8">
+        <div data-r="" style="scroll-snap-align:start;display:flex;flex-direction:column;gap:20px;padding:clamp(20px,1.8vw,28px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08);transition:background-color .3s ease" style-hover="background:#21132a">
+          <div style="position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 62%,#2b2742 0%,#14111f 72%)">
+            <div style="position:absolute;inset:14% 22% 10%;filter:grayscale(1) brightness({{ a.bright }}) contrast(1.08) drop-shadow(0 18px 22px rgba(0,0,0,.5))">
+              <sc-if value="{{ a.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ a.img }}" alt="{{ a.org }} ödülü" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block"></sc-if>
+              <sc-if value="{{ a.noImg }}" hint-placeholder-val="{{ false }}"><image-slot id="odul-v2-{{ a.num }}" fit="contain" shape="rounded" radius="6" placeholder="3D ödül görseli"></image-slot></sc-if>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <h3 style="margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.15;letter-spacing:-0.025em;text-wrap:balance">{{ a.org }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">{{ a.award }}</p>
+          </div>
+          <div style="margin-top:auto;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding-top:14px;border-top:1px solid rgba(236,234,246,.1);font-size:14px"><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Proje</span><span style="text-align:right;color:#d4d1e6">{{ a.projectLabel }}</span></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
+      <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+    </div>
+    <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
+  </div>
+</section>
+
+<footer style="border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:18px">
+          <img src="assets/gib-logo-white.png" alt="Gelir İdaresi Başkanlığı" style="height:44px;width:auto;display:block">
+          <span aria-hidden="true" style="width:1px;align-self:stretch;background:rgba(236,234,246,.2)"></span>
+          <img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:30px;width:auto;display:block;filter:brightness(0) invert(1)"></div>
+        <div style="display:flex;gap:4px;margin-left:-12px">
+          <a href="https://twitter.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="X" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.3l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"></path></svg></a>
+          <a href="https://tr-tr.facebook.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="Facebook" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z"></path></svg></a>
+          <a href="https://www.instagram.com/gibsosyalmedya/" target="_blank" rel="noopener" aria-label="Instagram" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"></circle></svg></a>
+          <a href="https://tr.linkedin.com/company/gibsosyalmedya" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"></path></svg></a>
+        </div>
+      </div>
+      <div style="flex:0 1 auto;min-width:min(100%,300px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),max-content));gap:32px clamp(40px,5vw,96px);font-size:15px">
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Kurum İçi Linkler</div>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Vergi Mevzuatı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Sıkça Sorulan Sorular</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yararlı Bilgiler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Kılavuzlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gerekli Programlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Tebliğler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Yayınlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Hazır Formlar</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="margin-bottom:6px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Hizmetler</div>
+          <a href="https://www.tccb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Cumhurbaşkanlığı</a>
+          <a href="https://www.hmb.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">T.C.Hazine ve Maliye Bakanlığı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="display:block;padding:9px 0;line-height:1.4;text-decoration:none;color:#d4d1e6;transition:color .2s ease" style-hover="color:#4edfc7">Gelir İdaresi Başkanlığı</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;border-top:1px solid rgba(236,234,246,.1);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3">
+      <span>Her Hakkı Saklıdır. ©2026 Gelir İdaresi Başkanlığı</span>
+      <a href="#top" style="text-decoration:none">Yukarı dön ↑</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;fieldDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Seyrek&quot;,&quot;Normal&quot;,&quot;Yoğun&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero alanı&quot;},&quot;fieldMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero alanı&quot;}}">
+class Component extends DCLogic {
+  __touchInit() { gibScrub(this.teamTrack.current, this.teamTrackWrap.current); }
+  __rail() { const r = innerWidth < 720; return { rail: r, rFlow: r ? 'column' : 'row', rCol: r ? 'min(84%,340px)' : 'auto', rOv: r ? 'auto' : 'visible', rOvY: r ? 'hidden' : 'visible', rSnap: r ? 'x mandatory' : 'none', rM: r ? 'calc(-1 * clamp(20px,3vw,48px))' : '0', rP: r ? 'clamp(20px,3vw,48px)' : '0', rWrap: r ? 'nowrap' : 'wrap', rFull: r ? '1 1 100%' : '0 1 auto', rBarB: r ? '0px' : '-1px' }; }
+  __lock(on) { document.documentElement.style.overflow = on ? 'hidden' : ''; }
+  toggleMenu = () => { const o = !this.state.menu; this.setState({ menu: o }); this.__lock(o); };
+  closeMenu = () => { if (this.state.menu) { this.setState({ menu: false }); this.__lock(false); } };
+  closeAll = () => { this.setState({ menu: false, work: null, photo: null }); this.__lock(false); };
+  state = { mobile: false, short: false, compact: false, team: 0, tech: 'React.js' };
+  fieldRef = React.createRef(); techRef = React.createRef(); techSecRef = React.createRef(); teamRef = React.createRef(); teamHRef = React.createRef(); teamTrack = React.createRef(); teamTrackWrap = React.createRef(); reelRef = React.createRef(); reelSlotRef = React.createRef(); heroSlotRef = React.createRef(); reelMediaRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
+  TEAMS = [["Veri & Yapay Zeka","Veri analizi, büyük veri, AI projeleri"],["Siber Güvenlik","Güvenlik, denetim, veri koruma"],["Tasarım","Kullanıcı deneyimi , arayüz, kurumsal kimlik"],["Sistem & Altyapı","DevOps, cloud, sistem yönetimi"],["Ürün & Proje Yönetimi","İş analizi, proje koordinasyonu"],["Yazılım Geliştirme","Frontend, Backend, Full-stack"]];
+  TECHS = {
+    'React.js': 'İnteraktif ve E-beyanname projelerinde fonksiyonel komponentler oluşturmak için kullanılmaktadır.',
+    'JavaScript': 'Tüm projelerde doğrudan veya dolaylı yolla JavaScript kullanılmaktadır.',
+    'Angular': 'E-belge projesinde kullanılmaktadır.',
+    'Next.js': 'SEO optimizasyonu ve routing yapısı için İnteraktif Vergi Dairesi’nde kullanılmaktadır.',
+    'Java': 'Neredeyse tüm backend projelerinde Java 8-11 kullanılmaktadır.',
+    'Spring Boot': 'Tüm yeni projelerde hızlı ilklendirme ve oto konfigürasyonlardan faydalanmak için kullanılmaktadır.',
+    'Spring Data': 'Veritabanı CRUD işlemlerinde gereksiz boilerplate kod yazmamak için tüm yeni projelerde kullanılmaktadır.',
+    'Kubernetes': 'Tüm yeni projelerde container orkestrasyonu, kolay ölçekleme ve hızlı deploy için kullanılmaktadır.',
+    'Docker': 'Tüm yeni projeler dockerize edilerek Nexus sunucusuna uygun versiyonla yüklenmektedir.',
+    'GitLab': 'Neredeyse tüm projelerde versiyon kontrolü ve sürekli teslimat için kullanılmaktadır.',
+    'PostgreSQL': 'Yeni projelerde açık kaynak kodlu PostgreSQL’in gelişmiş özelliklerinden faydalanılmaktadır.',
+    'Elasticsearch': 'Log yönetimi, performans izleme ve arama ekranları gibi pek çok işte aktif olarak kullanılmaktadır.'
+  };
+  CATS = [['Frontend', ['React.js','JavaScript','Angular','Next.js']], ['Backend', ['Java','Spring Boot','Spring Data']], ['Altyapı', ['Kubernetes','Docker','GitLab']], ['Veri', ['PostgreSQL','Elasticsearch']]];
+  AWARDS = [
+    ['Türkiye Bilişim Derneği','Kamudan İş Dünyasına Hizmetler','YN Pompa ÖKC'],
+    ['TÜSİAD','e-Türkiye için e-Devlet Ödülleri',''],
+    ['22.Altın Örümcek Ödülleri','Kamu Kategorisi İkincisi ve Halkın Favorisi','Dijital Vergi Dairesi'],
+    ['Kurumsal Yönetişim Derneği','Kamudan İş Dünyasına Hizmetler','YN Pompa ÖKC'],
+    ['Türkiye Cumhuriyeti Başbakanlığı','e-Türkiye için e-Devlet Ödülleri','e-Beyanname'],
+    ['Kalder','Kamu Yönetimi Proje Ödülü','EVİS'],
+    ['Çetin Ceviz Proje Yöneticisi Ödülleri','En İyi Proje Ekibi','Dijital Vergi Dairesi'],
+    ['Kamu Bilişim Derneği','Başarı Ödülü','e-Yoklama Sistemi']
+  ];
+  CHIPS = [
+    ['Spring Boot',22,13,'o',.6],['Java',33,16,'c',1],['Angular',49,9,'l',.8],['Elastic',70,18,'c',.5],['React',87,20,'o',.9],
+    ['JavaScript',20,38,'l',.7],['Spring',80,52,'c',1.1],['PostgreSQL',22,64,'c',.6],['Kubernetes',29,86,'o',.9],
+    ['Docker',46,90,'l',.5],['Next.js',65,89,'c',.8],['GitLab',81,78,'o',.6]
+  ];
+  AWARD_IMGS = ['assets/odul-tbd.png','assets/odul-d.png','assets/odul-orumcek.png','assets/odul-kyd.png','assets/odul-e.png','','assets/odul-b.png','assets/odul-c.png'];
+
+  componentDidMount() {
+    this.__lw = innerWidth; this.__s480 = innerWidth < 480;
+    this.__mr = () => { const s = innerWidth < 480, m = innerWidth < 720; if (s !== this.__s480 || m !== this.__m720) { this.__s480 = s; this.__m720 = m; this.forceUpdate(); } if (innerWidth !== this.__lw) { this.__lw = innerWidth; this.closeMenu(); } };
+    this.__mk = e => { if (e.key === 'Escape') this.closeAll(); };
+    addEventListener('resize', this.__mr); addEventListener('keydown', this.__mk);
+    setTimeout(() => this.__touchInit && this.__touchInit(), 400);
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => { const m = innerWidth < 1040, sh = innerHeight < 760 || innerWidth < 700, c = innerWidth < 720; if (m !== this.state.mobile || sh !== this.state.short || c !== this.state.compact) this.setState({ mobile: m, short: sh, compact: c }); };
+    addEventListener('resize', this.onResize); this.onResize();
+    this.initField(); this.setupReveals();
+    this.teamScroll = () => {
+      const s = this.teamRef.current; if (!s || this.state.short) return;
+      const r = s.getBoundingClientRect(), range = s.offsetHeight - (innerHeight - 72); if (range <= 0) return;
+      const n = this.TEAMS.length, p = Math.min(1, Math.max(0, (72 - r.top) / range)), f = Math.min(n - .0001, p * n), i = Math.floor(f);
+      if (i !== this.state.team) this.setState({ team: i });
+      this.applyPanels(f);
+    };
+    addEventListener('scroll', this.teamScroll, { passive: true }); this.syncPanels(); requestAnimationFrame(() => this.syncPanels());
+    document.querySelectorAll('video[data-auto]').forEach(v => { v.muted = true; if (!this.reduced) v.play().catch(() => {}); else v.pause(); });
+    const reel = () => {
+      this.rraf = requestAnimationFrame(reel);
+    this.teamMeasure = () => { const tr = this.teamTrack.current, w = this.teamTrackWrap.current; if (!tr || !w) return; const d = Math.max(0, tr.scrollWidth - w.clientWidth); if (Math.abs(d - (this.teamDist || 0)) > 1) { this.teamDist = d; this.forceUpdate(); } };
+    this.tro = new ResizeObserver(this.teamMeasure); setTimeout(() => { if (this.teamTrack.current) { this.tro.observe(this.teamTrack.current); this.tro.observe(this.teamTrackWrap.current); } this.teamMeasure(); }, 50);
+    const teamLoop = () => { this.thraf = requestAnimationFrame(teamLoop); const s = this.teamHRef.current, tr = this.teamTrack.current; if (!s || !tr) return;
+      if (this.state.compact) { if (tr.style.transform) tr.style.transform = ''; return; }
+      const range = s.offsetHeight - (innerHeight - 72), p = range > 0 ? Math.min(1, Math.max(0, (72 - s.getBoundingClientRect().top) / range)) : 0;
+      tr.style.transform = 'translate3d(' + (-p * (this.teamDist || 0)).toFixed(1) + 'px,0,0)'; };
+    this.thraf = requestAnimationFrame(teamLoop);
+      const sec = this.reelRef.current, md = this.reelMediaRef.current, slot = this.reelSlotRef.current, hs = this.heroSlotRef.current;
+      if (!sec || !md || !slot || !md.offsetParent) return;
+      const br = md.offsetParent.getBoundingClientRect(), sr = slot.getBoundingClientRect(), r = sec.getBoundingClientRect();
+      const total = Math.max(1, r.top + scrollY - 72);
+      const still = this.reduced || innerWidth < 720, p = still ? 1 : Math.min(1, Math.max(0, scrollY / total)), target = 1 - Math.pow(1 - p, 2.2);
+      this.rk = this.rk == null || still ? target : this.rk + (target - this.rk) * .16; if (Math.abs(target - this.rk) < .0005) this.rk = target;
+      const k = this.rk;
+      const a = { x: sr.left - br.left, y: sr.top - br.top, w: sr.width, h: sr.height };
+      let st = a; if (hs && hs.offsetWidth) { const hr = hs.getBoundingClientRect(); st = { x: hr.left - br.left, y: hr.top - br.top, w: hr.width, h: hr.height }; }
+      const L = (u, v) => (u + (v - u) * k).toFixed(1) + 'px';
+      md.style.left = L(st.x, a.x); md.style.top = L(st.y, a.y); md.style.width = L(st.w, a.w); md.style.height = L(st.h, a.h);
+      const now = performance.now(), b = still ? 0 : Math.sin(Math.PI * k), base = 8 + 10 * (1 - k), cw = parseFloat(md.style.width) || 1, ch = parseFloat(md.style.height) || 1;
+      const F = [.42, .2, .36, .26], G = [.3, .46, .22, .4], rx = F.map((f, i) => base + b * cw * f * (1 + .25 * Math.sin(now * .0018 + i * 1.7))), ry = G.map((g, i) => base + b * ch * g * (1 + .25 * Math.cos(now * .0015 + i * 2.1)));
+      md.style.borderRadius = rx.map(v => v.toFixed(1) + 'px').join(' ') + ' / ' + ry.map(v => v.toFixed(1) + 'px').join(' ');
+      this.rv = (this.rv || 0) + ((scrollY - (this.rly ?? scrollY)) - (this.rv || 0)) * .15; this.rly = scrollY;
+      const sk = Math.max(-7, Math.min(7, this.rv * .25)) * b;
+      md.style.transform = 'skewY(' + sk.toFixed(2) + 'deg) rotate(' + (b * -2.5).toFixed(2) + 'deg)';
+      if (this.reelOn && k < .9) this.reelStop();
+      const t1 = md.querySelector('[data-tint]'), t2 = md.querySelector('[data-tint2]');
+      if (t1) t1.style.opacity = (1 - k).toFixed(3); if (t2) t2.style.opacity = (.55 * (1 - k)).toFixed(3);
+      const wl = sec.querySelector('[data-w="l"]'), wr = sec.querySelector('[data-w="r"]'), wp = sec.querySelector('[data-w="p"]');
+      const ty = ((1 - k) * -14).toFixed(2), op = Math.max(0, (k - .45) / .55).toFixed(3);
+      const ov = sec.querySelector('[data-wov]'); if (ov) { ov.style.opacity = this.reelOn ? '0' : '1'; ov.style.pointerEvents = 'none'; }
+      if (wl) { wl.style.transform = 'translate3d(' + ((1 - k) * -8).toFixed(2) + 'vw,' + ty + 'vh,0)'; wl.style.opacity = op; }
+      if (wr) { wr.style.transform = 'translate3d(' + ((1 - k) * 8).toFixed(2) + 'vw,' + ty + 'vh,0)'; wr.style.opacity = op; }
+      if (wp) { wp.style.transform = 'translate3d(0,' + ty + 'vh,0) scale(' + (.4 + .6 * k).toFixed(3) + ')'; wp.style.opacity = op; }
+    };
+    this.rraf = requestAnimationFrame(reel);
+    this.px = 0; this.py = 0; this.tx = 0; this.ty = 0;
+    const chipLoop = tm => {
+      this.craf = requestAnimationFrame(chipLoop);
+      const root = this.techRef.current, sec = this.techSecRef.current; if (!root || !sec) return;
+      if (this.state.compact || this.reduced) { if (!this.chipsReset) { root.querySelectorAll('[data-chip]').forEach(el => { el.style.transform = ''; el.style.opacity = ''; }); this.chipsReset = true; } return; }
+      this.chipsReset = false;
+      const sr = sec.getBoundingClientRect(); if (sr.bottom < 0 || sr.top > innerHeight) return;
+      this.px += (this.tx - this.px) * .06; this.py += (this.ty - this.py) * .06;
+      const range = Math.max(1, sec.offsetHeight - innerHeight), p = Math.min(1, Math.max(0, ((72 - sr.top) / range - .04) / .7));
+      root.querySelectorAll('[data-chip]').forEach((el, i) => {
+        const wrap = el.parentNode, W = wrap.offsetWidth, H = wrap.offsetHeight, l = +el.dataset.l / 100, tt = +el.dataset.t / 100;
+        const dist = Math.hypot(l - .5, tt - .5), u = Math.min(1, Math.max(0, (p - dist * .4) / .7)), k = u * u * (3 - 2 * u), d = +el.dataset.chip || 1;
+        const x = (.5 - l) * W * (1 - k) + (Math.cos(tm / 2300 + i * 1.7) * 6 * d + this.px * 22 * d) * k;
+        const y = (.5 - tt) * H * (1 - k) + (Math.sin(tm / 1800 + i) * 8 * d + this.py * 16 * d) * k;
+        el.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + (.35 + .65 * k).toFixed(3) + ') rotate(' + (Math.sin(tm / 2600 + i) * 3 * k + (1 - k) * (l < .5 ? -20 : 20)).toFixed(2) + 'deg)';
+        el.style.opacity = k.toFixed(3);
+      });
+    };
+    this.craf = requestAnimationFrame(chipLoop);
+  }
+  reelStop() { this.reelOn = false; const v = this.reelMediaRef.current && this.reelMediaRef.current.querySelector('video'); if (v) { v.muted = true; if (this.reduced) v.pause(); else v.play().catch(() => {}); } }
+  applyPanels(f) {
+    const s = this.teamRef.current; if (!s) return;
+    s.querySelectorAll('[data-bar]').forEach((b, j) => { b.style.width = (Math.min(1, Math.max(0, f - j)) * 100).toFixed(2) + '%'; });
+  }
+  componentDidUpdate(pp, ps) { if ((ps || {}).short !== this.state.short || this.panelMode !== this.state.short) this.syncPanels(); }
+  syncPanels() { this.panelMode = this.state.short; if (this.state.short) this.applyPanels(0); else this.teamScroll(); }
+  componentWillUnmount() {
+    removeEventListener('resize', this.__mr); removeEventListener('keydown', this.__mk); this.__lock(false);
+    cancelAnimationFrame(this.praf); cancelAnimationFrame(this.craf); cancelAnimationFrame(this.thraf); this.tro && this.tro.disconnect();
+    cancelAnimationFrame(this.fraf); removeEventListener('scroll', this.teamScroll); cancelAnimationFrame(this.rraf); removeEventListener('resize', this.onResize); removeEventListener('pointermove', this.onPM);
+    this.fro && this.fro.disconnect(); this.io && this.io.disconnect(); this.mo && this.mo.disconnect(); clearTimeout(this.fallback);
+  }
+  initField() {
+    const c = this.fieldRef.current; if (!c) return;
+    const ctx = c.getContext('2d'); this.fm = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
+    const size = () => { const r = c.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); this.fw = r.width; this.fh = r.height; c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
+    size(); this.fro = new ResizeObserver(size); this.fro.observe(c);
+    this.onPM = e => { if (e.pointerType && e.pointerType !== 'mouse') return;
+      const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      if (x < 0 || y < 0 || x > r.width || y > r.height) { this.fm.tx = this.fm.ty = -9999; return; }
+      this.fm.tx = x; this.fm.ty = y;
+      if (this.fxRef.current) this.fxRef.current.textContent = (x / r.width).toFixed(3);
+      if (this.fyRef.current) this.fyRef.current.textContent = (y / r.height).toFixed(3);
+    };
+    addEventListener('pointermove', this.onPM, { passive: true });
+    const draw = t => {
+      this.fraf = requestAnimationFrame(draw);
+      if (this.__coarse == null) this.__coarse = matchMedia('(pointer: coarse)').matches;
+      if (this.__coarse) { if (t - (this.__lt || 0) < 40 || document.hidden || scrollY > innerHeight * 1.5) return; this.__lt = t; }
+      if (c.getBoundingClientRect().bottom < 0) return;
+      const m = this.fm;
+      if (m.tx < -999 || m.x < -999) { m.x = m.tx; m.y = m.ty; } else { m.x += (m.tx - m.x) * .12; m.y += (m.ty - m.y) * .12; }
+      const gap = { Seyrek: 34, Normal: 24, 'Yoğun': 16 }[this.props.fieldDensity ?? 'Normal'] || 24;
+      const tt = (this.props.fieldMotion ?? true) && !this.reduced ? t : 0;
+      ctx.clearRect(0, 0, this.fw, this.fh);
+      for (let y = gap / 2; y < this.fh; y += gap) for (let x = gap / 2; x < this.fw; x += gap) {
+        const dx = x - m.x, dy = y - m.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = Math.max(0, 1 - d / 200);
+        const w = Math.sin(x * .011 + tt * .0007) * Math.cos(y * .013 - tt * .0005);
+        const a = Math.min(1, .06 + .07 * (w + 1) + .85 * f * f), s = 1 + 2 * f;
+        ctx.fillStyle = f > .02 ? 'rgba(' + Math.round(78 + 91 * f) + ',' + Math.round(223 - 68 * f) + ',' + Math.round(199 + 56 * f) + ',' + a + ')' : 'rgba(207,202,232,' + a + ')';
+        ctx.fillRect(x + dx / d * f * 14 - s / 2, y + dy / d * f * 14 - s / 2, s, s);
+      }
+    };
+    this.fraf = requestAnimationFrame(draw);
+  }
+  countUp(el) {
+    const v = el.dataset.v || '', m = v.match(/^(\D*)([\d.,]+)(.*)$/), tn = el.firstChild;
+    if (!m || !tn || tn.nodeType !== 3 || this.reduced) return;
+    const comma = m[2].includes(','), num = parseFloat(comma ? m[2].replace(/,/g, '') : m[2]), dec = comma ? 0 : (m[2].split('.')[1] || '').length, t0 = performance.now();
+    const step = t => { const u = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - u, 3), val = num * e; tn.nodeValue = u < 1 ? m[1] + (comma ? Math.round(val).toLocaleString('en-US') : val.toFixed(dec)) + m[3] : v; if (u < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  setupReveals() {
+    if (this.reduced) return;
+    const show = (el, d) => {
+      if (el.dataset.shown) return; el.dataset.shown = '1';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.1,1) ' + d + 'ms, transform 1s cubic-bezier(.2,.7,.1,1) ' + d + 'ms';
+      el.style.opacity = '1'; el.style.transform = 'none';
+      setTimeout(() => { el.style.transition = el.dataset.tr0 || ''; el.style.transform = ''; }, d + 1100);
+      el.querySelectorAll('[data-cnt]').forEach(c => setTimeout(() => this.countUp(c), d + 120));
+      if (el.hasAttribute('data-cnt')) setTimeout(() => this.countUp(el), d + 120);
+    };
+    const delay = el => { const sib = [...el.parentNode.children].filter(x => x.hasAttribute('data-r')); return Math.max(0, sib.indexOf(el)) * 70; };
+    this.io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { this.io.unobserve(en.target); show(en.target, delay(en.target)); } }), { threshold: 0.12, rootMargin: '0px 3000px -6% 3000px' });
+    const scan = () => document.querySelectorAll('[data-r]:not([data-armed])').forEach(el => {
+      el.dataset.armed = '1'; el.dataset.tr0 = el.style.transition || ''; el.style.opacity = '0'; el.style.transform = 'translate3d(0,28px,0)';
+      if (el.getBoundingClientRect().top < innerHeight) requestAnimationFrame(() => requestAnimationFrame(() => show(el, delay(el)))); else this.io.observe(el);
+    });
+    scan();
+    this.mo = new MutationObserver(scan); this.mo.observe(document.body, { childList: true, subtree: true });
+    this.fallback = setTimeout(() => document.querySelectorAll('[data-r]').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) show(el, 0); }), 2500);
+  }
+
+  renderVals() {
+    const team = this.state.team, names = Object.keys(this.TECHS), tech = this.state.tech;
+    const cmp = this.state.compact, CH = { o: ['transparent', 'rgba(236,234,246,.55)', '#eceaf6'], c: ['#bff4f7', '#bff4f7', '#160B1A'], l: ['#f0d4f6', '#f0d4f6', '#160B1A'] };
+    const cat = (this.CATS.find(([, items]) => items.includes(tech)) || this.CATS[0])[0];
+    return {
+      fieldRef: this.fieldRef,
+      reelPlay: e => { e.stopPropagation(); const v = this.reelMediaRef.current && this.reelMediaRef.current.querySelector('video'); if (!v) return; this.reelOn = true; v.currentTime = 0; v.muted = false; v.play().catch(() => {}); },
+      reelToggle: () => { if (!this.reelOn) return; const v = this.reelMediaRef.current.querySelector('video'); if (v.paused) v.play().catch(() => {}); else v.pause(); }, reelSecH: innerWidth < 720 ? 'auto' : '150vh', heroSlotD: innerWidth < 720 ? 'none' : 'block', reelPos: innerWidth < 720 ? 'relative' : 'sticky', reelTop: innerWidth < 720 ? '0' : '72px', reelStickyH: innerWidth < 720 ? 'calc((100vw - 2 * clamp(20px,3vw,48px)) * .5625 + 64px + 2 * clamp(16px,2vw,32px))' : 'calc(100svh - 72px)', reelRef: this.reelRef, reelSlotRef: this.reelSlotRef, heroSlotRef: this.heroSlotRef, reelMediaRef: this.reelMediaRef, fxRef: this.fxRef, fyRef: this.fyRef,
+      ...this.__rail(), awardCols: innerWidth < 720 ? 'none' : 'repeat(auto-fill,minmax(min(100%,320px),1fr))', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, teamPrev: () => gibStep(this.teamHRef.current, this.TEAMS.length, -1, this.teamTrackWrap.current), teamNext: () => gibStep(this.teamHRef.current, this.TEAMS.length, 1, this.teamTrackWrap.current), closeMenu: this.closeMenu, showLinks: !this.state.mobile, hideLinks: !(!this.state.mobile),
+      teamHRef: this.teamHRef, teamTrack: this.teamTrack, teamTrackWrap: this.teamTrackWrap,
+      teamHSecH: this.state.compact ? 'auto' : 'calc(100svh - 72px + ' + Math.round(this.teamDist || 0) + 'px)', teamHSticky: this.state.compact ? 'relative' : 'sticky', teamHTop: this.state.compact ? '0' : '72px', teamHStickyH: this.state.compact ? 'auto' : 'calc(100svh - 72px)',
+      teamOverflow: this.state.compact ? 'auto' : 'visible', teamOvY: this.state.compact ? 'hidden' : 'visible', teamPWrap: this.state.mobile ? 'normal' : 'nowrap', teamEdge: 'max(clamp(20px,3vw,48px), calc((100vw - 1600px) / 2))',
+      teamCards: this.TEAMS.map(([title, desc], i) => ({ title, desc, href: i === 2 ? 'tasarim-ekibi.html' : 'ekip.html?ekip=' + ['veri', 'siber', '', 'altyapi', 'urun', 'yazilim'][i], num: String(i + 1).padStart(2, '0'), img: 'assets/ekip-' + (i + 1) + '.png' })),
+      teams: this.TEAMS.map(([title, desc], i) => { const on = team === i; return { title, desc, num: String(i + 1).padStart(2, '0'), img: 'assets/ekip-' + (i + 1) + '.png', op: on ? 1 : 0, zoom: on ? 'scale(1)' : 'scale(1.06)', hidden: on ? 'false' : 'true', cur: on ? 'true' : 'false', titleC: on ? '#eceaf6' : '#8a87a3', numC: on ? '#4edfc7' : '#6f6c86', bg: on ? '#21132a' : '#1d1022', bd: on ? 'rgba(236,234,246,.18)' : 'rgba(236,234,246,.08)', descH: on ? '120px' : '0px', descOp: on ? 1 : 0,
+        go: () => { const s = this.teamRef.current, n = this.TEAMS.length; if (!this.state.short && s) { const range = s.offsetHeight - (innerHeight - 72); scrollTo({ top: s.getBoundingClientRect().top + scrollY - 72 + range * (i + .5) / n, behavior: 'smooth' }); } else this.setState({ team: i }); } }; }),
+      teamCols: this.state.short ? 'minmax(0,1fr)' : 'minmax(0,.85fr) minmax(0,1.15fr)', stageH: this.state.short ? 'auto' : 'min(64svh,640px,calc(100svh - 280px))', listOrder: this.state.short ? 2 : 1, figOrder: this.state.short ? 1 : 2, figAspect: this.state.short ? '4 / 3' : 'auto', barDisp: this.state.short ? 'none' : 'block',
+      teamRef: this.teamRef, teamSecH: this.state.short ? 'auto' : (this.TEAMS.length * 50 + 100) + 'vh', teamSticky: this.state.short ? 'relative' : 'sticky', teamInnerH: this.state.short ? '0px' : 'calc(100svh - 72px)',
+      teamTitle: this.TEAMS[team][0], teamNum: String(team + 1).padStart(2, '0'), teamTotal: String(this.TEAMS.length).padStart(2, '0'), teamTags: this.TEAMS[team][1].split(',').map(x => ({ label: x.trim() })),
+      techStats: [{ value: '180', unit: 'proje' }, { value: '645,450+', unit: 'ekran' }, { value: '150', unit: 'ekip' }],
+      techRef: this.techRef, techSecRef: this.techSecRef, techSecH: cmp ? 'auto' : '240vh', techSticky: cmp ? 'relative' : 'sticky', techTop: cmp ? '0' : '72px', techStickyH: cmp ? 'auto' : 'calc(100svh - 72px)',
+      techH: cmp ? 'auto' : '0px', techPadTop: cmp ? '48px' : '0px', chipWrapPos: cmp ? 'relative' : 'absolute', chipPos: cmp ? 'relative' : 'absolute',
+      chips: this.CHIPS.map(([name, l, tp, k, depth]) => ({ name, lv: l, tv: tp, l: cmp ? 'auto' : l + '%', t: cmp ? 'auto' : tp + '%', bg: CH[k][0], bd: CH[k][1], fg: CH[k][2], depth })),
+      techMove: e => { const r = e.currentTarget.getBoundingClientRect(); this.tx = (e.clientX - r.left) / r.width - .5; this.ty = (e.clientY - r.top) / r.height - .5; },
+      techLeave: () => { this.tx = 0; this.ty = 0; },
+      cats: this.CATS.map(([name, items], i) => ({ name, num: String(i + 1).padStart(2, '0'), items: items.map(t => { const a = t === tech; return { name: t, active: a ? 'true' : 'false', bg: a ? '#4edfc7' : 'transparent', fg: a ? '#0b0916' : '#d4d1e6', bd: a ? '#4edfc7' : 'rgba(236,234,246,.2)', pick: () => { if (this.state.tech !== t) this.setState({ tech: t }); } }; }) })),
+      rec: { name: tech, cat, desc: this.TECHS[tech], idx: String(names.indexOf(tech) + 1).padStart(2, '0') },
+      awards: this.AWARDS.map(([org, award, project], i) => { const img = this.AWARD_IMGS[i]; return { org, award, projectLabel: project || '—', img, bright: /odul-[cde]\.png/.test(img) ? '2.2' : '1.15', hasImg: !!img, noImg: !img, year: '2024', num: String(i + 1).padStart(2, '0') }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

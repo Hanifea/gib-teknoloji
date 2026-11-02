@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV Gönder · GİB Teknoloji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-underline-offset:.2em}
+a:hover{color:#4edfc7}
+button{font:inherit;color:inherit}
+input::placeholder{color:#6f6c86}
+input[type=search]::-webkit-search-cancel-button{display:none}
+::selection{background:#4edfc7;color:#0b0916}
+:focus-visible{outline:1px solid #4edfc7;outline-offset:3px}
+</style>
+</helmet>
+
+<div lang="tr" style="position:relative;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
+<canvas ref="{{ fieldRef }}" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block"></canvas>
+<div ref="{{ ringRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:60;width:36px;height:36px;margin:-18px 0 0 -18px;border:1px solid rgba(236,234,246,.55);border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s ease,border-color .3s ease;will-change:transform"></div>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(22,11,26,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(236,234,246,.1)">
+  <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;height:72px;padding:0 clamp(20px,3vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="index.html" aria-label="GİB Teknoloji anasayfa" style="display:flex;flex-shrink:0;text-decoration:none"><img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:32px;width:auto;display:block;filter:brightness(0) invert(1)"></a>
+    <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}">
+      <nav style="flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(18px,2.6vw,48px);font-size:15px">
+        <a href="index.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa</a>
+        <a href="hakkimizda.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda</a>
+        <a href="projelerimiz.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Projeler</a>
+        <a href="staj.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları</a>
+        <a href="acik-pozisyonlar.html" style="text-decoration:none;color:#d6d3e2;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="flex-shrink:0;margin-left:auto;width:136px;height:40px"></span></sc-if>
+  <sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuAria }}" aria-controls="mobil-menu" aria-label="{{ menuLabel }}" style="flex-shrink:0;margin-left:auto;display:grid;place-items:center;width:48px;height:44px;padding:0;border:1px solid rgba(236,234,246,.22);border-radius:10px;background:rgba(22,11,26,.4);cursor:pointer;color:#eceaf6"><span aria-hidden="true" style="display:flex;flex-direction:column;gap:6px;width:22px"><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar1 }};transition:transform .3s ease"></span><span style="display:block;height:1.5px;border-radius:2px;background:currentColor;transform:{{ bar2 }};transition:transform .3s ease"></span></span></button></sc-if>
+  </div>
+</header>
+<sc-if value="{{ hideLinks }}" hint-placeholder-val="{{ false }}">
+  <div id="mobil-menu" aria-hidden="{{ menuHidden }}" style="position:fixed;left:0;right:0;top:72px;bottom:0;z-index:39;visibility:{{ menuVis }};opacity:{{ menuOp }};transition:opacity .3s ease,visibility .3s ease;background:rgba(22,11,26,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:clamp(16px,4vw,32px) clamp(20px,3vw,48px) calc(24px + env(safe-area-inset-bottom))">
+    <nav aria-label="Mobil menü" onClick="{{ closeMenu }}" style="display:flex;flex-direction:column;transform:translateY({{ menuY }});transition:transform .35s cubic-bezier(.2,.7,.2,1)">
+      <a href="index.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Anasayfa<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="hakkimizda.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Hakkımızda<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="projelerimiz.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Projeler<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="staj.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Staj Fırsatları<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+      <a href="acik-pozisyonlar.html" style="display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;border-bottom:1px solid rgba(236,234,246,.1);font-size:clamp(26px,7vw,36px);line-height:1.1;letter-spacing:-0.03em;text-decoration:none;color:#c9c7d8;transition:color .2s ease" style-hover="color:#ffffff">Açık Pozisyonlar<span aria-hidden="true" style="font-size:18px;color:#8a87a3">→</span></a>
+    </nav>
+  </div>
+</sc-if>
+
+<section id="top" data-screen-label="CV Gönder" style="position:relative;z-index:1;min-height:calc(100svh - 72px);display:flex;align-items:center;padding:clamp(56px,7vw,112px) clamp(20px,3vw,48px) clamp(88px,9vw,160px)">
+  <div style="width:100%;max-width:1600px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:clamp(40px,5vw,72px)">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+      <h1 data-r="" style="margin:0;font-weight:400;font-size:clamp(34px,3.6vw,60px);line-height:1.05;letter-spacing:-0.04em;text-wrap:balance">Kariyerinizi <em style="font-style:normal;color:#4edfc7">GİB Teknoloji</em>’de Şekillendirin</h1>
+      <p data-r="" style="margin:0;max-width:60ch;font-size:18px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Size en uygun başvuru türünü seçerek CV’nizi gönderebilirsiniz.</p>
+    </div>
+    <div style="width:100%;max-width:960px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(12px,1.4vw,20px)">
+        <a data-r="" href="basvuru-formu.html?tip=stajyer" style="position:relative;display:flex;flex-direction:column;gap:20px;min-height:clamp(280px,24vw,340px);padding:clamp(24px,2.2vw,36px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.1);text-decoration:none;color:#eceaf6;transition:background-color .3s ease,border-color .3s ease" style-hover="background:#21132a;border-color:rgba(78,223,199,.45);color:#eceaf6">
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="display:grid;place-items:center;width:48px;height:48px;border-radius:24px;background:rgba(78,223,199,.14);color:#4edfc7"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block"><path d="M22 9 12 4 2 9l10 5 10-5Z"></path><path d="M6 11.2V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.8"></path><path d="M22 9v6"></path></svg></span>
+            <h2 style="margin:0;font-size:clamp(24px,2vw,32px);font-weight:400;line-height:1.1;letter-spacing:-0.03em;color:#4edfc7">Stajyer</h2>
+          </div>
+          <p style="flex:1;margin:0;max-width:34ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Staj programlarımızla kamu teknolojilerinde gerçek projelerde deneyim kazanın.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:18px;border-top:1px solid rgba(236,234,246,.08)">
+            <span style="font-size:15px;color:#eceaf6">CV'nizi Gönderin</span>
+            <span aria-hidden="true" style="display:grid;place-items:center;width:44px;height:44px;border-radius:22px;background:#4edfc7;color:#160B1A"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span>
+          </div>
+        </a>
+        <a data-r="" href="basvuru-formu.html?tip=profesyonel" style="position:relative;display:flex;flex-direction:column;gap:20px;min-height:clamp(280px,24vw,340px);padding:clamp(24px,2.2vw,36px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.1);text-decoration:none;color:#eceaf6;transition:background-color .3s ease,border-color .3s ease" style-hover="background:#21132a;border-color:rgba(78,223,199,.45);color:#eceaf6">
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="display:grid;place-items:center;width:48px;height:48px;border-radius:24px;background:rgba(78,223,199,.14);color:#4edfc7"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path><path d="M3 13h18"></path><path d="M11 13v2h2v-2"></path></svg></span>
+            <h2 style="margin:0;font-size:clamp(24px,2vw,32px);font-weight:400;line-height:1.1;letter-spacing:-0.03em;color:#4edfc7">Profesyonel</h2>
+          </div>
+          <p style="flex:1;margin:0;max-width:34ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Deneyim ve yeteneklerinizi profesyonel pozisyonlarda değerlendirin.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:18px;border-top:1px solid rgba(236,234,246,.08)">
+            <span style="font-size:15px;color:#eceaf6">CV'nizi Gönderin</span>
+            <span aria-hidden="true" style="display:grid;place-items:center;width:44px;height:44px;border-radius:22px;background:#4edfc7;color:#160B1A"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span>
+          </div>
+        </a>
+    </div>
+  </div>
+</section>
+
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+  <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
+    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+      <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
+      <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+    </div>
+    <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
+  </div>
+</section>
+
+<footer style="position:relative;z-index:1;border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+  <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;align-items:center;gap:18px">
+          <img src="assets/gib-logo-white.png" alt="Gelir İdaresi Başkanlığı" style="height:44px;width:auto;display:block">
+          <span aria-hidden="true" style="width:1px;align-self:stretch;background:rgba(236,234,246,.2)"></span>
+          <img src="assets/gib-teknoloji-logo.png" alt="GİB Teknoloji" style="height:30px;width:auto;display:block;filter:brightness(0) invert(1)"></div>
+        <div style="display:flex;gap:4px;margin-left:-12px">
+          <a href="https://twitter.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="X" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.3l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"></path></svg></a>
+          <a href="https://tr-tr.facebook.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="Facebook" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z"></path></svg></a>
+          <a href="https://www.instagram.com/gibsosyalmedya/" target="_blank" rel="noopener" aria-label="Instagram" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"></circle></svg></a>
+          <a href="https://tr.linkedin.com/company/gibsosyalmedya" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:grid;place-items:center;width:44px;height:44px;color:#a4a1bb;transition:color .2s ease" style-hover="color:#eceaf6"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"></path></svg></a>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:40px clamp(40px,5vw,96px);font-size:15px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="margin-bottom:10px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Kurum İçi Linkler</div>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Vergi Mevzuatı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Sıkça Sorulan Sorular</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Yararlı Bilgiler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Kılavuzlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Gerekli Programlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Tebliğler</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Yayınlar</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Hazır Formlar</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="margin-bottom:10px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">Hizmetler</div>
+          <a href="https://www.tccb.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Cumhurbaşkanlığı</a>
+          <a href="https://www.hmb.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">T.C.Hazine ve Maliye Bakanlığı</a>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener" style="text-decoration:none;color:#d4d1e6">Gelir İdaresi Başkanlığı</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;border-top:1px solid rgba(236,234,246,.1);font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3">
+      <span>Her Hakkı Saklıdır. ©2026 Gelir İdaresi Başkanlığı</span>
+      <a href="#top" style="text-decoration:none">Yukarı dön ↑</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;fieldDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Seyrek&quot;,&quot;Normal&quot;,&quot;Yoğun&quot;],&quot;default&quot;:&quot;Normal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero alanı&quot;},&quot;fieldMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero alanı&quot;}}">
+class Component extends DCLogic {
+  __lock(on) { document.documentElement.style.overflow = on ? 'hidden' : ''; }
+  toggleMenu = () => { const o = !this.state.menu; this.setState({ menu: o }); this.__lock(o); };
+  closeMenu = () => { if (this.state.menu) { this.setState({ menu: false }); this.__lock(false); } };
+  menuVals() { const m = !!this.state.menu; return { toggleMenu: this.toggleMenu, closeMenu: this.closeMenu, menuHidden: m ? 'false' : 'true', menuAria: m ? 'true' : 'false', menuLabel: m ? 'Menüyü kapat' : 'Menüyü aç', bar1: m ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: m ? 'translateY(-3.75px) rotate(-45deg)' : 'none', menuVis: m ? 'visible' : 'hidden', menuOp: m ? 1 : 0, menuY: m ? '0' : '-12px' }; }
+  componentDidUpdate(pp, ps) { if (this.state.nav && this.state.menu) this.closeMenu(); }
+  state = { nav: true, wide: true, q: '', sel: { type: [], level: [], cat: [] } };
+  fieldRef = React.createRef(); ringRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
+  GROUPS = [
+    { key: 'type', label: 'İş Türü', opts: ['Tam Zamanlı', 'Yarı Zamanlı', 'Stajyer'] },
+    { key: 'level', label: 'Tecrübe', opts: ['Entry level', 'Intermediate', 'Expert'] },
+    { key: 'cat', label: 'İş Kategorisi', opts: ['Yazılım', 'Tasarım', 'Analiz'] }
+  ];
+  JOBS = [
+    { logo: 'gibtek', eb: 'GİB Teknoloji', title: 'Genel Başvuru', always: true, tags: [], desc: 'GİB Teknoloji bünyesinde modern kamu teknolojileri projelerimizde yetenek ve deneyimiyle değer katacak çalışma arkadaşları arıyoruz.' },
+    { logo: 'gibtek', eb: 'GİB Teknoloji', title: 'Staj Başvurusu', type: 'Stajyer', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['En az 30 gün', 't'], ['Hibrit', 'h']], desc: 'GİB Teknoloji bünyesinde modern yazılım teknolojileri ve çevik mühendislik pratiklerini deneyimleyecek stajyerler arıyoruz.' },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Frontend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: "Dijital Vergi Dairesi'nin yüksek trafikli web platformları için modern mimarilerle ölçeklenebilir, performanslı ve erişilebilir ön yüz çözümleri geliştirir." },
+    { logo: 'gibtek', eb: 'Tasarım', title: 'UI/UX Tasarımcısı', type: 'Tam Zamanlı', level: 'Expert', cat: 'Tasarım', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi için uçtan uca kullanıcı deneyimi stratejilerini belirler, kurumsal tasarım sistemini (Design System) ve sezgisel ürün arayüzlerini yönetir.' },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Backend Developer', type: 'Tam Zamanlı', level: 'Expert', cat: 'Yazılım', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: "Dijital Vergi Dairesi'nin yüksek hacimli ve dağıtık mikroservis mimarisini tasarlar, güvenli ve yüksek performanslı backend servisleri geliştirir." },
+    { logo: 'dvd', eb: 'Yazılım Geliştirme', title: 'Backend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi altyapısındaki mikroservis ve API geliştirmelerine katılır, veri tabanı ve backend servis süreçlerini destekler.' },
+    { logo: 'gibtek', eb: 'Tasarım', title: 'UI/UX Tasarımcısı', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Tasarım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi akışlarında kullanıcı dostu arayüz ve prototip çalışmaları hazırlar, tasarım kütüphanesinin güncel tutulmasına katkı sağlar.' },
+    { logo: 'defterbeyan', eb: 'Yazılım Geliştirme', title: 'İş Analisti', type: 'Tam Zamanlı', level: 'Expert', cat: 'Analiz', tags: [['Senior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Karmaşık vergi mevzuatı ve iş gereksinimlerini analiz ederek kullanıcı odaklı dijital ürün akışlarına, teknik gereksinimlere ve çevik kullanıcı hikayelerine dönüştürür.' },
+    { logo: 'eymm', eb: 'Yazılım Geliştirme', title: 'Frontend Developer', type: 'Tam Zamanlı', level: 'Entry level', cat: 'Yazılım', tags: [['Junior', 'l'], ['Tam Zamanlı', 't'], ['Hibrit', 'h']], desc: 'Dijital Vergi Dairesi portal ve dijital servislerinin modern arayüz bileşenlerini geliştirir, performans ve erişilebilirlik süreçlerine katkı sağlar.' }
+  ];
+  componentDidMount() {
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => { const n = innerWidth >= 1040, w = innerWidth >= 860; if (n !== this.state.nav || w !== this.state.wide) this.setState({ nav: n, wide: w }); };
+    addEventListener('resize', this.onResize); this.__mk = e => { if (e.key === 'Escape') this.closeMenu(); }; addEventListener('keydown', this.__mk); this.onResize();
+    this.initField(); this.setupReveals();
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.fraf); removeEventListener('resize', this.onResize); removeEventListener('keydown', this.__mk); this.__lock(false); removeEventListener('pointermove', this.onPM); document.documentElement.removeEventListener('mouseleave', this.onLeave);
+    this.fro && this.fro.disconnect(); this.io && this.io.disconnect(); this.mo && this.mo.disconnect(); clearTimeout(this.fallback);
+  }
+  initField() {
+    const c = this.fieldRef.current; if (!c) return;
+    const ctx = c.getContext('2d'); this.fm = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
+    const size = () => { const r = c.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); this.fw = r.width; this.fh = r.height; c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
+    size(); this.fro = new ResizeObserver(size); this.fro.observe(c);
+    this.onPM = e => {
+      const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      this.fm.tx = x; this.fm.ty = y;
+      const rg = this.ringRef.current; if (rg) { const touch = e.pointerType === 'touch'; rg.style.opacity = touch ? '0' : '1'; this.ringHot = !!(e.target.closest && e.target.closest('a,button')); rg.style.borderColor = this.ringHot ? '#4edfc7' : 'rgba(236,234,246,.55)'; if (this.rx == null) { this.rx = x; this.ry = y; } }
+      if (this.fxRef.current) this.fxRef.current.textContent = (x / r.width).toFixed(3);
+      if (this.fyRef.current) this.fyRef.current.textContent = (y / r.height).toFixed(3);
+    };
+    addEventListener('pointermove', this.onPM, { passive: true });
+    this.onLeave = () => { this.fm.tx = this.fm.ty = -9999; const rg = this.ringRef.current; if (rg) rg.style.opacity = '0'; };
+    document.documentElement.addEventListener('mouseleave', this.onLeave);
+    const draw = t => {
+      this.fraf = requestAnimationFrame(draw);
+      if (this.__coarse == null) this.__coarse = matchMedia('(pointer: coarse)').matches;
+      if (this.__coarse) { if (t - (this.__lt || 0) < 40 || document.hidden || scrollY > innerHeight * 1.5) return; this.__lt = t; }
+      const m = this.fm;
+      if (m.tx < -999 || m.x < -999) { m.x = m.tx; m.y = m.ty; } else { m.x += (m.tx - m.x) * .12; m.y += (m.ty - m.y) * .12; }
+      const rg = this.ringRef.current; if (rg && this.rx != null && m.tx > -999) { this.rx += (m.tx - this.rx) * .2; this.ry += (m.ty - this.ry) * .2; this.rs = (this.rs || 1) + ((this.ringHot ? 1.7 : 1) - (this.rs || 1)) * .2; rg.style.transform = 'translate3d(' + this.rx.toFixed(1) + 'px,' + this.ry.toFixed(1) + 'px,0) scale(' + this.rs.toFixed(3) + ')'; }
+      const gap = Math.max(this.__coarse ? 13 : 0, { Seyrek: 12, Normal: 9, 'Yoğun': 7 }[this.props.fieldDensity ?? 'Normal'] || 9);
+      const tt = (this.props.fieldMotion ?? true) && !this.reduced ? t : 0;
+      ctx.clearRect(0, 0, this.fw, this.fh);
+      const cols = Math.ceil(this.fw / gap), rows = Math.ceil(this.fh / gap);
+      const mask = null;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = gap / 2 + i * gap, y = gap / 2 + j * gap;
+        const L = mask ? mask[(j * cols + i) * 4 + 3] / 255 : 0;
+        const dx = x - m.x, dy = y - m.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = Math.max(0, 1 - d / 180);
+        const hs = Math.abs(Math.sin(i * 12.9898 + j * 78.233) * 43758.5453) % 1;
+        const n = Math.sin(x * .0042 + tt * .00022 + Math.sin(y * .0061 + tt * .00017) * 2.2) * Math.cos(y * .0048 - tt * .00026 + Math.sin(x * .0033 - tt * .00012) * 1.6), w = Math.max(0, n);
+        let a, cr = 236, cg = 238, cb = 248;
+        if (L > .35) a = .72 + .14 * Math.sin(tt * .0015 + i * .31 + j * .17);
+        else { const keep = hs < .06 + .42 * w * w; if (!keep && f < .05) continue; a = keep ? .08 + .38 * w * w : 0; cr = 118; cg = 196; cb = 214; }
+        a = Math.min(1, a + .8 * f * f);
+        const sz = (L > .35 ? 2.1 : 1.6) + 2.2 * f;
+        ctx.fillStyle = 'rgba(' + Math.round(cr + (78 - cr) * f) + ',' + Math.round(cg + (223 - cg) * f) + ',' + Math.round(cb + (199 - cb) * f) + ',' + a.toFixed(3) + ')';
+        ctx.fillRect(x + dx / d * f * 12 - sz / 2, y + dy / d * f * 12 - sz / 2, sz, sz);
+      }
+    };
+    this.fraf = requestAnimationFrame(draw);
+  }
+  countUp() {}
+  setupReveals() {
+    if (this.reduced) return;
+    const show = (el, d) => {
+      if (el.dataset.shown) return; el.dataset.shown = '1';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.1,1) ' + d + 'ms, transform 1s cubic-bezier(.2,.7,.1,1) ' + d + 'ms';
+      el.style.opacity = '1'; el.style.transform = 'none';
+      setTimeout(() => { el.style.transition = el.dataset.tr0 || ''; el.style.transform = ''; }, d + 1100);
+      el.querySelectorAll('[data-cnt]').forEach(c => setTimeout(() => this.countUp(c), d + 120));
+      if (el.hasAttribute('data-cnt')) setTimeout(() => this.countUp(el), d + 120);
+    };
+    const delay = el => { const sib = [...el.parentNode.children].filter(x => x.hasAttribute('data-r')); return Math.max(0, sib.indexOf(el)) * 70; };
+    this.io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { this.io.unobserve(en.target); show(en.target, delay(en.target)); } }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    const scan = () => document.querySelectorAll('[data-r]:not([data-armed])').forEach(el => {
+      el.dataset.armed = '1'; el.dataset.tr0 = el.style.transition || ''; el.style.opacity = '0'; el.style.transform = 'translate3d(0,28px,0)';
+      if (el.getBoundingClientRect().top < innerHeight) requestAnimationFrame(() => requestAnimationFrame(() => show(el, delay(el)))); else this.io.observe(el);
+    });
+    scan();
+    this.mo = new MutationObserver(scan); this.mo.observe(document.body, { childList: true, subtree: true });
+    this.fallback = setTimeout(() => document.querySelectorAll('[data-r]').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) show(el, 0); }), 2500);
+  }
+
+  renderVals() {
+    const { sel, q } = this.state, norm = s => s.toLocaleLowerCase('tr'), qq = norm(q.trim());
+    const match = (j, skip) => {
+      if (qq && !norm(j.title + ' ' + j.eb + ' ' + j.desc).includes(qq)) return false;
+      if (j.always) return true;
+      return this.GROUPS.every(g => g.key === skip || !sel[g.key].length || sel[g.key].includes(j[g.key]));
+    };
+    const list = this.JOBS.filter(j => match(j)), any = this.GROUPS.some(g => sel[g.key].length);
+    const TAG = { l: ['rgba(240,212,246,.14)', '#f0d4f6'], t: ['rgba(191,244,247,.12)', '#bff4f7'], h: ['rgba(236,234,246,.08)', '#c9c6dc'] };
+    const toggle = (k, v) => () => this.setState(s => { const cur = s.sel[k]; return { sel: { ...s.sel, [k]: cur.includes(v) ? cur.filter(x => x !== v) : cur.concat(v) } }; });
+    return {
+      fieldRef: this.fieldRef, ringRef: this.ringRef, heroWrap: this.state.nav ? 'nowrap' : 'normal', showLinks: this.state.nav, hideLinks: !this.state.nav, ...this.menuVals(),
+      totalCount: String(this.JOBS.length).padStart(2, '0'),
+      q, hasQ: !!q, onSearch: e => this.setState({ q: e.target.value }), clearQ: () => this.setState({ q: '' }),
+      clearAll: () => this.setState({ q: '', sel: { type: [], level: [], cat: [] } }), clearOp: any || q ? 1 : .45,
+      layoutCols: this.state.wide ? 'minmax(240px,300px) minmax(0,1fr)' : 'minmax(0,1fr)', asidePos: this.state.wide ? 'sticky' : 'relative',
+      groups: this.GROUPS.map(g => ({ label: g.label, opts: g.opts.map(o => { const on = sel[g.key].includes(o); return { label: o, on: on ? 'true' : 'false', toggle: toggle(g.key, o),
+        count: String(this.JOBS.filter(j => !j.always && j[g.key] === o && match(j, g.key)).length).padStart(2, '0'),
+        color: on ? '#eceaf6' : '#c9c6dc', bg: on ? '#4edfc7' : 'transparent', bd: on ? '#4edfc7' : 'rgba(236,234,246,.3)', op: on ? 1 : 0 }; }) })),
+      resultLabel: String(list.length).padStart(2, '0') + ' / ' + String(this.JOBS.length).padStart(2, '0') + ' Pozisyon',
+      empty: list.length === 0,
+      jobs: list.map(j => ({ logo: 'assets/logo-' + j.logo + '-w.png', logoAlt: { gibtek: 'GİB Teknoloji', dvd: 'Dijital Vergi Dairesi', defterbeyan: 'Defter Beyan Sistemi', eymm: 'e-YMM' }[j.logo], eb: j.eb, title: j.title, desc: j.desc, hasTags: j.tags.length > 0, href: 'mailto:kariyer@gelirler.gov.tr?subject=' + encodeURIComponent(j.title + ' Başvurusu'),
+        tags: j.tags.map(([label, k]) => ({ label, bg: TAG[k][0], fg: TAG[k][1] })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
