@@ -12,7 +12,7 @@
 <title>Hakkımızda · GİB Teknoloji</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=block" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
@@ -26,7 +26,9 @@ button{font:inherit;color:inherit}
 <script src="./touch.js"></script>
 </helmet>
 
-<div lang="tr" style="background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
+<div lang="tr" style="position:relative;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
+<canvas ref="{{ fieldRef }}" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block"></canvas>
+<div ref="{{ ringRef }}" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:60;width:36px;height:36px;margin:-18px 0 0 -18px;border:1px solid rgba(236,234,246,.55);border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s ease,border-color .3s ease;will-change:transform"></div>
 
 <header style="position:sticky;top:0;z-index:40;background:rgba(22,11,26,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(236,234,246,.1)">
   <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;height:72px;padding:0 clamp(20px,3vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
@@ -57,8 +59,7 @@ button{font:inherit;color:inherit}
   </div>
 </sc-if>
 
-<section id="top" data-screen-label="Hakkımızda Hero" style="position:relative;overflow:hidden;border-bottom:1px solid rgba(236,234,246,.1)">
-  <canvas ref="{{ fieldRef }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+<section id="top" data-screen-label="Hakkımızda Hero" style="position:relative;z-index:1;position:relative;overflow:hidden;border-bottom:1px solid rgba(236,234,246,.1)">
   <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 15% 70%,rgba(22,11,26,.94) 0%,rgba(22,11,26,.5) 60%,rgba(22,11,26,0) 100%)"></div>
   <div style="position:relative;max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;padding:clamp(28px,3vw,44px) clamp(20px,3vw,48px) clamp(24px,6vw,104px);display:flex;flex-direction:column;gap:clamp(56px,7vw,120px)">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));align-items:end;gap:48px clamp(40px,5vw,96px)">
@@ -72,13 +73,13 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section ref="{{ reelRef }}" data-screen-label="Tanıtım" style="position:relative;height:{{ reelSecH }}">
+<section ref="{{ reelRef }}" data-screen-label="Tanıtım" style="position:relative;z-index:1;position:relative;height:{{ reelSecH }};background:rgba(80,45,95,.23)">
   <div style="position:{{ reelPos }};top:{{ reelTop }};height:{{ reelStickyH }};padding:clamp(16px,2vw,32px) clamp(20px,3vw,48px);display:flex;justify-content:center">
     <div style="position:relative;width:100%;max-width:1600px;height:100%;display:flex;flex-direction:column;gap:14px">
       <div aria-hidden="true" style="display:flex;justify-content:space-between;font-family:'Geist Mono',ui-monospace,monospace;font-size:18px;line-height:1;color:#8a87a3"><span>+</span><span>+</span><span>+</span><span>+</span><span>+</span></div>
       <div ref="{{ reelSlotRef }}" aria-hidden="true" style="flex:1;min-height:0"></div>
       <div ref="{{ reelMediaRef }}" onClick="{{ reelToggle }}" style="cursor:pointer;position:absolute;left:0;top:0;width:0;height:0;z-index:2;border-radius:8px;overflow:hidden;background:#15122a">
-        <video data-auto="" src="assets/tanitim.mp4" poster="assets/ekip-hero.jpg" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-label="GİB Teknoloji tanıtım videosu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></video>
+        <video data-auto="" src="assets/tanitim.mp4" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-label="GİB Teknoloji tanıtım videosu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></video>
         <div data-tint="" aria-hidden="true" style="position:absolute;inset:0;background:#4edfc7;mix-blend-mode:color;opacity:1"></div>
         <div data-tint2="" aria-hidden="true" style="position:absolute;inset:0;background:#1f6f63;mix-blend-mode:multiply;opacity:.55"></div>
         <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(22,11,26,.28)"></div>
@@ -93,7 +94,7 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="ekiplerimiz" ref="{{ teamHRef }}" data-screen-label="Ekiplerimiz" style="position:relative;height:{{ teamHSecH }}">
+<section id="ekiplerimiz" ref="{{ teamHRef }}" data-screen-label="Ekiplerimiz" style="position:relative;z-index:1;position:relative;height:{{ teamHSecH }}">
   <div style="position:{{ teamHSticky }};top:{{ teamHTop }};height:{{ teamHStickyH }};display:flex;flex-direction:column;justify-content:center;gap:clamp(32px,3.4vw,56px);padding:clamp(40px,5vh,72px) 0;overflow:hidden">
     <div data-r="" style="width:100%;max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;padding:0 clamp(20px,3vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 64px">
       <h2 style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Ekiplerimiz</h2>
@@ -116,7 +117,7 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="teknolojiler" ref="{{ techSecRef }}" data-screen-label="Kullanılan Teknolojiler" style="position:relative;height:{{ techSecH }};padding:0;border-top:1px solid rgba(236,234,246,.1)">
+<section id="teknolojiler" ref="{{ techSecRef }}" data-screen-label="Kullanılan Teknolojiler" style="position:relative;z-index:1;position:relative;height:{{ techSecH }};padding:0;background:rgba(80,45,95,.23)">
   <div style="position:{{ techSticky }};top:{{ techTop }};height:{{ techStickyH }};padding:0;display:flex;flex-direction:column">
   <div ref="{{ techRef }}" onMouseMove="{{ techMove }}" onMouseLeave="{{ techLeave }}" style="flex:1;width:100%;display:flex;flex-direction:column;position:relative;overflow:hidden;padding:clamp(36px,4vw,72px) clamp(20px,3vw,48px);background-color:#1d1022;background-image:linear-gradient(rgba(236,234,246,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(236,234,246,.06) 1px,transparent 1px);background-size:clamp(40px,3.4vw,60px) clamp(40px,3.4vw,60px);background-position:center;color:#eceaf6">
     <div data-r="" style="position:relative;z-index:2;width:100%;max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
@@ -139,16 +140,16 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="odullerimiz" data-screen-label="Ödüllerimiz" style="padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="odullerimiz" data-screen-label="Ödüllerimiz" style="position:relative;z-index:1;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px)">
   <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,4vw,72px)">
     <div data-r="" style="display:flex;flex-direction:column;gap:20px">
       <h2 style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em;color:#eceaf6">Ödüllerimiz</h2>
     </div>
     <div style="display:grid;grid-template-columns:{{ awardCols }};gap:clamp(12px,1.4vw,20px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch">
       <sc-for list="{{ awards }}" as="a" hint-placeholder-count="8">
-        <div data-r="" style="scroll-snap-align:start;display:flex;flex-direction:column;gap:20px;padding:clamp(20px,1.8vw,28px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08);transition:background-color .3s ease" style-hover="background:#21132a">
+        <div data-r="" onPointerEnter="{{ awardOn }}" onPointerLeave="{{ awardOff }}" onPointerDown="{{ awardTap }}" style="scroll-snap-align:start;display:flex;flex-direction:column;gap:20px;padding:clamp(20px,1.8vw,28px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08)">
           <div style="position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 62%,#2b2742 0%,#14111f 72%)">
-            <div style="position:absolute;inset:14% 22% 10%;filter:grayscale(1) brightness({{ a.bright }}) contrast(1.08) drop-shadow(0 18px 22px rgba(0,0,0,.5))">
+            <div data-aimg="" style="position:absolute;inset:14% 22% 10%;filter:grayscale(1) brightness({{ a.bright }}) contrast(1.08) drop-shadow(0 18px 22px rgba(0,0,0,.5));transition:filter .5s ease">
               <sc-if value="{{ a.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ a.img }}" alt="{{ a.org }} ödülü" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block"></sc-if>
               <sc-if value="{{ a.noImg }}" hint-placeholder-val="{{ false }}"><image-slot id="odul-v2-{{ a.num }}" fit="contain" shape="rounded" radius="6" placeholder="3D ödül görseli"></image-slot></sc-if>
             </div>
@@ -164,18 +165,18 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);background:rgba(80,45,95,.23)">
   <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
       <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
-        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <span style="white-space:nowrap"><a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u</span> arayabilirsiniz.</p>
     </div>
     <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
   </div>
 </section>
 
-<footer style="border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+<footer style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
   <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
       <div style="display:flex;flex-direction:column;gap:24px">
@@ -228,7 +229,7 @@ class Component extends DCLogic {
   closeMenu = () => { if (this.state.menu) { this.setState({ menu: false }); this.__lock(false); } };
   closeAll = () => { this.setState({ menu: false, work: null, photo: null }); this.__lock(false); };
   state = { mobile: false, short: false, compact: false, team: 0, tech: 'React.js' };
-  fieldRef = React.createRef(); techRef = React.createRef(); techSecRef = React.createRef(); teamRef = React.createRef(); teamHRef = React.createRef(); teamTrack = React.createRef(); teamTrackWrap = React.createRef(); reelRef = React.createRef(); reelSlotRef = React.createRef(); heroSlotRef = React.createRef(); reelMediaRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
+  fieldRef = React.createRef(); ringRef = React.createRef(); techRef = React.createRef(); techSecRef = React.createRef(); teamRef = React.createRef(); teamHRef = React.createRef(); teamTrack = React.createRef(); teamTrackWrap = React.createRef(); reelRef = React.createRef(); reelSlotRef = React.createRef(); heroSlotRef = React.createRef(); reelMediaRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
   TEAMS = [["Veri & Yapay Zeka","Veri analizi, büyük veri, AI projeleri"],["Siber Güvenlik","Güvenlik, denetim, veri koruma"],["Tasarım","Kullanıcı deneyimi , arayüz, kurumsal kimlik"],["Sistem & Altyapı","DevOps, cloud, sistem yönetimi"],["Ürün & Proje Yönetimi","İş analizi, proje koordinasyonu"],["Yazılım Geliştirme","Frontend, Backend, Full-stack"]];
   TECHS = {
     'React.js': 'İnteraktif ve E-beyanname projelerinde fonksiyonel komponentler oluşturmak için kullanılmaktadır.',
@@ -338,6 +339,7 @@ class Component extends DCLogic {
     };
     this.craf = requestAnimationFrame(chipLoop);
   }
+  awardColor(card, on) { const im = card && card.querySelector('[data-aimg]'); if (!im) return; if (on) { if (!card.dataset.aon) im.dataset.f0 = im.style.filter; card.dataset.aon = '1'; im.style.filter = 'grayscale(0) brightness(1) contrast(1) drop-shadow(0 18px 22px rgba(0,0,0,.5))'; } else { delete card.dataset.aon; if (im.dataset.f0) im.style.filter = im.dataset.f0; } }
   reelStop() { this.reelOn = false; const v = this.reelMediaRef.current && this.reelMediaRef.current.querySelector('video'); if (v) { v.muted = true; if (this.reduced) v.pause(); else v.play().catch(() => {}); } }
   applyPanels(f) {
     const s = this.teamRef.current; if (!s) return;
@@ -348,7 +350,7 @@ class Component extends DCLogic {
   componentWillUnmount() {
     removeEventListener('resize', this.__mr); removeEventListener('keydown', this.__mk); this.__lock(false);
     cancelAnimationFrame(this.praf); cancelAnimationFrame(this.craf); cancelAnimationFrame(this.thraf); this.tro && this.tro.disconnect();
-    cancelAnimationFrame(this.fraf); removeEventListener('scroll', this.teamScroll); cancelAnimationFrame(this.rraf); removeEventListener('resize', this.onResize); removeEventListener('pointermove', this.onPM);
+    cancelAnimationFrame(this.fraf); removeEventListener('scroll', this.teamScroll); cancelAnimationFrame(this.rraf); removeEventListener('resize', this.onResize); removeEventListener('pointermove', this.onPM); document.documentElement.removeEventListener('mouseleave', this.onLeave);
     this.fro && this.fro.disconnect(); this.io && this.io.disconnect(); this.mo && this.mo.disconnect(); clearTimeout(this.fallback);
   }
   initField() {
@@ -358,28 +360,39 @@ class Component extends DCLogic {
     size(); this.fro = new ResizeObserver(size); this.fro.observe(c);
     this.onPM = e => { if (e.pointerType && e.pointerType !== 'mouse') return;
       const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-      if (x < 0 || y < 0 || x > r.width || y > r.height) { this.fm.tx = this.fm.ty = -9999; return; }
       this.fm.tx = x; this.fm.ty = y;
+      const rg = this.ringRef.current; if (rg) { const touch = e.pointerType === 'touch'; rg.style.opacity = touch ? '0' : '1'; this.ringHot = !!(e.target.closest && e.target.closest('a,button')); rg.style.borderColor = this.ringHot ? '#4edfc7' : 'rgba(236,234,246,.55)'; if (this.rx == null) { this.rx = x; this.ry = y; } }
       if (this.fxRef.current) this.fxRef.current.textContent = (x / r.width).toFixed(3);
       if (this.fyRef.current) this.fyRef.current.textContent = (y / r.height).toFixed(3);
     };
     addEventListener('pointermove', this.onPM, { passive: true });
+    this.onLeave = () => { this.fm.tx = this.fm.ty = -9999; const rg = this.ringRef.current; if (rg) rg.style.opacity = '0'; };
+    document.documentElement.addEventListener('mouseleave', this.onLeave);
     const draw = t => {
       this.fraf = requestAnimationFrame(draw);
       if (this.__coarse == null) this.__coarse = matchMedia('(pointer: coarse)').matches;
       if (this.__coarse) { if (t - (this.__lt || 0) < 40 || document.hidden || scrollY > innerHeight * 1.5) return; this.__lt = t; }
-      if (c.getBoundingClientRect().bottom < 0) return;
       const m = this.fm;
       if (m.tx < -999 || m.x < -999) { m.x = m.tx; m.y = m.ty; } else { m.x += (m.tx - m.x) * .12; m.y += (m.ty - m.y) * .12; }
-      const gap = { Seyrek: 34, Normal: 24, 'Yoğun': 16 }[this.props.fieldDensity ?? 'Normal'] || 24;
+      const rg = this.ringRef.current; if (rg && this.rx != null && m.tx > -999) { this.rx += (m.tx - this.rx) * .2; this.ry += (m.ty - this.ry) * .2; this.rs = (this.rs || 1) + ((this.ringHot ? 1.7 : 1) - (this.rs || 1)) * .2; rg.style.transform = 'translate3d(' + this.rx.toFixed(1) + 'px,' + this.ry.toFixed(1) + 'px,0) scale(' + this.rs.toFixed(3) + ')'; }
+      const gap = Math.max(this.__coarse ? 13 : 0, { Seyrek: 12, Normal: 9, 'Yoğun': 7 }[this.props.fieldDensity ?? 'Normal'] || 9);
       const tt = (this.props.fieldMotion ?? true) && !this.reduced ? t : 0;
       ctx.clearRect(0, 0, this.fw, this.fh);
-      for (let y = gap / 2; y < this.fh; y += gap) for (let x = gap / 2; x < this.fw; x += gap) {
-        const dx = x - m.x, dy = y - m.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = Math.max(0, 1 - d / 200);
-        const w = Math.sin(x * .011 + tt * .0007) * Math.cos(y * .013 - tt * .0005);
-        const a = Math.min(1, .06 + .07 * (w + 1) + .85 * f * f), s = 1 + 2 * f;
-        ctx.fillStyle = f > .02 ? 'rgba(' + Math.round(78 + 91 * f) + ',' + Math.round(223 - 68 * f) + ',' + Math.round(199 + 56 * f) + ',' + a + ')' : 'rgba(207,202,232,' + a + ')';
-        ctx.fillRect(x + dx / d * f * 14 - s / 2, y + dy / d * f * 14 - s / 2, s, s);
+      const cols = Math.ceil(this.fw / gap), rows = Math.ceil(this.fh / gap);
+      const mask = null;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        const x = gap / 2 + i * gap, y = gap / 2 + j * gap;
+        const L = mask ? mask[(j * cols + i) * 4 + 3] / 255 : 0;
+        const dx = x - m.x, dy = y - m.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = Math.max(0, 1 - d / 180);
+        const hs = Math.abs(Math.sin(i * 12.9898 + j * 78.233) * 43758.5453) % 1;
+        const n = Math.sin(x * .0042 + tt * .00022 + Math.sin(y * .0061 + tt * .00017) * 2.2) * Math.cos(y * .0048 - tt * .00026 + Math.sin(x * .0033 - tt * .00012) * 1.6), w = Math.max(0, n);
+        let a, cr = 236, cg = 238, cb = 248;
+        if (L > .35) a = .72 + .14 * Math.sin(tt * .0015 + i * .31 + j * .17);
+        else { const keep = hs < .06 + .42 * w * w; if (!keep && f < .05) continue; a = keep ? .08 + .38 * w * w : 0; cr = 118; cg = 196; cb = 214; }
+        a = Math.min(1, a + .8 * f * f);
+        const sz = (L > .35 ? 2.1 : 1.6) + 2.2 * f;
+        ctx.fillStyle = 'rgba(' + Math.round(cr + (78 - cr) * f) + ',' + Math.round(cg + (223 - cg) * f) + ',' + Math.round(cb + (199 - cb) * f) + ',' + a.toFixed(3) + ')';
+        ctx.fillRect(x + dx / d * f * 12 - sz / 2, y + dy / d * f * 12 - sz / 2, sz, sz);
       }
     };
     this.fraf = requestAnimationFrame(draw);
@@ -417,9 +430,10 @@ class Component extends DCLogic {
     const cmp = this.state.compact, CH = { o: ['transparent', 'rgba(236,234,246,.55)', '#eceaf6'], c: ['#bff4f7', '#bff4f7', '#160B1A'], l: ['#f0d4f6', '#f0d4f6', '#160B1A'] };
     const cat = (this.CATS.find(([, items]) => items.includes(tech)) || this.CATS[0])[0];
     return {
-      fieldRef: this.fieldRef,
+      fieldRef: this.fieldRef, ringRef: this.ringRef,
       reelPlay: e => { e.stopPropagation(); const v = this.reelMediaRef.current && this.reelMediaRef.current.querySelector('video'); if (!v) return; this.reelOn = true; v.currentTime = 0; v.muted = false; v.play().catch(() => {}); },
-      reelToggle: () => { if (!this.reelOn) return; const v = this.reelMediaRef.current.querySelector('video'); if (v.paused) v.play().catch(() => {}); else v.pause(); }, reelSecH: innerWidth < 720 ? 'auto' : '150vh', heroSlotD: innerWidth < 720 ? 'none' : 'block', reelPos: innerWidth < 720 ? 'relative' : 'sticky', reelTop: innerWidth < 720 ? '0' : '72px', reelStickyH: innerWidth < 720 ? 'calc((100vw - 2 * clamp(20px,3vw,48px)) * .5625 + 64px + 2 * clamp(16px,2vw,32px))' : 'calc(100svh - 72px)', reelRef: this.reelRef, reelSlotRef: this.reelSlotRef, heroSlotRef: this.heroSlotRef, reelMediaRef: this.reelMediaRef, fxRef: this.fxRef, fyRef: this.fyRef,
+      reelToggle: () => { if (!this.reelOn) return; const v = this.reelMediaRef.current.querySelector('video'); if (v.paused) v.play().catch(() => {}); else v.pause(); }, reelSecH: innerWidth < 720 ? 'auto' : '150vh', heroSlotD: innerWidth < 720 ? 'none' : 'block', reelPos: innerWidth < 720 ? 'relative' : 'sticky', reelTop: innerWidth < 720 ? '0' : '72px', reelStickyH: innerWidth < 720 ? 'calc((100vw - 2 * clamp(20px,3vw,48px)) * .5625 + 64px + 2 * clamp(16px,2vw,32px))' : 'calc(100svh - 72px)', awardOn: e => { if (e.pointerType === 'mouse') this.awardColor(e.currentTarget, true); }, awardOff: e => { if (e.pointerType === 'mouse') this.awardColor(e.currentTarget, false); }, awardTap: e => { if (e.pointerType !== 'mouse') { const el = e.currentTarget, on = !el.dataset.aon; document.querySelectorAll('[data-aon]').forEach(x => x !== el && this.awardColor(x, false)); this.awardColor(el, on); } },
+      reelRef: this.reelRef, reelSlotRef: this.reelSlotRef, heroSlotRef: this.heroSlotRef, reelMediaRef: this.reelMediaRef, fxRef: this.fxRef, fyRef: this.fyRef,
       ...this.__rail(), awardCols: innerWidth < 720 ? 'none' : 'repeat(auto-fill,minmax(min(100%,320px),1fr))', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, teamPrev: () => gibStep(this.teamHRef.current, this.TEAMS.length, -1, this.teamTrackWrap.current), teamNext: () => gibStep(this.teamHRef.current, this.TEAMS.length, 1, this.teamTrackWrap.current), closeMenu: this.closeMenu, showLinks: !this.state.mobile, hideLinks: !(!this.state.mobile),
       teamHRef: this.teamHRef, teamTrack: this.teamTrack, teamTrackWrap: this.teamTrackWrap,
       teamHSecH: this.state.compact ? 'auto' : 'calc(100svh - 72px + ' + Math.round(this.teamDist || 0) + 'px)', teamHSticky: this.state.compact ? 'relative' : 'sticky', teamHTop: this.state.compact ? '0' : '72px', teamHStickyH: this.state.compact ? 'auto' : 'calc(100svh - 72px)',

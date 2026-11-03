@@ -12,7 +12,7 @@
 <title>Tasarım Ekibi · GİB Teknoloji</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=block" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
@@ -72,7 +72,7 @@ input[type=search]::-webkit-search-cancel-button{display:none}
   </div>
 </section>
 
-<section id="tanitim" data-screen-label="Ekibimizi Tanıyın" style="position:relative;z-index:1;padding:clamp(56px,6vw,104px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="tanitim" data-screen-label="Ekibimizi Tanıyın" style="position:relative;z-index:1;padding:clamp(56px,6vw,104px) clamp(20px,3vw,48px);background:rgba(80,45,95,.23)">
   <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(32px,3.4vw,56px)">
     <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Ekibimizi <em style="font-style:normal;color:#4edfc7">Tanıyın</em></h2>
     <div style="display:grid;grid-template-columns:{{ bentoCols }};grid-template-areas:{{ bentoAreas }};grid-auto-flow:{{ bentoFlow }};grid-auto-columns:min(84%,360px);gap:clamp(12px,1.4vw,20px);overflow-x:{{ bentoOv }};overflow-y:{{ bentoOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ bentoSnap }};scroll-padding-inline:clamp(20px,3vw,48px);margin:0 {{ bentoBleed }};padding:0 {{ bentoPad }};scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain">
@@ -88,7 +88,7 @@ input[type=search]::-webkit-search-cancel-button{display:none}
         <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;letter-spacing:-0.02em;color:#bff4f7">İçerik Tasarımı</h3>
         <p style="margin:0;font-size:15px;line-height:1.65;color:#c9c6dc;text-wrap:pretty">GİB Teknoloji ürünlerindeki her kelimenin açık, anlaşılır ve amacına uygun olmasını sağlıyoruz. Kullanıcıların ürünlerimizi ve sunduğumuz hizmetleri daha kolay anlamalarına ve kullanmalarına yardımcı olan içerikler tasarlıyoruz. Ürünlerin tüm temas noktalarında tutarlı, sade ve kullanıcı odaklı bir iletişim dili oluşturuyoruz.</p>
       </article>
-      <article data-r="" style="grid-area:{{ areaD }};scroll-snap-align:start;display:flex;flex-direction:column;gap:16px;padding:clamp(22px,2vw,32px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08)">
+      <article data-r="" style="grid-area:{{ areaD }};scroll-snap-align:start;display:flex;flex-direction:column;gap:16px;padding:clamp(22px,2vw,32px);border-radius:16px;background:#2b1a34;border:1px solid rgba(236,234,246,.08)">
         <h3 style="margin:0;font-size:clamp(20px,1.5vw,24px);font-weight:400;letter-spacing:-0.02em;color:#eceaf6">Tasarım Sistemleri</h3>
         <p style="margin:0;font-size:15px;line-height:1.65;color:#c9c6dc;text-wrap:pretty">Tasarım ekibi olarak, GİB Teknoloji ürünlerinde tutarlı, ölçeklenebilir ve sürdürülebilir bir tasarım dilinin oluşturulmasına katkı sağlıyoruz. Farklı ürün ve platformlarda kullanılan bileşenleri, tasarım kurallarını ve kullanıcı deneyimi standartlarını ortak bir yapı altında bir araya getiriyoruz. Tasarım ve yazılım ekipleriyle yakın iş birliği içinde çalışarak, yeni ürünlerin geliştirilme sürecini hızlandırırken mevcut ürünlerde de tutarlı bir deneyim sunulmasını hedefliyoruz.</p>
         <img src="assets/tasarim-illus-w.png" alt="Telefon ekranı önünde dizüstü bilgisayarla çalışan kişi illüstrasyonu" style="display:{{ illusDisp }};width:100%;max-width:240px;height:auto;margin:auto auto 0">
@@ -97,7 +97,7 @@ input[type=search]::-webkit-search-cancel-button{display:none}
   </div>
 </section>
 
-<section id="sozler" ref="{{ qRef }}" data-screen-label="Ekibimizden" style="position:relative;z-index:1;height:{{ qSecH }};border-top:1px solid rgba(236,234,246,.1)">
+<section id="sozler" ref="{{ qRef }}" data-screen-label="Ekibimizden" style="position:relative;z-index:1;height:{{ qSecH }}">
   <div style="position:{{ qSticky }};top:{{ qTop }};height:{{ qStickyH }};overflow:{{ qOverflow }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{{ qGap }};padding:{{ qPad }}">
     <h2 style="position:relative;z-index:1;margin:0;text-align:center;font-weight:400;font-size:clamp(36px,5.4vw,96px);line-height:1.02;letter-spacing:-0.05em;pointer-events:none">Ekibimizin gözünden<br><em style="font-style:normal;color:#4edfc7">GİB Teknoloji</em></h2>
     <div style="position:{{ qWrapPos }};inset:0;z-index:2;display:flex;flex-direction:{{ qDir }};align-items:{{ qAlign }};gap:16px;width:{{ qWrapW }};margin:0 {{ bentoBleed }};padding:0 {{ bentoPad }};box-sizing:border-box;overflow-x:{{ bentoOv }};overflow-y:{{ bentoOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ bentoSnap }};scroll-padding-inline:clamp(20px,3vw,48px);scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;pointer-events:{{ qPe }}">
@@ -114,7 +114,7 @@ input[type=search]::-webkit-search-cancel-button{display:none}
   </div>
 </section>
 
-<section id="fotograflar" ref="{{ phRef }}" data-screen-label="Fotoğraflarımız" style="position:relative;z-index:1;height:{{ phSecH }};border-top:1px solid rgba(236,234,246,.1)">
+<section id="fotograflar" ref="{{ phRef }}" data-screen-label="Fotoğraflarımız" style="position:relative;z-index:1;height:{{ phSecH }};background:rgba(80,45,95,.23)">
   <sc-if value="{{ phWide }}" hint-placeholder-val="{{ true }}">
     <div onClick="{{ openPhoto }}" style="position:sticky;top:72px;height:calc(100svh - 72px);overflow:hidden;perspective:1000px;perspective-origin:50% 50%">
       <div style="position:absolute;left:50%;top:50%;z-index:50;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;pointer-events:none">
@@ -130,7 +130,7 @@ input[type=search]::-webkit-search-cancel-button{display:none}
         <sc-for list="{{ phItems }}" as="f" hint-placeholder-count="0">
           <div data-fly="{{ $index }}" style="position:absolute;left:0;top:0;width:{{ f.w }};opacity:0;will-change:transform,opacity">
             <sc-if value="{{ f.isPhoto }}" hint-placeholder-val="{{ true }}">
-              <div style="padding:12px;border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.1);box-shadow:0 30px 60px -30px rgba(0,0,0,.7)"><div style="aspect-ratio:{{ f.ar }};border-radius:10px;overflow:hidden;background:#160B1A"><img src="{{ f.src }}" alt="Tasarım ekibinden bir kare" style="cursor:zoom-in;width:100%;height:100%;object-fit:cover;object-position:{{ f.pos }};display:block"></div></div>
+              <div style="padding:12px;border-radius:16px;background:#2b1a34;border:1px solid rgba(236,234,246,.1);box-shadow:0 30px 60px -30px rgba(0,0,0,.7)"><div style="aspect-ratio:{{ f.ar }};border-radius:10px;overflow:hidden;background:#160B1A"><img src="{{ f.src }}" alt="Tasarım ekibinden bir kare" style="cursor:zoom-in;width:100%;height:100%;object-fit:cover;object-position:{{ f.pos }};display:block"></div></div>
             </sc-if>
             <sc-if value="{{ f.isBadge }}" hint-placeholder-val="{{ false }}">
               <div data-spin="" style="position:relative;width:100%;aspect-ratio:1">
@@ -157,7 +157,7 @@ input[type=search]::-webkit-search-cancel-button{display:none}
       </div>
       <div onClick="{{ openPhoto }}" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
         <sc-for list="{{ phGrid }}" as="f" hint-placeholder-count="0">
-          <div style="padding:8px;border-radius:14px;background:#1d1022;border:1px solid rgba(236,234,246,.1)"><div style="aspect-ratio:3/4;border-radius:8px;overflow:hidden"><img src="{{ f.src }}" alt="Tasarım ekibinden bir kare" loading="lazy" style="cursor:zoom-in;width:100%;height:100%;object-fit:cover;object-position:{{ f.pos }};display:block"></div></div>
+          <div style="padding:8px;border-radius:14px;background:#2b1a34;border:1px solid rgba(236,234,246,.1)"><div style="aspect-ratio:3/4;border-radius:8px;overflow:hidden"><img src="{{ f.src }}" alt="Tasarım ekibinden bir kare" loading="lazy" style="cursor:zoom-in;width:100%;height:100%;object-fit:cover;object-position:{{ f.pos }};display:block"></div></div>
         </sc-for>
       </div>
     </div>
@@ -172,18 +172,18 @@ input[type=search]::-webkit-search-cancel-button{display:none}
 </div>
 </sc-if>
 
-<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px)">
   <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
       <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
-        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <span style="white-space:nowrap"><a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u</span> arayabilirsiniz.</p>
     </div>
     <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
   </div>
 </section>
 
-<footer style="position:relative;z-index:1;border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+<footer style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px;background:rgba(80,45,95,.23)">
   <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
       <div style="display:flex;flex-direction:column;gap:24px">

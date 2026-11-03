@@ -12,7 +12,7 @@
 <title>GİB Teknoloji</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=block" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
@@ -89,7 +89,7 @@ button{font:inherit;color:inherit}
 </section>
 
 <sc-if value="{{ showMarquee }}" hint-placeholder-val="{{ true }}">
-  <div aria-label="Hizmetlerimiz" style="overflow:hidden;padding:20px 0;border-bottom:1px solid rgba(236,234,246,.1)">
+  <div aria-label="Hizmetlerimiz" style="overflow:hidden;padding:20px 0">
     <div ref="{{ marqRef }}" style="display:flex;width:max-content;will-change:transform">
       <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="8">
         <span style="display:flex;align-items:center;gap:28px;padding-right:28px;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#a4a1bb;white-space:nowrap">{{ m.name }}<span aria-hidden="true" style="width:5px;height:5px;background:#a99bff"></span></span>
@@ -98,7 +98,7 @@ button{font:inherit;color:inherit}
   </div>
 </sc-if>
 
-<section id="projeler" ref="{{ projSecRef }}" style="position:relative;padding:0 clamp(20px,3vw,48px)">
+<section id="projeler" ref="{{ projSecRef }}" style="position:relative;padding:0 clamp(20px,3vw,48px);background:rgba(80,45,95,.23)">
   <div style="position:{{ projSticky }};top:{{ projTop }};height:{{ projH }};max-width:1600px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(32px,3.4vw,56px);padding:{{ projPad }}">
     <div data-r="" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
       <div style="display:flex;flex-direction:column;gap:20px">
@@ -109,7 +109,7 @@ button{font:inherit;color:inherit}
     <div ref="{{ workWrapRef }}" style="overflow-x:{{ projOverflow }};overflow-y:hidden;scroll-snap-type:{{ projSnap }};scroll-padding-inline:clamp(20px,3vw,48px);overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 calc(-1 * clamp(20px,3vw,48px));padding:0 clamp(20px,3vw,48px)">
     <div ref="{{ workTrackRef }}" style="display:flex;gap:clamp(12px,1.2vw,20px);width:max-content;will-change:transform">
       <sc-for list="{{ works }}" as="w" hint-placeholder-count="4">
-        <a href="{{ w.url }}" target="_blank" rel="noopener" onMouseEnter="{{ w.onIn }}" onMouseLeave="{{ w.onOut }}" onFocus="{{ w.onIn }}" onBlur="{{ w.onOut }}" onClick="{{ w.open }}" style="flex:none;width:clamp(300px,40vw,680px);scroll-snap-align:start;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(20px,2vw,32px);padding:clamp(18px,1.8vw,28px);border:1px solid rgba(236,234,246,.12);border-radius:6px;background:#1d1022;color:#eceaf6;text-decoration:none;transition:border-color .3s ease,background-color .3s ease" style-hover="border-color:rgba(78,223,199,.55);background:#100d1f;color:#eceaf6">
+        <a href="{{ w.url }}" target="_blank" rel="noopener" onMouseEnter="{{ w.onIn }}" onMouseLeave="{{ w.onOut }}" onFocus="{{ w.onIn }}" onBlur="{{ w.onOut }}" onClick="{{ w.open }}" style="flex:none;width:clamp(300px,40vw,680px);scroll-snap-align:start;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(20px,2vw,32px);padding:clamp(18px,1.8vw,28px);border:1px solid rgba(236,234,246,.12);border-radius:6px;background:#2b1a34;color:#eceaf6;text-decoration:none;transition:border-color .3s ease,background-color .3s ease" style-hover="border-color:rgba(78,223,199,.55);background:#100d1f;color:#eceaf6">
           <div style="display:flex;flex-direction:column;justify-content:space-between;gap:{{ projGap }};min-width:0">
             <div style="display:flex;align-items:center;gap:12px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">
                             <span style="color:{{ w.tagColor }}">{{ w.tag }}</span>
@@ -173,7 +173,7 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="istatistikler" style="padding:clamp(56px,7vw,112px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="istatistikler" style="padding:clamp(56px,7vw,112px) clamp(20px,3vw,48px);background:rgba(80,45,95,.23)">
   <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column">
     <div data-r="" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 64px">
       <div style="display:flex;flex-direction:column;gap:20px">
@@ -207,7 +207,7 @@ button{font:inherit;color:inherit}
       <sc-for list="{{ statPanels }}" as="pn" hint-placeholder-count="1">
       <div aria-hidden="{{ pn.hidden }}" style="grid-area:1 / 1;position:{{ pn.pos }};top:0;left:0;right:0;align-self:{{ pn.aself }};display:grid;grid-template-columns:{{ pn.cols }};grid-auto-rows:{{ pn.rows }};align-content:start;gap:clamp(12px,1.4vw,20px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;visibility:{{ pn.vis }};opacity:{{ pn.op }};transition:opacity .35s ease">
         <sc-for list="{{ pn.cards }}" as="c" hint-placeholder-count="4">
-          <div data-r="" style="grid-column:{{ c.span }};scroll-snap-align:start;display:flex;flex-direction:column;gap:36px;min-width:0;padding:clamp(20px,1.8vw,30px);border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.08)">
+          <div data-r="" style="grid-column:{{ c.span }};scroll-snap-align:start;display:flex;flex-direction:column;gap:36px;min-width:0;padding:clamp(20px,1.8vw,30px);border-radius:16px;background:#2b1a34;border:1px solid rgba(236,234,246,.08)">
             <div style="display:flex;flex-direction:column;align-items:flex-start;gap:20px"><span style="display:grid;place-items:center;width:44px;height:44px;border-radius:22px;background:rgba(78,223,199,.14);color:#4edfc7"><sc-if value="{{ pn.iDoc }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block"><path d="M 4 14 L 12 14 L 12 16 L 4 16 L 4 14 Z M 4 10 L 12 10 L 12 12 L 4 12 L 4 10 Z M 10 0 L 2 0 C 0.9 0 0 0.9 0 2 L 0 18 C 0 19.1 0.89 20 1.99 20 L 14 20 C 15.1 20 16 19.1 16 18 L 16 6 L 10 0 Z M 14 18 L 2 18 L 2 2 L 9 2 L 9 7 L 14 7 L 14 18 Z" fill="currentColor" fill-rule="evenodd" transform="matrix(1 0 0 1 4 2)"></path></svg></sc-if><sc-if value="{{ pn.iUsers }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;display:block"><path d="M22 21v-2c0-1.86-1.27-3.43-3-3.87M15.5 3.29a4 4 0 0 1 0 7.42M17 21c0-1.86 0-2.8-.3-3.53a4 4 0 0 0-2.17-2.17C13.8 15 12.86 15 11 15H8c-1.86 0-2.8 0-3.53.3a4 4 0 0 0-2.17 2.17C2 18.2 2 19.14 2 21M13.5 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"></path></svg></sc-if><sc-if value="{{ pn.iPay }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block"><path d="M 18 10 L 18 2 C 18 0.9 17.1 0 16 0 L 2 0 C 0.9 0 0 0.9 0 2 L 0 10 C 0 11.1 0.9 12 2 12 L 16 12 C 17.1 12 18 11.1 18 10 Z M 16 10 L 2 10 L 2 2 L 16 2 L 16 10 Z M 9 3 C 7.34 3 6 4.34 6 6 C 6 7.66 7.34 9 9 9 C 10.66 9 12 7.66 12 6 C 12 4.34 10.66 3 9 3 Z M 22 3 L 22 14 C 22 15.1 21.1 16 20 16 L 3 16 L 3 14 L 20 14 L 20 3 L 22 3 Z" fill="currentColor" fill-rule="evenodd" transform="matrix(1 0 0 1 1 4)"></path></svg></sc-if><sc-if value="{{ pn.iPc }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block"><path d="M 20 14 C 21.1 14 21.99 13.1 21.99 12 L 22 2 C 22 0.9 21.1 0 20 0 L 4 0 C 2.9 0 2 0.9 2 2 L 2 12 C 2 13.1 2.9 14 4 14 L 0 14 L 0 16 L 24 16 L 24 14 L 20 14 Z M 4 2 L 20 2 L 20 12 L 4 12 L 4 2 Z" fill="currentColor" fill-rule="evenodd" transform="matrix(1 0 0 1 0 4)"></path></svg></sc-if></span><span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">{{ c.eyebrow }}</span></div>
             <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:24px">
               <sc-for list="{{ c.sections }}" as="s" hint-placeholder-count="1">
@@ -233,18 +233,18 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,7vw,112px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,7vw,112px) clamp(20px,3vw,48px)">
   <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
       <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
-        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <span style="white-space:nowrap"><a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u</span> arayabilirsiniz.</p>
     </div>
     <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
   </div>
 </section>
 
-<footer style="border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+<footer style="padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px;background:rgba(80,45,95,.23)">
   <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
       <div style="display:flex;flex-direction:column;gap:24px">
@@ -470,7 +470,7 @@ class Component extends DCLogic {
       const bg = hosts.get(host).bg, frag = document.createElement('span');
       n.nodeValue.split(/(\s+)/).forEach(part => { if (!part) return; if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
         const w = document.createElement('span'); w.style.cssText = 'display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:top;padding:.14em 0 .14em;margin:-.14em 0 -.14em';
-        for (const ch of part) { const s = document.createElement('span'); s.textContent = ch;
+        { const s = document.createElement('span'); s.textContent = part;
           s.style.cssText = 'display:inline-block;background-image:' + bg + ';background-size:100% 100%;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;color:' + (bg === 'none' ? '#fff' : 'transparent') + ';transform:translateY(110%);will-change:transform';
           w.appendChild(s); chars.push(s); }
         frag.appendChild(w); });
@@ -479,9 +479,22 @@ class Component extends DCLogic {
     walk(h);
     hosts.forEach((_, el) => { el.style.backgroundImage = 'none'; });
     const restore = () => { swaps.forEach(([w, n]) => w.isConnected && w.replaceWith(n)); hosts.forEach((H, el) => { el.style.backgroundImage = H.orig; }); };
-    const step = innerWidth < 720 ? 30 : 36, E = 'cubic-bezier(.2,.8,.2,1)';
+    const step = innerWidth < 720 ? 90 : 110, E = 'cubic-bezier(.2,.8,.2,1)';
     const anims = chars.map((s, i) => s.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }], { duration: 900, delay: i * step, easing: E, fill: 'forwards' }));
     Promise.all(anims.map(an => an.finished)).then(restore, restore);
+  }
+  componentDidUpdate(pp, ps) { ps = ps || {}; const st = this.state || {}; if (ps.statTab !== st.statTab || ps.year !== st.year) this.animStats(); }
+  animStats() {
+    if (this.reduced) return;
+    const sec = document.getElementById('istatistikler'); if (!sec) return;
+    const pn = [...sec.querySelectorAll('[aria-hidden="false"]')].find(x => x.style.gridArea || x.style.gridRowStart); if (!pn) return;
+    [...pn.children].filter(c => c.hasAttribute('data-r')).forEach((el, k) => {
+      const d = k * 70; clearTimeout(el.__st);
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translate3d(0,28px,0)';
+      requestAnimationFrame(() => requestAnimationFrame(() => { el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.1,1) ' + d + 'ms, transform 1s cubic-bezier(.2,.7,.1,1) ' + d + 'ms'; el.style.opacity = '1'; el.style.transform = 'none'; }));
+      el.__st = setTimeout(() => { el.style.transition = el.dataset.tr0 || ''; el.style.transform = ''; }, d + 1100);
+      el.querySelectorAll('[data-cnt]').forEach(c => setTimeout(() => this.countUp(c), d + 120));
+    });
   }
   countUp(el) {
     const v = el.dataset.v || '', m = v.match(/^(\D*)([\d.,]+)(.*)$/), tn = el.firstChild;
@@ -529,7 +542,7 @@ class Component extends DCLogic {
     const ICON = [{ iDoc: true }, { iUsers: true }, { iPay: true }, { iPc: true }].map(o => ({ iDoc: false, iUsers: false, iPay: false, iPc: false, ...o }));
     return {
       introRef: this.introRef, introNumRef: this.introNumRef, introPctRef: this.introPctRef, introBarRef: this.introBarRef, profRef: this.profRef, fieldRef: this.fieldRef, ringRef: this.ringRef, workWrapRef: this.workWrapRef, projSecRef: this.projSecRef, workTrackRef: this.workTrackRef, workBarRef: this.workBarRef, fxRef: this.fxRef, fyRef: this.fyRef, marqRef: this.marqRef,
-      heroMob: innerWidth < 720, heroJc: innerWidth < 720 ? 'flex-end' : 'flex-start', heroAi: 'flex-start', heroTa: 'left', statsMt: innerWidth < 720 ? '8px' : 'auto', heroGlow: innerWidth < 720 ? 'ellipse 110% 55% at 20% 80%' : 'ellipse 60% 55% at 12% 92%', h1Size: innerWidth < 720 ? 'clamp(44px,13.5vw,64px)' : 'clamp(34px,3.8vw,64px)', ...this.__rail(), menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, workOpen: !!this.state.work, wd: this.state.work || {}, closeWork: this.closeWork, workPrev: () => gibStep(this.projSecRef.current, 4, -1), workNext: () => gibStep(this.projSecRef.current, 4, 1), closeMenu: this.closeMenu, showLinks: !mob, hideLinks: !(!mob), projDesc: 'block', projGap: this.state.short ? '14px' : '28px', projSticky: innerWidth < 720 ? 'relative' : 'sticky', projPad: innerWidth < 720 ? 'clamp(56px,7vw,112px) 0' : 'clamp(24px,3vw,48px) 0', projSnap: innerWidth < 720 ? 'x mandatory' : 'none', workHint: 'Kaydırdıkça ilerler', workHintOn: innerWidth >= 720, projTop: '72px', profileCols: innerWidth < 720 ? 'none' : innerWidth < 640 ? 'minmax(0,1fr)' : innerWidth < 1100 ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))', projH: innerWidth < 720 ? 'auto' : 'calc(100svh - 72px)', projOverflow: innerWidth < 720 ? 'auto' : 'hidden', showMarquee: this.props.showMarquee ?? true,
+      heroMob: innerWidth < 720, heroJc: innerWidth < 720 ? 'flex-end' : 'flex-start', heroAi: 'flex-start', heroTa: 'left', statsMt: innerWidth < 720 ? '8px' : 'auto', heroGlow: innerWidth < 720 ? 'ellipse 110% 55% at 20% 80%' : 'ellipse 60% 55% at 12% 92%', h1Size: innerWidth < 720 ? 'clamp(44px,13.5vw,64px)' : 'clamp(34px,3.8vw,64px)', ...this.__rail(), menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, workOpen: !!this.state.work, wd: this.state.work || {}, closeWork: this.closeWork, workPrev: () => gibStep(this.projSecRef.current, 4, -1), workNext: () => gibStep(this.projSecRef.current, 4, 1), closeMenu: this.closeMenu, showLinks: !mob, hideLinks: !(!mob), projDesc: 'block', projGap: this.state.short ? '14px' : '28px', projSticky: innerWidth < 720 ? 'relative' : 'sticky', projPad: innerWidth < 720 ? 'clamp(56px,7vw,112px) 0' : 'clamp(24px,3vw,48px) 0', projSnap: innerWidth < 720 ? 'x mandatory' : 'none', workHint: 'Kaydırdıkça ilerler', workHintOn: false, projTop: '72px', profileCols: innerWidth < 720 ? 'none' : innerWidth < 640 ? 'minmax(0,1fr)' : innerWidth < 1100 ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))', projH: innerWidth < 720 ? 'auto' : 'calc(100svh - 72px)', projOverflow: innerWidth < 720 ? 'auto' : 'hidden', showMarquee: this.props.showMarquee ?? true,
       marquee: this.SERVICES.concat(this.SERVICES).map(name => ({ name })),
       works: [
         { title: 'Dijital Vergi Dairesi', tag: 'Web', vid: 'assets/proje-dvd.mp4', img: 'assets/proje-1.png', url: 'https://dijital.gib.gov.tr', desc: 'Beyanname, ödeme, borç sorgulama ve dilekçe işlemlerini vergi dairesine gitmeden tek noktadan yürütmeyi sağlayan bütünleşik hizmet platformu.' },

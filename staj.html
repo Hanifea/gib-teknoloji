@@ -12,7 +12,7 @@
 <title>Staj Fırsatları · GİB Teknoloji</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=block" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
@@ -81,15 +81,15 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section aria-label="Protokol yapılan üniversiteler" data-screen-label="Üniversiteler" onMouseEnter="{{ marqSlow }}" onMouseLeave="{{ marqFast }}" style="position:relative;z-index:1;padding:clamp(56px,6vw,96px) 0;border-bottom:1px solid rgba(236,234,246,.1);overflow:hidden">
+<section aria-label="Protokol yapılan üniversiteler" data-screen-label="Üniversiteler" onMouseEnter="{{ marqSlow }}" onMouseLeave="{{ marqFast }}" style="position:relative;z-index:1;padding:clamp(56px,6vw,96px) 0;overflow:hidden;background:rgba(80,45,95,.23)">
   <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto clamp(28px,3vw,44px);padding:0 clamp(20px,3vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 48px">
     <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Protokol Yapılan <em style="font-style:normal;color:#4edfc7">Üniversiteler</em></h2>
     <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">{{ uniCount }} üniversite</span>
   </div>
   <div style="display:flex;flex-direction:column;gap:14px">
-    <div style="overflow:hidden;background:#160B1A;padding:clamp(20px,2vw,32px) 0"><div ref="{{ marqA }}" style="display:flex;align-items:center;gap:14px;width:max-content;will-change:transform">
+    <div style="overflow:hidden;padding:4px 0"><div ref="{{ marqA }}" style="display:flex;align-items:center;gap:14px;width:max-content;will-change:transform">
         <sc-for list="{{ unisA }}" as="u" hint-placeholder-count="12">
-          <div data-uni="" title="{{ u.alt }}" style="flex:none;position:relative;width:clamp(124px,9vw,148px);height:clamp(76px,5.6vw,92px);border-radius:12px;background:#21132a;border:1px solid rgba(236,234,246,.08)"><img src="{{ u.src }}" alt="{{ u.alt }}" draggable="false" style="position:absolute;inset:10px 14px;width:calc(100% - 28px);height:calc(100% - 20px);object-fit:contain;object-position:center;display:block;filter:{{ u.filter }}"></div>
+          <div data-uni="" title="{{ u.alt }}" style="flex:none;position:relative;width:clamp(124px,9vw,148px);height:clamp(76px,5.6vw,92px);border-radius:12px;background:#2e1c38;border:1px solid rgba(236,234,246,.12)"><img src="{{ u.src }}" loading="lazy" alt="{{ u.alt }}" draggable="false" style="position:absolute;inset:10px 14px;width:calc(100% - 28px);height:calc(100% - 20px);object-fit:contain;object-position:center;display:block;filter:{{ u.filter }}"></div>
         </sc-for>
     </div></div>
   </div>
@@ -114,7 +114,7 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="programlar" data-screen-label="Programlar" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="programlar" data-screen-label="Programlar" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);background:rgba(80,45,95,.23)">
   <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
     <div data-pgrid="" style="position:absolute;inset:-80px;background-image:linear-gradient(rgba(236,234,246,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(236,234,246,.045) 1px,transparent 1px);background-size:80px 80px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 75%);will-change:transform"></div>
     <div data-porb="" style="position:absolute;left:8%;top:10%;width:min(620px,80vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(78,223,199,.16),rgba(78,223,199,0) 65%);filter:blur(20px);will-change:transform"></div>
@@ -130,37 +130,71 @@ button{font:inherit;color:inherit}
       </sc-for>
     </div>
     <p data-pintro="" style="margin:0;max-width:52ch;font-size:clamp(17px,1.3vw,21px);font-weight:300;line-height:1.5;letter-spacing:-0.01em;color:#eceaf6;text-wrap:balance">{{ intro }}</p>
-    <div onPointerMove="{{ cardMove }}" onPointerDown="{{ cardMove }}" onPointerLeave="{{ cardLeave }}" style="display:grid;grid-template-columns:{{ cardCols }};gap:clamp(12px,1.4vw,20px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch">
+    <div style="display:grid;grid-template-columns:{{ cardCols }};gap:clamp(12px,1.4vw,20px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch">
       <sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
-        <div data-r="" data-pcard="" style="scroll-snap-align:start;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:20px;padding:clamp(22px,2vw,32px);border-radius:16px;background:radial-gradient(380px circle at var(--mx,-999px) var(--my,-999px),rgba(78,223,199,.13),rgba(78,223,199,0) 60%),linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,0) 40%),#1d1022;border:1px solid rgba(236,234,246,.09);box-shadow:0 30px 60px -40px rgba(0,0,0,.7);transition:border-color .3s ease,transform .2s ease-out;will-change:transform" style-hover="border-color:rgba(78,223,199,.35)">
-          <span data-pfill="" aria-hidden="true" style="position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,#4edfc7,#a99bff);transform:scaleX(0);transform-origin:0 50%;box-shadow:0 0 12px rgba(78,223,199,.6)"></span>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
-            <h3 style="margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.15;letter-spacing:-0.025em">{{ c.title }}</h3>
-            <span style="flex:none;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;color:#4edfc7">{{ c.num }}</span>
+        <div data-r="" data-pcard="" style="grid-column:{{ c.span }};scroll-snap-align:start;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:24px;padding:clamp(24px,2.4vw,40px);border-radius:16px;background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,0) 40%),#1d1022;border:1px solid rgba(236,234,246,.09);box-shadow:0 30px 60px -40px rgba(0,0,0,.7)">
+          <sc-if value="{{ c.isAbout }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(78,223,199,.16),rgba(78,223,199,0) 65%);pointer-events:none"></span></sc-if>
+          <div style="position:relative;display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+            <h3 style="margin:0;font-weight:400;font-size:clamp(22px,1.6vw,28px);line-height:1.15;letter-spacing:-0.025em;color:#c3b8ff">{{ c.title }}</h3>
           </div>
-          <div style="display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">
-            <sc-for list="{{ c.blocks }}" as="b" hint-placeholder-count="1">
-              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="margin:0">{{ b.text }}<sc-if value="{{ b.hasLink }}" hint-placeholder-val="{{ false }}"><a href="mailto:{{ b.link }}" style="display:inline-block;padding:12px 0;margin:-12px 0;color:#eceaf6">{{ b.link }}</a></sc-if>{{ b.after }}</p></sc-if>
-              <sc-if value="{{ b.isUl }}" hint-placeholder-val="{{ false }}"><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
-                <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><li style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px"><span aria-hidden="true" style="color:#4edfc7">—</span><span>{{ it }}</span></li></sc-for>
-              </ul></sc-if>
-            </sc-for>
-          </div>
+          <sc-if value="{{ c.isAbout }}" hint-placeholder-val="{{ false }}">
+            <div style="position:relative;display:flex;flex-direction:column;gap:16px;max-width:62ch">
+              <p data-pi="" style="margin:0;font-size:clamp(17px,1.3vw,21px);font-weight:300;line-height:1.5;letter-spacing:-0.01em;color:#eceaf6;text-wrap:pretty">{{ c.lead }}</p>
+              <sc-for list="{{ c.rest }}" as="t" hint-placeholder-count="1"><p data-pi="" style="margin:0;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">{{ t }}</p></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ c.isReq }}" hint-placeholder-val="{{ false }}">
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column">
+              <sc-for list="{{ c.items }}" as="it" hint-placeholder-count="2">
+                <li data-pi="" style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;padding:16px 0;border-top:1px solid rgba(236,234,246,.08);font-size:15px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">
+                  <span data-pck="" aria-hidden="true" style="width:28px;height:28px;border-radius:50%;background:rgba(78,223,199,.14);color:#4edfc7;display:grid;place-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+                  <span>{{ it }}</span>
+                </li>
+              </sc-for>
+            </ul>
+          </sc-if>
+          <sc-if value="{{ c.isProc }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <sc-for list="{{ c.pre }}" as="t" hint-placeholder-count="0"><p data-pi="" style="margin:0;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">{{ t }}</p></sc-for>
+              <div style="position:relative">
+                <span data-pline="" aria-hidden="true" style="position:absolute;left:15.5px;top:16px;bottom:16px;width:1px;background:linear-gradient(#4edfc7,#a99bff);transform-origin:50% 0"></span>
+                <ol style="position:relative;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:18px">
+                  <sc-for list="{{ c.steps }}" as="st" hint-placeholder-count="3">
+                    <li data-pi="" style="display:grid;grid-template-columns:32px minmax(0,1fr);gap:16px;align-items:start">
+                      <span aria-hidden="true" style="width:32px;height:32px;display:grid;place-items:center"><span style="width:11px;height:11px;border-radius:50%;background:#1d1022;border:2px solid #4edfc7"></span></span>
+                      <span style="padding-top:5px;font-size:15px;line-height:1.6;color:#eceaf6;text-wrap:pretty">{{ st.text }}</span>
+                    </li>
+                  </sc-for>
+                </ol>
+              </div>
+              <sc-for list="{{ c.post }}" as="t" hint-placeholder-count="0"><p data-pi="" style="margin:0;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">{{ t }}</p></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ c.isOffer }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:{{ tileCols }};gap:10px">
+              <sc-for list="{{ c.tiles }}" as="t" hint-placeholder-count="4">
+                <div data-pi="" style="grid-column:{{ t.span }};display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:12px;background:{{ t.bg }};border:1px solid {{ t.bd }}">
+                  <span aria-hidden="true" style="display:grid;place-items:center;width:44px;height:44px;border-radius:22px;background:rgba(78,223,199,.14);color:#4edfc7"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="{{ t.ic }}"></path></svg></span>
+                  <span style="font-size:15px;line-height:1.5;color:#eceaf6;text-wrap:pretty">{{ t.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
         </div>
       </sc-for>
     </div>
   </div>
 </section>
 
-<section id="deneyimler" data-screen-label="Deneyimler" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="deneyimler" data-screen-label="Deneyimler" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px)">
   <div style="position:relative;max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));align-items:start;gap:56px clamp(40px,5vw,96px)">
     <div style="display:flex;flex-direction:column;gap:28px">
       <h2 data-r="" style="margin:0;font-weight:400;font-size:{{ expH2 }};line-height:1;letter-spacing:-0.04em;white-space:{{ expWs }};text-wrap:balance">Deneyimlerinizi Bizden <em style="font-style:normal;color:#4edfc7">Dinleyin!</em></h2>
       <p data-r="" style="margin:0;max-width:48ch;font-size:16px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">GİB Teknoloji’de stajdan profesyonelliğe uzanan yolculuğa tanıklık edin. İş Yeri Eğitimi ve Yarı Zamanlı Çalışma programlarımızdan mezun olan arkadaşlarımızın hikâyelerini videolarımızda bulabilirsiniz.</p>
       <ol data-r="" style="margin:0;padding:0;list-style:none;border-bottom:1px solid rgba(236,234,246,.12);display:{{ vidListD }};overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(78,223,199,.5) transparent">
         <sc-for list="{{ vids }}" as="v" hint-placeholder-count="7">
-          <li><button type="button" onClick="{{ v.pick }}" aria-pressed="{{ v.on }}" style="width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;min-height:56px;box-sizing:border-box;padding:12px 0;border:0;border-top:1px solid rgba(236,234,246,.12);background:transparent;text-align:left;cursor:pointer" style-hover="padding-left:8px">
-            <span style="font-size:17px;color:{{ v.color }};transition:color .2s ease">{{ v.title }}</span>
+          <li><button type="button" onClick="{{ v.pick }}" aria-pressed="{{ v.on }}" style="width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;min-height:56px;box-sizing:border-box;padding:12px 0;border:0;border-top:1px solid rgba(236,234,246,.12);background:transparent;text-align:left;cursor:pointer;color:{{ v.color }};transition:color .2s ease" style-hover="color:#4edfc7">
+            <span style="font-size:17px;color:inherit">{{ v.title }}</span>
             <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.04em;color:#8a87a3">{{ v.role }}</span>
           </button></li>
         </sc-for>
@@ -169,7 +203,7 @@ button{font:inherit;color:inherit}
     <figure data-r="" style="margin:0;position:sticky;top:96px;display:flex;flex-direction:column;gap:16px">
       <div style="position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid rgba(236,234,246,.12);background:#100d1f">
         <sc-if value="{{ notPlaying }}" hint-placeholder-val="{{ true }}">
-          <img src="{{ vid.thumb }}" alt="{{ vid.title }} videosu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          <img src="{{ vid.thumb }}" loading="lazy" alt="{{ vid.title }} videosu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
           <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,11,26,.1) 40%,rgba(22,11,26,.6) 100%)"></div>
           <button type="button" onClick="{{ play }}" aria-label="Videoyu oynat" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:clamp(84px,7vw,120px);height:clamp(52px,4.2vw,72px);border:0;border-radius:999px;background:#ffffff;color:#0b0916;cursor:pointer;transition:transform .3s cubic-bezier(.22,1,.36,1)" style-hover="transform:translate(-50%,-50%) scale(1.08)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></button>
         </sc-if>
@@ -190,7 +224,7 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="katil" data-screen-label="Aramıza Katılın" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="katil" data-screen-label="Aramıza Katılın" style="position:relative;z-index:1;position:relative;padding:clamp(40px,4vw,64px) clamp(20px,3vw,48px);background:rgba(80,45,95,.23)">
   <div style="position:relative;max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:32px clamp(24px,3vw,56px)">
     <div data-r="" style="flex:0 1 640px;display:flex;flex-direction:column;align-items:flex-start;gap:28px">
   <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em">Aramıza <em style="font-style:normal;color:#4edfc7">Katılın!</em></h2>
@@ -203,18 +237,18 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px);border-top:1px solid rgba(236,234,246,.1)">
+<section id="iletisim" data-screen-label="İletişim" style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px)">
   <div data-r="" style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px 64px">
     <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
       <h2 style="margin:0;font-weight:400;font-size:clamp(24px,2vw,34px);line-height:1.1;letter-spacing:-0.03em;color:#eceaf6">Bizimle İletişime Geçin!</h2>
       <p style="margin:0;max-width:70ch;font-size:16px;line-height:1.6;color:#c9c6dc;text-wrap:pretty">Görüş, öneri ve taleplerinizi iletmek için bize bir e-posta bırakın; en kısa sürede dönüş yapalım.</p>
-        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u arayabilirsiniz.</p>
+        <p style="margin:0;max-width:70ch;font-size:15px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Dijital Vergi Dairesi, e-YMM gibi GİB hizmetleriyle ilgili destek için Vergi İletişim Merkezi <span style="white-space:nowrap"><a href="tel:189" style="display:inline-block;padding:10px 0;margin:-10px 0;color:#4edfc7;text-decoration:none;font-weight:500">ALO 189</a>’u</span> arayabilirsiniz.</p>
     </div>
     <a href="mailto:kariyer@gelirler.gov.tr" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 24px;border-radius:999px;background:#4edfc7;color:#160B1A;text-decoration:none;font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .2s ease" style-hover="background:#ffffff;color:#160B1A">İletişime Geç</a>
   </div>
 </section>
 
-<footer style="position:relative;z-index:1;border-top:1px solid rgba(236,234,246,.1);padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px">
+<footer style="position:relative;z-index:1;padding:clamp(56px,5vw,88px) clamp(20px,3vw,48px) 28px;background:rgba(80,45,95,.23)">
   <div style="max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,80px)">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:48px clamp(32px,4vw,80px)">
       <div style="display:flex;flex-direction:column;gap:24px">
@@ -379,20 +413,18 @@ class Component extends DCLogic {
     };
     this.fraf = requestAnimationFrame(draw);
   }
-  componentDidUpdate(pp, ps) {
+  componentDidUpdate(pp, ps) { ps = ps || {};
     if (ps.tab === this.state.tab || this.reduced) return;
     requestAnimationFrame(() => { const e = 'cubic-bezier(.2,.8,.2,1)';
       document.querySelectorAll('[data-pintro]').forEach(el => el.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 600, easing: e, fill: 'backwards' }));
-      document.querySelectorAll('[data-pcard]').forEach((el, i) => el.animate([{ opacity: 0, transform: 'translateY(28px) scale(.98)' }, { opacity: 1, transform: 'none' }], { duration: 700, delay: 80 + i * 70, easing: e, fill: 'backwards' })); });
+      document.querySelectorAll('[data-pcard]').forEach((el, i) => { el.animate([{ opacity: 0, transform: 'translateY(28px) scale(.98)' }, { opacity: 1, transform: 'none' }], { duration: 700, delay: 80 + i * 70, easing: e, fill: 'backwards' }); this.progCard(el, 80 + i * 70); }); });
   }
-  cardMove = e => {
-    const c = e.target.closest && e.target.closest('[data-pcard]'); if (!c) return;
-    if (this.tiltEl && this.tiltEl !== c) this.tiltEl.style.transform = '';
-    this.tiltEl = c; const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-    c.style.setProperty('--mx', x.toFixed(0) + 'px'); c.style.setProperty('--my', y.toFixed(0) + 'px');
-    if (e.pointerType === 'mouse' && !this.reduced) c.style.transform = 'perspective(1000px) rotateX(' + ((.5 - y / r.height) * 4).toFixed(2) + 'deg) rotateY(' + ((x / r.width - .5) * 5).toFixed(2) + 'deg)';
-  };
-  cardLeave = () => { const c = this.tiltEl; if (!c) return; c.style.transform = ''; c.style.removeProperty('--mx'); c.style.removeProperty('--my'); this.tiltEl = null; };
+  progCard(card, base) {
+    if (this.reduced || !card.animate) return; const e = 'cubic-bezier(.2,.8,.2,1)';
+    card.querySelectorAll('[data-pi]').forEach((el, k) => el.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 600, delay: base + 180 + k * 70, easing: e, fill: 'backwards' }));
+    card.querySelectorAll('[data-pck]').forEach((el, k) => el.animate([{ opacity: 0, transform: 'scale(.4)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 500, delay: base + 300 + k * 70, easing: 'cubic-bezier(.3,1.5,.5,1)', fill: 'backwards' }));
+    card.querySelectorAll('[data-pline]').forEach(el => el.animate([{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }], { duration: 1000, delay: base + 240, easing: e, fill: 'backwards' }));
+  }
   countUp(el) {
     const v = el.dataset.v || '', m = v.match(/^(\D*)([\d.,]+)(.*)$/), tn = el.firstChild;
     if (!m || !tn || tn.nodeType !== 3 || this.reduced) return;
@@ -403,7 +435,7 @@ class Component extends DCLogic {
   setupReveals() {
     if (this.reduced) return;
     const show = (el, d) => {
-      if (el.dataset.shown) return; el.dataset.shown = '1';
+      if (el.dataset.shown) return; el.dataset.shown = '1'; if (el.hasAttribute('data-pcard')) this.progCard(el, d);
       el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.1,1) ' + d + 'ms, transform 1s cubic-bezier(.2,.7,.1,1) ' + d + 'ms';
       el.style.opacity = '1'; el.style.transform = 'none';
       setTimeout(() => { el.style.transition = el.dataset.tr0 || ''; el.style.transform = ''; }, d + 1100);
@@ -429,8 +461,7 @@ class Component extends DCLogic {
     const vid = (i) => { const [id, role] = this.VIDS[i]; return { id, role, title: 'Kariyerine İlk Adım Programı ' + (i + 1), thumb: 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg', embed: 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0' }; };
     const goTab = i => () => { this.setState({ tab: i }); const el = document.getElementById('programlar'); if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' }); };
     return {
-      fieldRef: this.fieldRef, ringRef: this.ringRef, marqA: this.marqA, marqB: this.marqB, journeyRef: this.journeyRef, ...this.__rail(), ctaWrap: innerWidth < 720 ? 'nowrap' : 'wrap', ctaGap: innerWidth < 720 ? '8px' : '12px', ctaFlex: innerWidth < 720 ? '1 1 0' : '0 0 auto', ctaH: innerWidth < 720 ? '44px' : '50px', ctaPad: innerWidth < 360 ? '0 10px' : innerWidth < 720 ? '0 14px' : '0 24px', ctaFs: innerWidth < 360 ? '13px' : innerWidth < 720 ? '14px' : '15px', ctaIg: innerWidth < 360 ? '6px' : innerWidth < 720 ? '8px' : '10px', stH: innerWidth < 720 ? '150px' : 'clamp(240px,32vw,500px)', stPad: innerWidth < 720 ? '8px 14px' : '14px 22px', stFs: innerWidth < 720 ? '11px' : 'clamp(13px,1vw,16px)', stSh: innerWidth < 720 ? '0 10px 24px rgba(0,0,0,.3)' : '0 18px 40px rgba(0,0,0,.35)', vidListD: innerWidth < 720 ? 'none' : 'block', expH2: innerWidth < 720 ? 'min(46px, calc((100vw - 2 * clamp(20px,3vw,48px)) / 13.4))' : 'clamp(28px,2.6vw,46px)', expWs: innerWidth < 720 ? 'nowrap' : 'normal', stepCols: innerWidth < 720 ? 'none' : 'repeat(auto-fit,minmax(min(100%,220px),1fr))', stepPr: innerWidth < 720 ? '24px' : '0', stepBr: innerWidth < 720 ? '1px solid rgba(236,234,246,.12)' : '0', cardCols: innerWidth < 720 ? 'none' : 'repeat(auto-fit,minmax(min(100%,300px),1fr))', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, closeMenu: this.closeMenu, showLinks: this.state.nav, hideLinks: !(this.state.nav),
-      cardMove: this.cardMove, cardLeave: this.cardLeave,
+      fieldRef: this.fieldRef, ringRef: this.ringRef, marqA: this.marqA, marqB: this.marqB, journeyRef: this.journeyRef, ...this.__rail(), ctaWrap: innerWidth < 720 ? 'nowrap' : 'wrap', ctaGap: innerWidth < 720 ? '8px' : '12px', ctaFlex: innerWidth < 720 ? '1 1 0' : '0 0 auto', ctaH: innerWidth < 720 ? '44px' : '50px', ctaPad: innerWidth < 360 ? '0 10px' : innerWidth < 720 ? '0 14px' : '0 24px', ctaFs: innerWidth < 360 ? '13px' : innerWidth < 720 ? '14px' : '15px', ctaIg: innerWidth < 360 ? '6px' : innerWidth < 720 ? '8px' : '10px', stH: innerWidth < 720 ? '150px' : 'clamp(240px,32vw,500px)', stPad: innerWidth < 720 ? '8px 14px' : '14px 22px', stFs: innerWidth < 720 ? '11px' : 'clamp(13px,1vw,16px)', stSh: innerWidth < 720 ? '0 10px 24px rgba(0,0,0,.3)' : '0 18px 40px rgba(0,0,0,.35)', vidListD: innerWidth < 720 ? 'none' : 'block', expH2: innerWidth < 720 ? 'min(46px, calc((100vw - 2 * clamp(20px,3vw,48px)) / 13.4))' : 'clamp(28px,2.6vw,46px)', expWs: innerWidth < 720 ? 'nowrap' : 'normal', stepCols: innerWidth < 720 ? 'none' : 'repeat(auto-fit,minmax(min(100%,220px),1fr))', stepPr: innerWidth < 720 ? '24px' : '0', stepBr: innerWidth < 720 ? '1px solid rgba(236,234,246,.12)' : '0', cardCols: innerWidth < 720 ? 'none' : 'repeat(12,minmax(0,1fr))', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, closeMenu: this.closeMenu, showLinks: this.state.nav, hideLinks: !(this.state.nav),
       marqSlow: () => { this.speed = .25; }, marqFast: () => { this.speed = 1; },
       unisA: A.concat(A), unisB: B.concat(B, B), uniCount: this.UNIS.length,
       steps: [
@@ -440,7 +471,11 @@ class Component extends DCLogic {
       ],
       tabs: ['İş Yeri Eğitimi', 'Yarı Zamanlı Çalışma Programı'].map((label, i) => { const on = tab === i; return { label, num: String(i + 1).padStart(2, '0'), on: on ? 'true' : 'false', color: on ? '#eceaf6' : '#6f6c86', numColor: on ? '#4edfc7' : '#6f6c86', bar: on ? 1 : 0, pick: () => this.setState({ tab: i }) }; }),
       intro: prog.intro,
-      cards: prog.cards.map(([title, blocks], i) => ({ num: String(i + 1).padStart(2, '0'), title, blocks: blocks.map(b => ({ isP: !!b.p, isUl: !!b.ul, text: b.p || '', link: b.link || '', hasLink: !!b.link, after: b.after || '', items: b.ul || [] })) })),
+      cards: prog.cards.map(([title, blocks], i) => { const W = innerWidth, ps = blocks.filter(b => b.p).map(b => b.p), ul = (blocks.find(b => b.ul) || {}).ul || [], ui = blocks.findIndex(b => b.ul), two = n => String(n + 1).padStart(2, '0');
+        const steps = ui < 0 ? ps : ul, pre = ui < 0 ? [] : blocks.slice(0, ui).filter(b => b.p).map(b => b.p), post = ui < 0 ? [] : blocks.slice(ui + 1).filter(b => b.p).map(b => b.p);
+        return { num: two(i), title, span: W < 720 ? 'auto' : W < 1100 ? 'span 12' : (i % 2 ? 'span 5' : 'span 7'), isAbout: i === 0, isReq: i === 1, isProc: i === 2, isOffer: i === 3,
+          lead: ps[0] || '', rest: ps.slice(1), items: ul, pre, post, steps: steps.map((text, k) => ({ n: two(k), text })),
+          tiles: ul.map((text, k) => { const IC = [[/aktif görev/i, 'M5 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2ZM8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18'], [/ekipler/i, 'M22 21v-2c0-1.86-1.27-3.43-3-3.87M15.5 3.29a4 4 0 0 1 0 7.42M17 21c0-1.86 0-2.8-.3-3.53a4 4 0 0 0-2.17-2.17C13.8 15 12.86 15 11 15H8c-1.86 0-2.8 0-3.53.3a4 4 0 0 0-2.17 2.17C2 18.2 2 19.14 2 21M13.5 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z'], [/gözlemle/i, 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12ZM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'], [/kamu bilişim/i, 'M3 21h18M5 21V10M19 21V10M9 21V10M15 21V10M2 10l10-7 10 7'], [/esnek/i, 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM12 7v5l3 2'], [/mezuniyet/i, 'M22 10 12 5 2 10l10 5 10-5ZM6 12v5c3 2 9 2 12 0v-5'], [/başvuru hakkı/i, 'M7 17 17 7M8 7h9v9']], ic = (IC.find(([r]) => r.test(text)) || [0, 'M5 12.5l4.5 4.5L19 7.5'])[1], wide = ul.length % 2 === 1 && k === ul.length - 1 && W >= 720; return { n: two(k), ic, text, span: wide ? 'span 2' : 'auto', bg: wide ? 'rgba(78,223,199,.1)' : 'rgba(236,234,246,.035)', bd: wide ? 'rgba(78,223,199,.35)' : 'rgba(236,234,246,.07)' }; }) }; }), tileCols: innerWidth < 720 ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))',
       vids: this.VIDS.map((_, i) => { const v = vid(i), on = i === vi; return { ...v, num: String(i + 1).padStart(2, '0'), on: on ? 'true' : 'false', color: on ? '#eceaf6' : '#a4a1bb', numColor: on ? '#4edfc7' : '#6f6c86', pick: () => this.setState({ vid: i, playing: false }) }; }),
       vid: vid(vi), vidCount: (vi + 1) + ' / ' + nV, playing: this.state.playing, notPlaying: !this.state.playing,
       play: () => this.setState({ playing: true }),
