@@ -367,7 +367,7 @@ class Component extends DCLogic {
     document.addEventListener('click', this.onDocClick);
     this.initField(); this.setupReveals();
     this.mx = 0; this.mdir = 1; this.mboost = 0; this.lastY = scrollY;
-    this.onScroll = () => { const dy = scrollY - this.lastY; this.lastY = scrollY; if (dy) { this.mdir = dy > 0 ? 1 : -1; this.mboost = Math.min(14, this.mboost + Math.abs(dy) * .25); } };
+    this.onScroll = () => { this.lastY = scrollY; };
     addEventListener('scroll', this.onScroll, { passive: true });
     const marq = () => {
       const el = this.marqRef.current;
