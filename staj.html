@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
@@ -23,6 +24,7 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:1px solid #4edfc7;outline-offset:3px}
 </style>
 <script src="./touch.js"></script>
+<script src="./theme.js"></script>
 </helmet>
 
 <div lang="tr" style="position:relative;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
@@ -66,8 +68,8 @@ button{font:inherit;color:inherit}
         <h1 style="margin:0;font-weight:400;font-size:clamp(38px,4.6vw,80px);line-height:1.02;letter-spacing:-0.05em;text-wrap:balance"><span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Geleceğe</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Giden</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Yolda</span></span> <em style="font-style:normal;color:#4edfc7"><span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">İlk</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Adımı</span></span></em> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Birlikte</span></span> <span data-w="" style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em"><span style="display:inline-block">Atalım!</span></span></h1>
         <p data-r="" style="margin:0;max-width:44ch;font-size:18px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Türkiye’nin en büyük dijital altyapılarına uzanan bu yolculukta, uzman mentörlerin rehberliğiyle kendi izinizi bırakın.</p>
         <div data-r="" style="display:flex;flex-wrap:{{ ctaWrap }};gap:{{ ctaGap }}">
-          <a href="basvuru-formu.html?tip=stajyer&amp;pozisyon=Staj%20Ba%C5%9Fvurusu%20(Junior)" style="flex:{{ ctaFlex }};justify-content:center;display:inline-flex;align-items:center;gap:{{ ctaIg }};height:{{ ctaH }};padding:{{ ctaPad }};border-radius:999px;white-space:nowrap;text-decoration:none;font-size:{{ ctaFs }};background:#4edfc7;color:#0b0916;font-weight:500;transition:background-color .2s ease" style-hover="background:#86eadb;color:#0b0916">Staja Başvur <span aria-hidden="true">→</span></a>
-          <a href="#programlar" style="flex:{{ ctaFlex }};justify-content:center;display:inline-flex;align-items:center;gap:{{ ctaIg }};height:{{ ctaH }};padding:{{ ctaPad }};border-radius:999px;white-space:nowrap;text-decoration:none;font-size:{{ ctaFs }};border:1px solid rgba(236,234,246,.25);color:#eceaf6;transition:border-color .2s ease" style-hover="border-color:#4edfc7;color:#eceaf6">Programları İncele <span aria-hidden="true">↓</span></a>
+          <a href="basvuru-formu.html?tip=stajyer&amp;pozisyon=Staj%20Ba%C5%9Fvurusu%20(Junior)" style="flex:{{ ctaFlex }};justify-content:center;display:inline-flex;align-items:center;gap:{{ ctaIg }};height:{{ ctaH }};padding:{{ ctaPad }};border-radius:999px;white-space:nowrap;text-decoration:none;font-size:{{ ctaFs }};background:#4edfc7;color:#0b0916;font-weight:500;transition:background-color .2s ease" style-hover="background:#86eadb;color:#0b0916">Staja Başvur</a>
+          <a href="#programlar" style="flex:{{ ctaFlex }};justify-content:center;display:inline-flex;align-items:center;gap:{{ ctaIg }};height:{{ ctaH }};padding:{{ ctaPad }};border-radius:999px;white-space:nowrap;text-decoration:none;font-size:{{ ctaFs }};border:1px solid rgba(236,234,246,.25);color:#eceaf6;transition:border-color .2s ease" style-hover="border-color:#4edfc7;color:#eceaf6">Programları İncele</a>
         </div>
       </div>
       <div aria-hidden="true" style="position:relative;min-height:{{ stH }}">
@@ -95,8 +97,8 @@ button{font:inherit;color:inherit}
   </div>
 </section>
 
-<section id="yolculuk" ref="{{ journeyRef }}" data-screen-label="Yolculuk" style="position:relative;z-index:1;position:relative;padding:clamp(64px,9vw,160px) clamp(20px,3vw,48px)">
-  <div style="position:relative;max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,5vw,88px)">
+<section id="yolculuk" ref="{{ journeyRef }}" data-screen-label="Yolculuk" style="position:relative;z-index:1;position:relative;padding:clamp(56px,5.5vw,96px) clamp(20px,3vw,48px)">
+  <div style="position:relative;max-width:1600px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(36px,3.6vw,64px)">
     <h2 data-r="" style="margin:0;font-weight:400;font-size:clamp(28px,2.6vw,46px);line-height:1;letter-spacing:-0.04em;text-wrap:balance">Stajdan <em style="font-style:normal;color:#4edfc7">Profesyonelliğe</em></h2>
     <div style="position:relative">
       <ol style="position:relative;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:{{ stepCols }};gap:48px clamp(24px,3vw,56px);grid-auto-flow:{{ rFlow }};grid-auto-columns:{{ rCol }};overflow-x:{{ rOv }};overflow-y:{{ rOvY }};touch-action:pan-x pan-y;scroll-snap-type:{{ rSnap }};margin-left:{{ rM }};margin-right:{{ rM }};padding-left:{{ rP }};padding-right:{{ rP }};scroll-padding-left:{{ rP }};scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch">
@@ -106,7 +108,7 @@ button{font:inherit;color:inherit}
             <div style="display:flex;flex-direction:column;gap:8px">
               <span data-cnt="" data-v="{{ s.value }}" style="font-size:clamp(48px,4.2vw,76px);font-weight:300;line-height:.9;letter-spacing:-0.05em;font-variant-numeric:tabular-nums;color:#eceaf6">{{ s.value }}</span>
             </div>
-            <sc-if value="{{ s.hasGo }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ s.go }}" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0;border:0;background:transparent;color:#4edfc7;font-size:15px;cursor:pointer">Programı İncele <span aria-hidden="true">→</span></button></sc-if>
+            <sc-if value="{{ s.hasGo }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ s.go }}" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0;border:0;background:transparent;color:#4edfc7;font-size:15px;cursor:pointer">Programı İncele</button></sc-if>
           </li>
         </sc-for>
       </ol>
@@ -207,7 +209,7 @@ button{font:inherit;color:inherit}
           <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,11,26,.1) 40%,rgba(22,11,26,.6) 100%)"></div>
           <button type="button" onClick="{{ play }}" aria-label="Videoyu oynat" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:clamp(84px,7vw,120px);height:clamp(52px,4.2vw,72px);border:0;border-radius:999px;background:#ffffff;color:#0b0916;cursor:pointer;transition:transform .3s cubic-bezier(.22,1,.36,1)" style-hover="transform:translate(-50%,-50%) scale(1.08)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"></path></svg></button>
         </sc-if>
-        <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><iframe src="{{ vid.embed }}" title="{{ vid.title }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe></sc-if>
+        <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><iframe src="{{ vid.embed }}" title="{{ vid.title }}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe></sc-if>
       </div>
       <figcaption style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 24px">
         <div style="display:flex;flex-direction:column;gap:6px">
@@ -215,9 +217,9 @@ button{font:inherit;color:inherit}
           <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.04em;color:#4edfc7">{{ vid.role }}</span>
         </div>
         <div style="display:flex;align-items:center;gap:14px">
-          <button type="button" onClick="{{ prevVid }}" aria-label="Önceki video" style="display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-size:18px;cursor:pointer;transition:border-color .2s ease,background-color .2s ease" style-hover="border-color:#4edfc7;background:rgba(78,223,199,.08)">←</button>
+          <button type="button" onClick="{{ prevVid }}" aria-label="Önceki video" style="display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;border:0;background:#4edfc7;color:#160B1A;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),background-color .2s ease" style-hover="transform:scale(1.06)"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"></path></svg></button>
           <span style="width:52px;text-align:center;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;color:#8a87a3">{{ vidCount }}</span>
-          <button type="button" onClick="{{ nextVid }}" aria-label="Sonraki video" style="display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-size:18px;cursor:pointer;transition:border-color .2s ease,background-color .2s ease" style-hover="border-color:#4edfc7;background:rgba(78,223,199,.08)">→</button>
+          <button type="button" onClick="{{ nextVid }}" aria-label="Sonraki video" style="display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;border:0;background:#4edfc7;color:#160B1A;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),background-color .2s ease" style-hover="transform:scale(1.06)"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></button>
         </div>
       </figcaption>
     </figure>
@@ -252,7 +254,7 @@ button{font:inherit;color:inherit}
   <div style="padding:clamp(22px,2.4vw,34px) clamp(20px,3vw,48px)">
     <div style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px">
       <div style="display:flex;align-items:center;gap:clamp(14px,1.6vw,22px)">
-        <img src="assets/gib-logo-white.png" alt="Gelir İdaresi Başkanlığı" style="height:clamp(42px,3.8vw,56px);width:auto;display:block">
+        <img src="assets/gib-logo-beyaz.svg" alt="Gelir İdaresi Başkanlığı" style="height:clamp(42px,3.8vw,56px);width:auto;display:block">
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
         <a href="https://twitter.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="X" style="display:grid;place-items:center;width:38px;height:38px;border-radius:8px;background:rgba(80,45,95,.23);color:#eceaf6;transition:background-color .2s ease,color .2s ease" style-hover="background:#4edfc7;color:#160B1A"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.3l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"></path></svg></a>
@@ -266,7 +268,7 @@ button{font:inherit;color:inherit}
     <div style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 16px">
       <span aria-hidden="true" style="flex:1 1 0;min-width:0"></span>
       <span style="flex:0 1 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;text-align:center;font-size:13px;line-height:1.5;color:#c9c6da">Her Hakkı Saklıdır. ©2026 Gelir İdaresi Başkanlığı</span>
-      <span style="flex:1 1 0;min-width:max-content;display:flex;justify-content:flex-end"><a href="#top" style="padding:8px 0;text-decoration:none;white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3;transition:color .2s ease" style-hover="color:#eceaf6">Yukarı dön ↑</a></span>
+      <span style="flex:1 1 0;min-width:max-content;display:flex;justify-content:flex-end"></span>
     </div>
   </div>
 </footer>
@@ -439,7 +441,7 @@ class Component extends DCLogic {
     const WHITE = ['Manisa Celal Bayar Üniversitesi', 'Isparta Uygulamalı Bilimler Üniversitesi', 'Ankara Bilim Üniversitesi', 'İnönü Üniversitesi'];
     const unis = this.UNIS.map(([f, alt]) => ({ alt, filter: WHITE.includes(alt) ? 'brightness(0) invert(1)' : 'none', src: f.startsWith('local:') ? f.slice(6) : 'https://teknoloji.gib.gov.tr/assets/img/' + encodeURIComponent(f) }));
     const A = unis, B = [];
-    const vid = (i) => { const [id, role] = this.VIDS[i]; return { id, role, title: 'Kariyerine İlk Adım Programı ' + (i + 1), thumb: 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg', embed: 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0' }; };
+    const vid = (i) => { const [id, role] = this.VIDS[i]; return { id, role, title: 'Kariyerine İlk Adım Programı ' + (i + 1), thumb: 'assets/yt-' + id + '.jpg', embed: 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1', watch: 'https://www.youtube.com/watch?v=' + id }; };
     const goTab = i => () => { this.setState({ tab: i }); const el = document.getElementById('programlar'); if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' }); };
     return {
       fieldRef: this.fieldRef, ringRef: this.ringRef, marqA: this.marqA, marqB: this.marqB, journeyRef: this.journeyRef, ...this.__rail(), ctaWrap: innerWidth < 720 ? 'nowrap' : 'wrap', ctaGap: innerWidth < 720 ? '8px' : '12px', ctaFlex: innerWidth < 720 ? '1 1 0' : '0 0 auto', ctaH: innerWidth < 720 ? '44px' : '50px', ctaPad: innerWidth < 360 ? '0 10px' : innerWidth < 720 ? '0 14px' : '0 24px', ctaFs: innerWidth < 360 ? '13px' : innerWidth < 720 ? '14px' : '15px', ctaIg: innerWidth < 360 ? '6px' : innerWidth < 720 ? '8px' : '10px', stH: innerWidth < 720 ? '150px' : 'clamp(240px,32vw,500px)', stPad: innerWidth < 720 ? '8px 14px' : '14px 22px', stFs: innerWidth < 720 ? '11px' : 'clamp(13px,1vw,16px)', stSh: innerWidth < 720 ? '0 10px 24px rgba(0,0,0,.3)' : '0 18px 40px rgba(0,0,0,.35)', vidListD: innerWidth < 720 ? 'none' : 'block', expH2: innerWidth < 720 ? 'min(46px, calc((100vw - 2 * clamp(20px,3vw,48px)) / 13.4))' : 'clamp(28px,2.6vw,46px)', expWs: innerWidth < 720 ? 'nowrap' : 'normal', stepCols: innerWidth < 720 ? 'none' : 'repeat(auto-fit,minmax(min(100%,220px),1fr))', stepPr: innerWidth < 720 ? '24px' : '0', stepBr: innerWidth < 720 ? '1px solid rgba(236,234,246,.12)' : '0', cardCols: innerWidth < 720 ? 'none' : 'repeat(12,minmax(0,1fr))', menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, closeMenu: this.closeMenu, showLinks: this.state.nav, hideLinks: !(this.state.nav),

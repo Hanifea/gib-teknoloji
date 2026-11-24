@@ -21,8 +21,11 @@ a:hover{color:#4edfc7}
 button{font:inherit;color:inherit}
 ::selection{background:#4edfc7;color:#0b0916}
 :focus-visible{outline:1px solid #4edfc7;outline-offset:3px}
+input[type=search]::-webkit-search-cancel-button{display:none}
+[role=tablist]::-webkit-scrollbar{display:none}
 </style>
 <script src="./touch.js"></script>
+<script src="./theme.js"></script>
 </helmet>
 
 <div lang="tr" style="position:relative;background:#160B1A;color:#eceaf6;font-family:Geist,system-ui,sans-serif;font-size:17px;line-height:1.55">
@@ -65,19 +68,91 @@ button{font:inherit;color:inherit}
       <h1 style="margin:0;font-weight:400;font-size:clamp(34px,3.6vw,60px);line-height:1;letter-spacing:-0.045em">Projelerimiz</h1>
       <p style="margin:0;font-size:16px;line-height:1.6;color:#a4a1bb;text-wrap:pretty">Farklı uzmanlık alanlarındaki ekiplerimizle uçtan uca çözümler üretiyoruz.</p>
     </div>
+    <div data-r="" style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;flex-wrap:nowrap;align-items:center;gap:10px">
+      <label style="flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:14px;height:56px;padding:0 20px;border-radius:14px;background:#2e1c38;border:1px solid rgba(236,234,246,.12);cursor:text;transition:border-color .2s ease" style-hover="border-color:rgba(236,234,246,.28)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a87a3" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <input type="search" value="{{ q }}" onInput="{{ onSearch }}" placeholder="{{ phText }}" aria-label="Proje ara" style="flex:1;min-width:0;height:100%;border:0;outline:none;background:transparent;color:#eceaf6;font:inherit;font-size:16px">
+        <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ clearQ }}" aria-label="Aramayı temizle" style="display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:8px;background:rgba(236,234,246,.08);cursor:pointer;color:#c9c6dc">×</button></sc-if>
+      </label>
+      <sc-if value="{{ pDesk }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ pdd }}" as="d" hint-placeholder-count="2">
+        <div data-dd="" style="position:relative;flex:none">
+          <button type="button" onClick="{{ d.toggle }}" aria-expanded="{{ d.aria }}" aria-haspopup="true" aria-controls="{{ d.id }}" style="display:flex;align-items:center;gap:10px;height:56px;padding:0 18px;border-radius:14px;background:#2e1c38;border:1px solid {{ d.bd }};cursor:pointer;font:inherit;font-size:15px;color:#eceaf6;white-space:nowrap;transition:border-color .2s ease" style-hover="border-color:rgba(236,234,246,.32)">{{ d.label }}<sc-if value="{{ d.has }}" hint-placeholder-val="{{ false }}"><span style="display:grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#4edfc7;color:#160B1A;font-size:12px;font-weight:500">1</span></sc-if><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;transform:rotate({{ d.rot }});transition:transform .2s ease"><path d="M4 6l4 4 4-4"></path></svg></button>
+          <sc-if value="{{ d.open }}" hint-placeholder-val="{{ false }}">
+          <div id="{{ d.id }}" role="radiogroup" aria-label="{{ d.label }}" style="position:absolute;top:calc(100% + 8px);{{ d.pos }};z-index:20;min-width:220px;display:flex;flex-direction:column;padding:8px 14px;border-radius:14px;background:#2e1c38;border:1px solid rgba(236,234,246,.16);box-shadow:0 24px 48px -20px rgba(0,0,0,.7)">
+            <sc-for list="{{ d.opts }}" as="o" hint-placeholder-count="3">
+              <button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.go }}" style="display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0;border:0;background:none;cursor:pointer;text-align:left;font:inherit;color:{{ o.color }}" style-hover="color:#ffffff">
+                <span aria-hidden="true" style="flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1px solid {{ o.bd }}"><span style="width:10px;height:10px;border-radius:50%;background:#4edfc7;opacity:{{ o.op }}"></span></span>
+                <span style="flex:1;font-size:15px">{{ o.label }}</span>
+                <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6f6c86">{{ o.count }}</span>
+              </button>
+            </sc-for>
+          </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      </sc-if>
+      <sc-if value="{{ pMob }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ pOpen }}" aria-expanded="{{ pAria }}" aria-controls="proje-filtre" aria-haspopup="dialog" aria-label="Filtrele" style="position:relative;flex:none;display:grid;place-items:center;width:56px;height:56px;padding:0;border-radius:14px;background:#2e1c38;border:1px solid rgba(236,234,246,.12);cursor:pointer;color:#eceaf6"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg><sc-if value="{{ pHasActive }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-6px;right:-6px;display:grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#4edfc7;color:#160B1A;font-size:12px;font-weight:500">{{ pActive }}</span></sc-if></button></sc-if>
+      <div role="group" aria-label="Görünüm" style="flex:none;display:flex;gap:2px;padding:4px;border-radius:14px;background:#2e1c38;border:1px solid rgba(236,234,246,.12)">
+        <button type="button" onClick="{{ viewGallery }}" aria-pressed="{{ galOn }}" aria-label="Galeri görünümü" style="display:flex;align-items:center;gap:8px;height:46px;padding:0 {{ vPad }};border:0;border-radius:10px;background:{{ galBg }};color:{{ galFg }};cursor:pointer;font-size:14px;transition:background-color .2s ease,color .2s ease"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="4" width="10" height="16" rx="2"></rect><path d="M3 7v10M21 7v10"></path></svg><span style="display:{{ vLbl }}">Galeri</span></button>
+        <button type="button" onClick="{{ viewList }}" aria-pressed="{{ listOn }}" aria-label="Liste görünümü" style="display:flex;align-items:center;gap:8px;height:46px;padding:0 {{ vPad }};border:0;border-radius:10px;background:{{ listBg }};color:{{ listFg }};cursor:pointer;font-size:14px;transition:background-color .2s ease,color .2s ease"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"></rect><rect x="13" y="4" width="7" height="7" rx="1.5"></rect><rect x="4" y="13" width="7" height="7" rx="1.5"></rect><rect x="13" y="13" width="7" height="7" rx="1.5"></rect></svg><span style="display:{{ vLbl }}">Liste</span></button>
+      </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;min-height:44px">
+        <span aria-live="polite" style="font-size:15px;color:#eceaf6;margin-right:4px"><strong style="font-weight:500">{{ resultN }}</strong> proje</span>
+        <sc-for list="{{ pChips }}" as="c" hint-placeholder-count="0">
+          <button type="button" onClick="{{ c.remove }}" aria-label="{{ c.aria }}" style="display:flex;align-items:center;min-height:44px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:#eceaf6"><span style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 10px 0 12px;border-radius:999px;border:1px solid rgba(78,223,199,.45);background:rgba(78,223,199,.1);font-size:14px;transition:background-color .2s ease" style-hover="background:rgba(78,223,199,.22)">{{ c.label }}<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7"></path></svg></span></button>
+        </sc-for>
+        <sc-if value="{{ hasPChips }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ clearAll }}" style="min-height:44px;padding:0 4px;border:0;background:none;cursor:pointer;font:inherit;font-size:14px;color:#4edfc7">Tümünü temizle</button></sc-if>
+      </div>
+    </div>
   </div>
+<sc-if value="{{ pMob }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:210;visibility:{{ pVis }};transition:visibility 0s linear {{ pVisDelay }}">
+  <div onClick="{{ pClose }}" aria-hidden="true" style="position:absolute;inset:0;background:rgba(11,9,22,.72);opacity:{{ pOp }};transition:opacity .3s ease"></div>
+  <div id="proje-filtre" role="dialog" aria-modal="true" aria-label="Filtreler" style="position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;max-height:88svh;border-radius:20px 20px 0 0;background:#1d1022;border-top:1px solid rgba(236,234,246,.12);box-shadow:0 -30px 60px -20px rgba(0,0,0,.6);transform:{{ pY }};transition:transform .35s cubic-bezier(.2,.7,.2,1)">
+    <div style="flex:none;padding:10px 20px 8px">
+      <div aria-hidden="true" style="width:40px;height:4px;margin:0 auto 8px;border-radius:2px;background:rgba(236,234,246,.3)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-0.02em">Filtrele</h2>
+        <button type="button" onClick="{{ pClose }}" aria-label="Filtreleri kapat" style="display:grid;place-items:center;width:44px;height:44px;margin-right:-10px;padding:0;border:0;background:none;cursor:pointer;color:#eceaf6"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      </div>
+    </div>
+    <div style="flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 20px 16px;display:flex;flex-direction:column;gap:24px">
+      <sc-for list="{{ pGroups }}" as="G" hint-placeholder-count="3">
+        <div role="radiogroup" aria-label="{{ G.label }}" style="display:flex;flex-direction:column;gap:4px;padding-top:20px;border-top:1px solid rgba(236,234,246,.08)">
+          <div style="margin-bottom:8px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a87a3">{{ G.label }}</div>
+          <sc-for list="{{ G.opts }}" as="o" hint-placeholder-count="3">
+            <button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.go }}" style="display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0;border:0;background:none;cursor:pointer;text-align:left;font:inherit;color:{{ o.color }}">
+              <span aria-hidden="true" style="flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1px solid {{ o.bd }}"><span style="width:10px;height:10px;border-radius:50%;background:#4edfc7;opacity:{{ o.op }}"></span></span>
+              <span style="flex:1;font-size:15px">{{ o.label }}</span>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#6f6c86">{{ o.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+    <div style="flex:none;display:flex;gap:12px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-top:1px solid rgba(236,234,246,.1)">
+      <button type="button" onClick="{{ clearAll }}" style="flex:none;min-height:48px;padding:0 20px;border-radius:999px;border:1px solid rgba(236,234,246,.3);background:none;cursor:pointer;font:inherit;font-size:15px;color:#eceaf6">Temizle</button>
+      <button type="button" onClick="{{ pClose }}" style="flex:1;min-height:48px;padding:0 20px;border-radius:999px;border:0;background:#4edfc7;cursor:pointer;font:inherit;font-size:15px;font-weight:500;color:#160B1A">{{ pShowLabel }}</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+  <sc-if value="{{ showGallery }}" hint-placeholder-val="{{ true }}">
   <div ref="{{ stageRef }}" tabindex="0" aria-roledescription="carousel" aria-label="Projeler" onPointerDown="{{ stageDown }}" onPointerMove="{{ stageMove }}" onPointerEnter="{{ stageEnter }}" onPointerLeave="{{ stageLeave }}" onKeyDown="{{ stageKey }}" style="position:relative;height:{{ stageH }};perspective:1800px;perspective-origin:50% 40%;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;outline-offset:-6px">
     <sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
-      <article data-card="" onClick="{{ p.go }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" aria-current="{{ p.cur }}" style="position:absolute;left:50%;top:{{ cardTop }};width:{{ cardW }};display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:10px;background:#1d1022;border:1px solid rgba(236,234,246,.13);box-shadow:0 40px 80px rgba(0,0,0,.5);will-change:transform;transform-origin:50% 0">
+      <article data-card="" onClick="{{ p.go }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" aria-current="{{ p.cur }}" style="position:absolute;left:50%;top:{{ cardTop }};width:{{ cardW }};display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.13);box-shadow:0 28px 48px -24px rgba(0,0,0,.6);will-change:transform;transform-origin:50% 0">
         <div style="display:flex;justify-content:space-between;gap:12px;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase"><span style="color:#4edfc7">{{ p.tag }}</span><span style="color:#8a87a3">{{ p.kindLabel }}</span></div>
         <div style="position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;border:1px solid rgba(236,234,246,.1);background:#100d1f">
           <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" alt="{{ p.title }}" loading="lazy" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></sc-if>
           <sc-if value="{{ p.hasVideo }}" hint-placeholder-val="{{ false }}"><video data-vid="" src="{{ p.video }}" muted="" loop="" playsinline="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .4s ease"></video></sc-if>
         </div>
-        <h3 style="margin:0;font-size:26px;font-weight:400;line-height:1.1;letter-spacing:-0.03em;color:#eceaf6;text-wrap:balance">{{ p.title }}</h3>
-        <p title="{{ p.desc }}" style="margin:0;font-size:16px;line-height:1.55;color:#c9c6dc;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">{{ p.desc }}</p>
+        <h3 style="margin:0;min-height:2.2em;font-size:26px;font-weight:400;line-height:1.1;letter-spacing:-0.03em;color:#eceaf6;text-wrap:balance;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ p.title }}</h3>
+        <p title="{{ p.desc }}" style="margin:0;height:4.65em;font-size:16px;line-height:1.55;color:#c9c6dc;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">{{ p.desc }}</p>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:12px;border-top:1px solid rgba(236,234,246,.1)">
-          <div style="display:flex;flex-direction:column;gap:4px;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.06em"><span style="color:#a4a1bb;text-transform:uppercase">Teknoloji</span><span style="color:#eceaf6">{{ p.techLabel }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:4px;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.06em"><span style="color:#a4a1bb;text-transform:uppercase">Teknoloji</span><span style="min-height:2.9em;color:#eceaf6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ p.techLabel }}</span></div>
           <sc-if value="{{ moreBtn }}" hint-placeholder-val="{{ false }}"><a href="#" onClick="{{ p.open }}" style="flex:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;margin:-9px 0;font-size:15px;text-decoration:none;color:#eceaf6">Daha Fazla <span aria-hidden="true" style="display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#4edfc7;color:#0b0916">→</span></a></sc-if>
         </div>
         <div data-dim="" aria-hidden="true" style="position:absolute;inset:-1px;border-radius:10px;background:#160B1A;opacity:0;pointer-events:none"></div>
@@ -85,11 +160,37 @@ button{font:inherit;color:inherit}
     </sc-for>
     <div ref="{{ badgeRef }}" aria-hidden="true" style="position:absolute;left:0;top:0;z-index:120;width:108px;height:108px;margin:-54px 0 0 -54px;border-radius:50%;background:#eceaf6;color:#0b0916;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;opacity:0;transform:scale(.4);transition:opacity .25s ease,transform .25s ease,background-color .25s ease;pointer-events:none"><span>←</span><span>SÜRÜKLE</span><span>→</span></div>
   </div>
-  <div style="position:relative;display:flex;justify-content:center;align-items:center;gap:clamp(16px,2vw,28px);padding:8px clamp(20px,3vw,48px) clamp(48px,5vw,80px)">
-    <button type="button" onClick="{{ prev }}" aria-label="Önceki proje" style="flex:none;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-size:18px;cursor:pointer;transition:border-color .2s ease,background-color .2s ease" style-hover="border-color:#4edfc7;background:rgba(78,223,199,.08)">←</button>
-    <span aria-live="polite" style="flex:none;width:min(360px,calc(100vw - 200px));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d4d1e6">{{ activeTitle }} <span style="color:#8a87a3">· {{ countLabel }}</span></span>
-    <button type="button" onClick="{{ next }}" aria-label="Sonraki proje" style="flex:none;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-size:18px;cursor:pointer;transition:border-color .2s ease,background-color .2s ease" style-hover="border-color:#4edfc7;background:rgba(78,223,199,.08)">→</button>
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;padding:clamp(20px,2vw,32px) clamp(20px,3vw,48px) clamp(44px,4.5vw,72px)">
+    <span aria-live="polite" style="flex:none;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d4d1e6">{{ activeTitle }} <span style="color:#8a87a3">· {{ countLabel }}</span></span>
+    <div style="width:100%;display:flex;align-items:center;gap:clamp(8px,1vw,14px)">
+      <button type="button" onClick="{{ prev }}" aria-label="Önceki proje" style="flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;border:0;background:#4edfc7;color:#160B1A;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),background-color .2s ease" style-hover="transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"></path></svg></button>
+      <div ref="{{ stripRef }}" role="tablist" aria-label="Projeye atla" style="position:relative;flex:1;min-width:0;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px clamp(20px,4vw,56px);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 clamp(20px,4vw,56px),#000 calc(100% - clamp(20px,4vw,56px)),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 clamp(20px,4vw,56px),#000 calc(100% - clamp(20px,4vw,56px)),transparent 100%)">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6"><button type="button" role="tab" aria-selected="{{ p.cur }}" onClick="{{ p.jump }}" style="flex:none;height:34px;padding:0 14px;border-radius:999px;border:1px solid {{ p.jBd }};background:{{ p.jBg }};color:{{ p.jFg }};font-size:13px;white-space:nowrap;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,color .2s ease">{{ p.title }}</button></sc-for>
+      </div>
+      <button type="button" onClick="{{ next }}" aria-label="Sonraki proje" style="flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;border:0;background:#4edfc7;color:#160B1A;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),background-color .2s ease" style-hover="transform:scale(1.06)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></button>
+    </div>
   </div>
+  </sc-if>
+  <sc-if value="{{ showList }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:calc(1600px + 2 * clamp(20px,3vw,48px));margin:0 auto;padding:clamp(24px,2.4vw,36px) clamp(20px,3vw,48px) clamp(48px,5vw,80px);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:16px">
+    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+      <button type="button" onClick="{{ p.open }}" style="display:flex;flex-direction:column;gap:12px;padding:14px 14px 18px;border-radius:16px;background:#1d1022;border:1px solid rgba(236,234,246,.12);color:#eceaf6;text-align:left;cursor:pointer;transition:border-color .2s ease,transform .25s ease" style-hover="border-color:rgba(78,223,199,.55);transform:translateY(-3px)">
+        <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#100d1f;border:1px solid rgba(236,234,246,.08)"><img src="{{ p.img }}" alt="" loading="lazy" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:0 4px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase"><span style="color:#4edfc7">{{ p.tag }}</span><span style="color:#8a87a3">{{ p.kindLabel }}</span></div>
+        <h3 style="margin:0;padding:0 4px;font-size:21px;font-weight:400;line-height:1.15;letter-spacing:-0.025em;color:#eceaf6">{{ p.title }}</h3>
+        <p style="margin:0;padding:0 4px;font-size:14px;line-height:1.55;color:#a4a1bb;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ p.desc }}</p>
+        <span style="margin-top:auto;padding:0 4px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.04em;color:#c9c6dc">{{ p.techLabel }}</span>
+      </button>
+    </sc-for>
+  </div>
+  </sc-if>
+  <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:clamp(72px,10vw,140px) 20px;text-align:center">
+    <p style="margin:0;font-size:clamp(22px,2vw,30px);font-weight:400;letter-spacing:-0.02em;color:#eceaf6">Aramanla eşleşen proje bulunamadı</p>
+    <p style="margin:0;font-size:16px;color:#a4a1bb">Farklı bir kelime dene ya da filtreleri temizle.</p>
+    <button type="button" onClick="{{ clearAll }}" style="height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-size:15px;cursor:pointer;transition:border-color .2s ease" style-hover="border-color:#4edfc7">Filtreleri temizle</button>
+  </div>
+  </sc-if>
 </section>
 
 <sc-if value="{{ dOpen }}" hint-placeholder-val="{{ false }}">
@@ -97,7 +198,7 @@ button{font:inherit;color:inherit}
   <div onClick="{{ stopProp }}" style="position:relative;flex:1;min-width:0;max-width:1440px;margin:0 auto;overflow-y:auto;overscroll-behavior:contain;border-radius:16px;border:1px solid rgba(236,234,246,.12);background:#1d1022;box-shadow:0 40px 120px rgba(0,0,0,.6)">
     <div style="position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px clamp(20px,3vw,48px);background:#1d1022;border-bottom:1px solid rgba(236,234,246,.1)">
       <div style="display:flex;align-items:center;gap:12px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8a87a3"><span>Projeler</span><span aria-hidden="true">›</span><span style="color:#4edfc7">{{ d.title }}</span></div>
-      <button type="button" onClick="{{ closeDetail }}" aria-label="Kapat" style="display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(236,234,246,.25);background:transparent;color:#eceaf6;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:border-color .2s ease,background-color .2s ease" style-hover="border-color:#4edfc7;background:rgba(78,223,199,.08)">Kapat <span aria-hidden="true">×</span></button>
+      <button type="button" onClick="{{ closeDetail }}" aria-label="Kapat" title="Kapat (Esc)" style="flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(236,234,246,.08);color:#eceaf6;cursor:pointer;transition:background-color .2s ease,transform .3s cubic-bezier(.22,1,.36,1)" style-hover="background:rgba(236,234,246,.18);transform:rotate(90deg)"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" style="display:block"><path d="M4 4l8 8M12 4l-8 8"></path></svg></button>
     </div>
     <div style="display:flex;flex-direction:column;gap:clamp(40px,4vw,64px);padding:clamp(28px,3vw,48px) clamp(20px,3vw,48px) clamp(40px,4vw,64px)">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:40px clamp(40px,4vw,72px);align-items:start">
@@ -168,7 +269,7 @@ button{font:inherit;color:inherit}
   <div style="padding:clamp(22px,2.4vw,34px) clamp(20px,3vw,48px)">
     <div style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px">
       <div style="display:flex;align-items:center;gap:clamp(14px,1.6vw,22px)">
-        <img src="assets/gib-logo-white.png" alt="Gelir İdaresi Başkanlığı" style="height:clamp(42px,3.8vw,56px);width:auto;display:block">
+        <img src="assets/gib-logo-beyaz.svg" alt="Gelir İdaresi Başkanlığı" style="height:clamp(42px,3.8vw,56px);width:auto;display:block">
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
         <a href="https://twitter.com/gibsosyalmedya" target="_blank" rel="noopener" aria-label="X" style="display:grid;place-items:center;width:38px;height:38px;border-radius:8px;background:rgba(80,45,95,.23);color:#eceaf6;transition:background-color .2s ease,color .2s ease" style-hover="background:#4edfc7;color:#160B1A"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.3l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"></path></svg></a>
@@ -182,7 +283,7 @@ button{font:inherit;color:inherit}
     <div style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 16px">
       <span aria-hidden="true" style="flex:1 1 0;min-width:0"></span>
       <span style="flex:0 1 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;text-align:center;font-size:13px;line-height:1.5;color:#c9c6da">Her Hakkı Saklıdır. ©2026 Gelir İdaresi Başkanlığı</span>
-      <span style="flex:1 1 0;min-width:max-content;display:flex;justify-content:flex-end"><a href="#top" style="padding:8px 0;text-decoration:none;white-space:nowrap;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a87a3;transition:color .2s ease" style-hover="color:#eceaf6">Yukarı dön ↑</a></span>
+      <span style="flex:1 1 0;min-width:max-content;display:flex;justify-content:flex-end"></span>
     </div>
   </div>
 </footer>
@@ -195,8 +296,8 @@ class Component extends DCLogic {
   toggleMenu = () => { const o = !this.state.menu; this.setState({ menu: o }); this.__lock(o); };
   closeMenu = () => { if (this.state.menu) { this.setState({ menu: false }); this.__lock(false); } };
   closeAll = () => { this.setState({ menu: false, work: null, photo: null }); this.__lock(false); };
-  state = { mobile: false, filter: 'Tümü', active: 0, sh: 480, detail: null };
-  fieldRef = React.createRef(); ringRef = React.createRef(); stageRef = React.createRef(); badgeRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
+  state = { mobile: false, filter: 'Tümü', active: 0, sh: 480, detail: null, q: '', plat: 'Tümü', kind: 'Tümü', view: 'galeri' };
+  fieldRef = React.createRef(); ringRef = React.createRef(); stageRef = React.createRef(); stripRef = React.createRef(); badgeRef = React.createRef(); fxRef = React.createRef(); fyRef = React.createRef();
   pos = 0; target = 0; mx = 0; my = 0;
   PROJECTS = [
     { tag: 'Web', kind: 'Dış', title: 'Dijital Vergi Dairesi', desc: 'Gelir İdaresi Başkanlığı kurumsal web sitesi. Milyonlarca vatandaşa erişilebilir, hızlı ve güvenli bir dijital kapı sunmaktadır.', img: 'assets/prj-1.png', video: 'assets/proje-dvd.mp4' },
@@ -292,11 +393,62 @@ class Component extends DCLogic {
       ['Güvenlik & Erişilebilirlik', ['Kurum ağı dışından erişimi denetleyen yetkilendirme ve kayıt mekanizmaları uyguladı.', 'Farklı cihaz ve ekran boyutlarında erişilebilir, duyarlı arayüz tasarladı.']]
     ]
   } };
-  list() { const f = this.state.filter; return this.PROJECTS.filter(p => f === 'Tümü' || p.kind === f); }
+
+  /* TEST VERİSİ: sayfanın 40 projede nasıl davrandığını görmek için eklenen örnek kayıtlar. Gerçek projeler gelince bu listeyi boşaltın. */
+  DEMO = [
+    ['Web', 'Dış', 'e-Fatura', 'Mükelleflerin faturalarını elektronik ortamda düzenleyip alıcılarına güvenli biçimde iletmesini sağlayan sistem.', ['Java', 'Spring Boot', 'Oracle']],
+    ['Web', 'Dış', 'e-Arşiv Fatura', 'e-Fatura kullanıcısı olmayan alıcılara düzenlenen faturaların elektronik ortamda saklanmasını ve raporlanmasını sağlar.', ['Java', 'Spring Boot', 'Oracle']],
+    ['Web', 'Dış', 'e-Defter', 'Yasal defterlerin elektronik ortamda oluşturulması, imzalanması ve beratlarının alınması için geliştirilen uygulama.', ['Java', 'Angular', 'PostgreSQL']],
+    ['Web', 'Dış', 'e-Beyanname', 'Vergi beyannamelerinin internet üzerinden hazırlanıp gönderilmesini sağlayan beyan altyapısı.', ['Java', 'React.JS', 'Oracle']],
+    ['Web', 'Dış', 'Hazır Beyan', 'Gelir vergisi beyannamelerinin sistemdeki bilgilerle önceden doldurulup birkaç adımda verilmesini sağlar.', ['React.JS', 'Next JS', 'Java']],
+    ['Web', 'Dış', 'e-Tebligat', 'Resmi tebligatların mükelleflere elektronik ortamda, hızlı ve kayıtlı biçimde ulaştırılmasını sağlar.', ['Java', 'Spring Boot', 'Kafka']],
+    ['Web', 'Dış', 'e-İrsaliye', 'Sevk irsaliyelerinin elektronik belge olarak düzenlenmesi, iletilmesi ve saklanması için geliştirilen sistem.', ['Java', 'Spring Boot', 'Oracle']],
+    ['Web', 'Dış', 'e-Serbest Meslek Makbuzu', 'Serbest meslek erbabının makbuzlarını elektronik ortamda düzenlemesini ve karşı tarafa iletmesini sağlar.', ['React.JS', 'Java']],
+    ['Web', 'Dış', 'e-Müstahsil Makbuzu', 'Çiftçiden yapılan alımlarda düzenlenen müstahsil makbuzlarının elektronik ortama taşınmasını sağlar.', ['React.JS', 'Java']],
+    ['Web', 'Dış', 'Defter Beyan', 'Esnaf ve serbest meslek erbabının defter kayıtlarını ve beyannamelerini tek sistemden yönetmesini sağlar.', ['React.JS', 'Next JS', 'Java']],
+    ['Web', 'Dış', 'e-Belge Portalı', 'Elektronik belge uygulamalarına başvuru, kılavuz ve teknik dokümanların tek noktadan sunulduğu portal.', ['Next JS', 'Headless CMS']],
+    ['Web', 'Dış', 'Vergi Asistanı', 'Mükelleflerin sık sorulan sorularına anında yanıt veren, yönlendirmeli dijital yardım asistanı.', ['Python', 'React.JS', 'Elasticsearch']],
+    ['Web', 'Dış', 'Borç Sorgulama', 'Vergi borçlarının sorgulanması ve çevrim içi ödeme adımlarının tek ekranda toplandığı servis.', ['React.JS', 'Java']],
+    ['Web', 'Dış', 'Randevu Sistemi', 'Vergi dairelerinden yüz yüze işlem için çevrim içi randevu alınmasını sağlayan uygulama.', ['Vue.js', 'Java', 'PostgreSQL']],
+    ['Web', 'Dış', 'Mevzuat Arama', 'Kanun, tebliğ, sirküler ve özelgelerde tam metin arama yapılmasını sağlayan bilgi bankası.', ['Next JS', 'Elasticsearch']],
+    ['Web', 'Dış', 'GİBUX', 'GİB uygulamalarında ortak kullanılan bileşenleri, renkleri ve kuralları bir araya getiren tasarım sistemi.', ['React.JS', 'Storybook', 'Figma']],
+    ['Mobil', 'Dış', 'Hazır Beyan Mobil', 'Hazır Beyan sistemine mobil cihazlardan erişilerek beyannamelerin birkaç dokunuşla verilmesini sağlar.', ['React Native', 'Java']],
+    ['Mobil', 'Dış', 'e-Belge Mobil', 'Elektronik belgelerin mobil cihazlardan görüntülenmesi ve doğrulanması için geliştirilen uygulama.', ['Flutter', 'Java']],
+    ['Mobil', 'Dış', 'Vergi Takvimi', 'Beyan ve ödeme tarihlerini kişiselleştirilmiş hatırlatmalarla takip etmeyi sağlayan mobil uygulama.', ['Flutter', 'Firebase']],
+    ['Mobil', 'İç', 'Saha Denetim Mobil', 'Saha denetim ekiplerinin tespitlerini mobil cihazlardan anında kayıt altına almasını sağlar.', ['React Native', 'Java']],
+    ['Web', 'İç', 'Risk Analiz Platformu', 'Büyük veri üzerinde kurallar ve modellerle riskli işlemleri belirleyip denetim birimlerine sunar.', ['Python', 'Spark', 'Hadoop']],
+    ['Web', 'İç', 'Veri Ambarı Raporlama', 'Kurum verilerinin tek bir ambarda toplanıp yöneticiler için etkileşimli raporlara dönüştürüldüğü platform.', ['Python', 'Oracle', 'Power BI']],
+    ['Web', 'İç', 'Doküman Yönetim Sistemi', 'Kurum içi yazışma ve dokümanların sürümlü biçimde saklandığı, aranabildiği ve paylaşıldığı sistem.', ['Java', 'Angular', 'PostgreSQL']],
+    ['Web', 'İç', 'Yardım Masası', 'Kurum içi teknik destek taleplerinin açılması, atanması ve çözüm sürelerinin izlenmesini sağlar.', ['Vue.js', '.NET', 'SQL Server']],
+    ['Web', 'İç', 'Envanter Yönetimi', 'Donanım ve yazılım varlıklarının zimmet, lisans ve bakım süreçleriyle birlikte takip edildiği sistem.', ['React.JS', 'Java']],
+    ['Web', 'İç', 'Eğitim Portalı', 'Personelin çevrim içi eğitimlere katılmasını, sınavlara girmesini ve gelişimini izlemesini sağlar.', ['Next JS', 'Java', 'PostgreSQL']],
+    ['Web', 'İç', 'Denetim Yönetim Sistemi', 'Vergi incelemelerinin planlanması, atanması ve sonuçlarının raporlanması için geliştirilen iş akışı sistemi.', ['Java', 'Angular', 'Oracle']],
+    ['Web', 'İç', 'Bilgi Güvenliği Olay Takibi', 'Güvenlik olaylarının kaydedilmesi, önceliklendirilmesi ve müdahale adımlarının izlenmesini sağlar.', ['Python', 'Elasticsearch', 'Kibana']],
+    ['Web', 'İç', 'API Yönetim Platformu', 'Kurum servislerinin tek noktadan yayınlanması, yetkilendirilmesi ve izlenmesi için kurulan altyapı.', ['Java', 'Kong', 'Kubernetes']],
+    ['Web', 'İç', 'Toplantı ve Salon Rezervasyonu', 'Toplantı salonlarının çevrim içi ayrılması ve takvimlerle eşitlenmesini sağlayan iç uygulama.', ['Vue.js', 'Node.js']],
+    ['Web', 'İç', 'Kurumsal Kimlik Doğrulama', 'Kurum uygulamalarına tek oturumla güvenli giriş sağlayan merkezi kimlik ve yetki yönetimi.', ['Java', 'Keycloak', 'LDAP']],
+    ['Web', 'İç', 'Uygulama İzleme Paneli', 'Canlı sistemlerin performansını, hata oranlarını ve kaynak kullanımını tek ekranda gösteren izleme paneli.', ['Grafana', 'Prometheus', 'Go']]
+  ];
+  IMGS = ['assets/prj-1.png', 'assets/prj-2.png', 'assets/prj-eymm-mock.png', 'assets/prj-5.png', 'assets/prj-vergibilinci-mock.png', 'assets/prj-calbis-mock.png', 'assets/prj-iadetalep-mock.png'];
+  ALL = this.PROJECTS.concat(this.DEMO.map(([tag, kind, title, desc, tech], i) => ({ tag, kind, title, desc, tech, demo: true, img: tag === 'Mobil' ? 'assets/prj-3.png' : this.IMGS[i % this.IMGS.length] })));
+  techOf(p) { return p.tech || this.TECH; }
+  norm(s) { return String(s).toLocaleLowerCase('tr').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i'); }
+  match(p, o) {
+    const s = Object.assign({ plat: this.state.plat, kind: this.state.kind, q: this.state.q }, o || {});
+    if (s.plat !== 'Tümü' && p.tag !== s.plat) return false;
+    if (s.kind !== 'Tümü' && p.kind !== s.kind) return false;
+    const q = this.norm(s.q.trim()); if (!q) return true;
+    const hay = this.norm([p.title, p.desc, p.tag, p.kind + ' proje', this.techOf(p).join(' ')].join(' '));
+    return q.split(/\s+/).every(w => hay.indexOf(w) > -1);
+  }
+  list() { return this.ALL.filter(p => this.match(p)); }
+  refilter(patch) { this.pos = 0; this.target = 0; this.idle = performance.now(); this.setState(Object.assign({ active: 0 }, patch), () => { setTimeout(() => this.onResize && this.onResize(), 30); }); }
   componentDidMount() {
     this.__lw = innerWidth; this.__s480 = innerWidth < 480;
     this.__mr = () => { const s = innerWidth < 480; if (s !== this.__s480) { this.__s480 = s; this.forceUpdate(); } if (innerWidth !== this.__lw) { this.__lw = innerWidth; this.closeMenu(); } };
-    this.__mk = e => { if (e.key === 'Escape') this.closeAll(); };
+    this.__mk = e => { if (e.key === 'Escape') { this.closeAll(); if (this.state.pSheet) { this.setState({ pSheet: false }); this.__lock(false); document.documentElement.classList.toggle('gib-sheet', false); } if (this.state.dd) this.setState({ dd: null }); } };
+    this.__dd = e => { if (this.state.dd && !(e.target.closest && e.target.closest('[data-dd]'))) this.setState({ dd: null }); };
+    document.addEventListener('pointerdown', this.__dd);
     addEventListener('resize', this.__mr); addEventListener('keydown', this.__mk);
     setTimeout(() => this.__touchInit && this.__touchInit(), 400);
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -325,9 +477,10 @@ class Component extends DCLogic {
     };
     this.craf = requestAnimationFrame(loop);
   }
-  componentDidUpdate(pp, ps) { if ((ps || {}).detail !== (this.state || {}).detail) document.documentElement.style.overflow = (this.state || {}).detail != null ? 'hidden' : ''; }
+  componentDidUpdate(pp, ps) { if ((ps || {}).detail !== (this.state || {}).detail) document.documentElement.style.overflow = (this.state || {}).detail != null ? 'hidden' : '';
+    const st = this.stripRef.current; if (st && (ps || {}).active !== this.state.active || (st && (ps || {}).view !== this.state.view)) { const b = st.querySelector('[aria-selected="true"]'); if (b) st.scrollTo({ left: b.offsetLeft - st.clientWidth / 2 + b.offsetWidth / 2, behavior: this.reduced ? 'auto' : 'smooth' }); } }
   componentWillUnmount() {
-    removeEventListener('resize', this.__mr); removeEventListener('keydown', this.__mk); this.__lock(false);
+    removeEventListener('resize', this.__mr); removeEventListener('keydown', this.__mk); document.removeEventListener('pointerdown', this.__dd); this.__lock(false);
     document.documentElement.style.overflow = ''; removeEventListener('keydown', this.onKey);
     cancelAnimationFrame(this.craf); cancelAnimationFrame(this.fraf);
     removeEventListener('resize', this.onResize); removeEventListener('pointermove', this.onPM); document.documentElement.removeEventListener('mouseleave', this.onLeave); removeEventListener('pointermove', this.onMove); removeEventListener('pointerup', this.onUp); removeEventListener('pointercancel', this.onUp);
@@ -339,10 +492,11 @@ class Component extends DCLogic {
     const s = this.stageRef.current; if (!s) return;
     const cards = s.querySelectorAll('[data-card]'), n = cards.length, mob = this.state.mobile, cw = (cards[0] && cards[0].offsetWidth) || 360, H = s.offsetHeight, ch = (cards[0] && cards[0].offsetHeight) || 380, top = H * .3, fit = Math.min(1, (H - top - 16) / ch), Rx = Math.min(s.offsetWidth * (mob ? .48 : .4), cw * 2 * fit), Ry = top - 24;
     cards.forEach((c, j) => {
-      const d = n > 1 ? this.offset(j, n) : 0, th = d * 2 * Math.PI / Math.max(n, 5), cs = Math.cos(th), sn = Math.sin(th), back = (1 - cs) / 2;
-      const x = sn * Rx, y = -back * Ry, sc = (1 - back * .4) * fit, r = sn * 18; c.style.top = top.toFixed(1) + 'px';
+      const W = Math.min(Math.max(n, 5), 10), d = n > 1 ? this.offset(j, n) : 0, th = d * 2 * Math.PI / W, cs = Math.cos(th), sn = Math.sin(th), back = (1 - cs) / 2;
+      const vis = n > W ? Math.max(0, Math.min(1, W / 2 - Math.abs(d))) : 1;
+      const x = sn * Rx, y = -back * Ry, sc = (1 - back * .4) * fit, r = sn * 6; c.style.top = top.toFixed(1) + 'px';
       c.style.transform = 'translate3d(calc(-50% + ' + x.toFixed(1) + 'px),' + y.toFixed(1) + 'px,0) rotateY(' + r.toFixed(2) + 'deg) scale(' + sc.toFixed(4) + ')';
-      c.style.zIndex = String(Math.round(50 + 50 * cs)); c.style.opacity = '1'; c.style.pointerEvents = back > .85 ? 'none' : 'auto';
+      c.style.zIndex = String(Math.round(50 + 50 * cs)); c.style.opacity = vis.toFixed(3); c.style.visibility = vis > 0 ? 'visible' : 'hidden'; c.style.pointerEvents = back > .85 || vis < .5 ? 'none' : 'auto';
       const dim = c.querySelector('[data-dim]'); if (dim) dim.style.opacity = Math.min(.8, back * .95).toFixed(3);
     });
     const lg = s.querySelector('[data-logo]');
@@ -407,23 +561,46 @@ class Component extends DCLogic {
     const dp = this.state.detail != null ? list[this.state.detail] : null, dx = dp ? this.DETAILS[dp.title] : null;
     const d = dp ? { title: dp.title, img: dp.img, video: dp.video || '', hasVideo: !!dp.video, url: dx ? dx.url : '', hasUrl: !!(dx && dx.url),
       intro: (dx ? dx.intro : [dp.desc]).map(text => ({ text })),
-      specs: [{ k: 'Platform', v: dp.tag }, { k: 'Kapsam', v: dp.kind + ' Proje' }, { k: 'Teknoloji', v: this.TECH.join(' · ') }],
+      specs: [{ k: 'Platform', v: dp.tag }, { k: 'Kapsam', v: dp.kind + ' Proje' }, { k: 'Teknoloji', v: this.techOf(dp).join(' · ') }],
       areas: dx ? dx.areas.map(([title, items], i) => ({ num: String(i + 1).padStart(2, '0'), title, items: items.map(text => ({ text })) })) : [], hasAreas: !!dx,
       gallery: [], hasGallery: false } : { title: '', intro: [], specs: [], areas: [], gallery: [] };
     return {
       fieldRef: this.fieldRef, ringRef: this.ringRef, stageRef: this.stageRef, badgeRef: this.badgeRef, menuVis: this.state.menu ? 'visible' : 'hidden', menuOp: this.state.menu ? '1' : '0', menuY: this.state.menu ? '0px' : '-12px', menuHidden: this.state.menu ? 'false' : 'true', menuAria: this.state.menu ? 'true' : 'false', menuLabel: this.state.menu ? 'Menüyü kapat' : 'Menüyü aç', bar1: this.state.menu ? 'translateY(3.75px) rotate(45deg)' : 'none', bar2: this.state.menu ? 'translateY(-3.75px) rotate(-45deg)' : 'none', cvBar: innerWidth < 480 ? 'none' : 'inline-flex', toggleMenu: this.toggleMenu, closeMenu: this.closeMenu, showLinks: innerWidth >= 1040, hideLinks: !(innerWidth >= 1040),
-      projects: list.map((p, j) => ({ ...p, kindLabel: p.kind + ' Proje', techLabel: this.TECH.join(' · '), hasVideo: !!p.video, cur: j === act ? 'true' : 'false',
+      projects: list.map((p, j) => ({ ...p, kindLabel: p.kind + ' Proje', techLabel: this.techOf(p).join(' · '), hasVideo: !!p.video, cur: j === act ? 'true' : 'false',
+        jBg: j === act ? 'rgba(78,223,199,.14)' : 'rgba(236,234,246,.04)', jFg: j === act ? '#4edfc7' : '#c9c6dc', jBd: j === act ? 'rgba(78,223,199,.55)' : 'rgba(236,234,246,.14)',
+        jump: () => { const base = Math.round(this.target), cur = ((base % n) + n) % n; let d = j - cur; if (d > n / 2) d -= n; if (d < -n / 2) d += n; this.target = base + d; this.idle = performance.now(); },
         go: e => { const a = e.target.closest('a'); if (a && a.getAttribute('href') === '#') e.preventDefault(); if (this.moved) { this.moved = false; return; } const d = n > 1 ? this.offset(j, n) : 0; if (Math.abs(d) > .5) { this.target = Math.round(this.pos) + Math.round(d); this.idle = performance.now(); } this.setState({ detail: j }); },
         open: e => { e.preventDefault(); e.stopPropagation(); if (this.moved) { this.moved = false; return; } this.setState({ detail: j }); },
         enter: e => { const c = e.currentTarget, b = c.querySelector('[data-open]'), sd = c.querySelector('[data-shade]'); if (b) { b.style.opacity = '1'; b.style.pointerEvents = 'auto'; b.style.transform = 'translate(-50%,-50%) scale(1)'; } if (sd) sd.style.opacity = '1'; const v = c.querySelector('[data-vid]'); if (!v || this.drag || Math.abs(n > 1 ? this.offset(j, n) : 0) > .5) return; v.currentTime = 0; v.play().catch(() => {}); v.style.opacity = '1'; },
         leave: e => { const c = e.currentTarget, b = c.querySelector('[data-open]'), sd = c.querySelector('[data-shade]'); if (b) { b.style.opacity = ''; b.style.pointerEvents = ''; b.style.transform = ''; } if (sd) sd.style.opacity = ''; const v = c.querySelector('[data-vid]'); if (!v) return; v.pause(); v.style.opacity = '0'; } })),
+      q: this.state.q, hasQ: !!this.state.q, onSearch: e => this.refilter({ q: e.target.value }), clearQ: () => this.refilter({ q: '' }),
+      clearAll: () => this.refilter({ q: '', plat: 'Tümü', kind: 'Tümü' }),
+      platChips: ['Tümü', 'Web', 'Mobil'].map(v => { const on = this.state.plat === v; return { label: v, count: this.ALL.filter(p => this.match(p, { plat: v })).length, on: on ? 'true' : 'false', bg: on ? '#4edfc7' : 'transparent', fg: on ? '#160B1A' : '#c9c6dc', bd: on ? '#4edfc7' : 'rgba(236,234,246,.2)', go: () => this.refilter({ plat: v }) }; }),
+      kindChips: [['Tümü', 'Tümü'], ['Dış', 'Dış'], ['İç', 'İç']].map(([v, label]) => { const on = this.state.kind === v; return { label, count: this.ALL.filter(p => this.match(p, { kind: v })).length, on: on ? 'true' : 'false', bg: on ? '#4edfc7' : 'transparent', fg: on ? '#160B1A' : '#c9c6dc', bd: on ? '#4edfc7' : 'rgba(236,234,246,.2)', go: () => this.refilter({ kind: v }) }; }),
+      ...(() => { const cur = this.state.dd, mk = (key, label, vals) => { const open = cur === key, v = this.state[key], has = v !== 'Tümü'; return { label, id: 'pdd-' + key, pos: key === 'plat' ? 'left:0' : 'right:0', open, aria: open ? 'true' : 'false', rot: open ? '180deg' : '0deg', has, bd: open || has ? 'rgba(78,223,199,.55)' : 'rgba(236,234,246,.12)', toggle: () => this.setState({ dd: open ? null : key }),
+          opts: vals.map(x => { const on = v === x; return { label: x, on: on ? 'true' : 'false', count: String(this.ALL.filter(p => this.match(p, { [key]: x })).length).padStart(2, '0'), color: on ? '#eceaf6' : '#c9c6dc', bd: on ? '#4edfc7' : 'rgba(236,234,246,.3)', op: on ? 1 : 0, go: () => { this.refilter({ [key]: x }); this.setState({ dd: null }); } }; }) }; };
+        const chips = [['plat', 'Platform'], ['kind', 'Kapsam']].filter(([k]) => this.state[k] !== 'Tümü').map(([k, l]) => ({ label: l + ': ' + this.state[k], aria: l + ' filtresini kaldır', remove: () => this.refilter({ [k]: 'Tümü' }) }));
+        const pd = [mk('plat', 'Platform', ['Tümü', 'Web', 'Mobil']), mk('kind', 'Kapsam', ['Tümü', 'Dış', 'İç'])], so = !!this.state.pSheet, act = chips.length, vw = this.state.view;
+        const viewG = { label: 'Görünüm', opts: [['galeri', 'Galeri'], ['liste', 'Liste']].map(([k, l]) => ({ label: l, on: vw === k ? 'true' : 'false', count: '', color: vw === k ? '#eceaf6' : '#c9c6dc', bd: vw === k ? '#4edfc7' : 'rgba(236,234,246,.3)', op: vw === k ? 1 : 0, go: () => this.setState({ view: k }, () => setTimeout(() => this.onResize && this.onResize(), 30)) })) };
+        const pmob = !!this.state.mobile;
+        return { pdd: pd, pChips: chips, hasPChips: chips.length > 0 || !!this.state.q, resultN: String(n), pMob: pmob, pDesk: !pmob,
+          pGroups: pd.map(d => ({ label: d.label, opts: d.opts.map(o => Object.assign({}, o, { go: () => this.refilter({ [d.id === 'pdd-plat' ? 'plat' : 'kind']: o.label }) })) })),
+          pOpen: () => { this.setState({ pSheet: true }); this.__lock(true); document.documentElement.classList.toggle('gib-sheet', true); }, pClose: () => { this.setState({ pSheet: false }); this.__lock(false); document.documentElement.classList.toggle('gib-sheet', false); },
+          pAria: so ? 'true' : 'false', pHasActive: act > 0, pActive: String(act), pVis: so ? 'visible' : 'hidden', pVisDelay: so ? '0s' : '.35s', pOp: so ? '1' : '0', pY: so ? 'translateY(0)' : 'translateY(100%)', pShowLabel: n ? n + ' Projeyi Göster' : 'Sonuç Yok', vLbl: pmob ? 'none' : 'inline', vPad: pmob ? '12px' : '14px', phText: pmob ? 'Proje ara' : 'Proje veya teknoloji ara' }; })(),
+      resultLabel: n === this.ALL.length ? n + ' proje' : n + ' / ' + this.ALL.length + ' proje',
+      showGallery: n > 0 && this.state.view === 'galeri', showList: n > 0 && this.state.view === 'liste', isEmpty: n === 0,
+      viewGallery: () => this.setState({ view: 'galeri' }, () => setTimeout(() => this.onResize && this.onResize(), 30)), viewList: () => this.setState({ view: 'liste' }),
+      galOn: this.state.view === 'galeri' ? 'true' : 'false', listOn: this.state.view === 'liste' ? 'true' : 'false',
+      galBg: this.state.view === 'galeri' ? '#4edfc7' : 'transparent', galFg: this.state.view === 'galeri' ? '#160B1A' : '#c9c6dc',
+      listBg: this.state.view === 'liste' ? '#4edfc7' : 'transparent', listFg: this.state.view === 'liste' ? '#160B1A' : '#c9c6dc',
+      stripRef: this.stripRef,
       moreBtn: innerWidth < 720, dOpen: !!dp, d, closeDetail: () => this.setState({ detail: null }), stopProp: e => e.stopPropagation(),
       stageDown: e => { if (e.button !== 0) return; this.moved = false; this.drag = { x: e.clientX, p: this.pos, lx: e.clientX, lt: performance.now(), v: 0, moved: false }; e.currentTarget.style.cursor = 'grabbing'; },
       stageMove: e => { const b = this.badgeRef.current; if (!b || e.pointerType !== 'mouse') return; const r = e.currentTarget.getBoundingClientRect(); b.style.left = (e.clientX - r.left) + 'px'; b.style.top = (e.clientY - r.top) + 'px'; const overLink = e.target.closest('a,button'), onCard = !!e.target.closest('[data-card]'), lbl = onCard ? 'DETAYI AÇ' : '← SÜRÜKLE →'; if (b.textContent !== lbl) b.textContent = lbl; b.style.background = onCard ? '#4edfc7' : '#eceaf6'; b.style.opacity = overLink ? '0' : '1'; b.style.transform = overLink ? 'scale(.4)' : (this.drag ? 'scale(.85)' : 'scale(1)'); },
       stageEnter: () => { this.hover = true; }, stageLeave: () => { this.hover = false; const b = this.badgeRef.current; if (b) { b.style.opacity = '0'; b.style.transform = 'scale(.4)'; } },
       stageKey: e => { if (e.key === 'ArrowRight') { e.preventDefault(); this.step(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); this.step(-1); } },
       prev: () => this.step(-1), next: () => this.step(1),
-      activeTitle: n ? list[act].title : '', countLabel: n ? (act + 1) + ' / ' + n : '',
+      activeTitle: n ? list[Math.max(0, act)].title : '', countLabel: n ? (act + 1) + ' / ' + n : '',
       stageH: this.state.sh + 'px', cardTop: '30%', cardW: mob ? 'min(260px,72vw)' : 'clamp(240px,17vw,290px)', logoTop: '9%', logoW: mob ? '120px' : '170px',
       logoLayers: Array.from({ length: 14 }, (_, i) => { const k = i / 13; return { z: (-i - 1) * 1 + 'px', b: (.55 - .37 * k).toFixed(3) }; }).reverse()
     };
