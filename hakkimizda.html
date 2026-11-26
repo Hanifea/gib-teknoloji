@@ -290,7 +290,11 @@ class Component extends DCLogic {
       this.rv = (this.rv || 0) + ((scrollY - (this.rly ?? scrollY)) - (this.rv || 0)) * .15; this.rly = scrollY;
       const sk = Math.max(-7, Math.min(7, this.rv * .25)) * b;
       md.style.transform = 'skewY(' + sk.toFixed(2) + 'deg) rotate(' + (b * -2.5).toFixed(2) + 'deg)';
-      if (this.reelOn && k < .9) this.reelStop();
+      /* hero'dayken sessiz önizleme oynar; aşağı inip film büyüyünce durur ve oynat butonu beklenir.
+         Sesli oynatma ancak butona basınca başlar; film küçülürse ya da bölümden çıkılırsa sesli oynatma biter. */
+      const vid = md.querySelector('video'), offView = r.bottom < 72 || r.top > innerHeight;
+      if (this.reelOn && (k < .9 || offView)) this.reelStop();
+      if (!this.reelOn && vid) { const want = !this.reduced && !still && k < .5; if (want && vid.paused) { vid.muted = true; vid.play().catch(() => {}); } else if (!want && !vid.paused) vid.pause(); }
       const t1 = md.querySelector('[data-tint]'), t2 = md.querySelector('[data-tint2]');
       if (t1) t1.style.opacity = (1 - k).toFixed(3); if (t2) t2.style.opacity = (.55 * (1 - k)).toFixed(3);
       const wl = sec.querySelector('[data-w="l"]'), wr = sec.querySelector('[data-w="r"]'), wp = sec.querySelector('[data-w="p"]');
@@ -322,7 +326,7 @@ class Component extends DCLogic {
     this.craf = requestAnimationFrame(chipLoop);
   }
   awardColor(card, on) { const im = card && card.querySelector('[data-aimg]'); if (!im) return; if (on) { if (!card.dataset.aon) im.dataset.f0 = im.style.filter; card.dataset.aon = '1'; im.style.filter = 'grayscale(0) brightness(1) contrast(1) drop-shadow(0 18px 22px rgba(0,0,0,.5))'; } else { delete card.dataset.aon; if (im.dataset.f0) im.style.filter = im.dataset.f0; } }
-  reelStop() { this.reelOn = false; const v = this.reelMediaRef.current && this.reelMediaRef.current.querySelector('video'); if (v) { v.muted = true; if (this.reduced) v.pause(); else v.play().catch(() => {}); } }
+  reelStop() { this.reelOn = false; const v = this.reelMediaRef.current && this.reelMediaRef.current.querySelector('video'); if (v) { v.muted = true; v.pause(); } }
   applyPanels(f) {
     const s = this.teamRef.current; if (!s) return;
     s.querySelectorAll('[data-bar]').forEach((b, j) => { b.style.width = (Math.min(1, Math.max(0, f - j)) * 100).toFixed(2) + '%'; });
